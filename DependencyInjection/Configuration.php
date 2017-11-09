@@ -27,17 +27,17 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('user_class')->defaultValue('AppBundle\Entity\User')->end()
 
             // Required for facebook and google login
-            ->scalarNode('facebook_app_secret')->end()
-            ->scalarNode('facebook_api_version')->end()
-            ->scalarNode('facebook_app_id')->end()
-            ->scalarNode('google_client_id')->end()
+            ->scalarNode('facebook_app_secret')->defaultNull()->end()
+            ->scalarNode('facebook_api_version')->defaultNull()->end()
+            ->scalarNode('facebook_app_id')->defaultNull()->end()
+            ->scalarNode('google_client_id')->defaultNull()->end()
 
             // Required for s3 autoload
-            ->scalarNode('aws_region')->end()
-            ->scalarNode('aws_key')->end()
-            ->scalarNode('aws_secret')->end()
-            ->scalarNode('aws_s3_bucket_name')->end()
-            ->scalarNode('aws_api_version')->end();
+            ->scalarNode('aws_region')->defaultNull()->end()
+            ->scalarNode('aws_key')->defaultNull()->end()
+            ->scalarNode('aws_secret')->defaultNull()->end()
+            ->scalarNode('aws_s3_bucket_name')->defaultNull()->end()
+            ->scalarNode('aws_api_version')->defaultNull()->end();
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
