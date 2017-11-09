@@ -21,10 +21,10 @@ class Configuration implements ConfigurationInterface
         $rootNode = $treeBuilder->root('starter_kit_start');
 
         $rootNode->children()
-            ->scalarNode('jws_pass_phrase')->isRequired()->end()
-            ->scalarNode('jws_ttl')->isRequired()->end()
-            ->scalarNode('refresh_token_ttl')->isRequired()->end()
-            ->scalarNode('user_class')->isRequired()->end()
+            ->scalarNode('jws_pass_phrase')->isRequired()->defaultValue('bad_pass_phrase')->end()
+            ->integerNode('jws_ttl')->isRequired()->defaultValue(5184000)->end()
+            ->integerNode('refresh_token_ttl')->isRequired()->defaultValue(10368000)->end()
+            ->scalarNode('user_class')->isRequired()->defaultValue('AppBundle\Entity\User')->end()
 
             // Required for facebook and google login
             ->scalarNode('facebook_app_secret')->end()
