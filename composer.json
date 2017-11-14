@@ -51,6 +51,7 @@
     "sensio/generator-bundle": "^3.0",
     "symfony/phpunit-bridge": "^3.0"
   },
+  "minimum-stability": "dev",
   "autoload": {
     "psr-4": {
       "StarterKit\\StartBundle\\": ""
