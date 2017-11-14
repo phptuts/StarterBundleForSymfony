@@ -42,6 +42,13 @@ class UserService implements UserServiceInterface
     const SOURCE_TYPE_FACEBOOK = 'facebook';
 
     /**
+     * This means the user was created from the admin
+     * @var string
+     */
+    const SOURCE_TYPE_ADMIN = 'admin';
+
+
+    /**
      * This is the event dispatched for registering a new user
      *
      * @var string
