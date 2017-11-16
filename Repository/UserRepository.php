@@ -25,7 +25,7 @@ class UserRepository extends EntityRepository
      * @param $email
      * @return BaseUser|null|object
      */
-    public function findUserByEmail($email)
+    public function findByEmail($email)
     {
         return $this->findOneBy(['email' => $email]);
     }

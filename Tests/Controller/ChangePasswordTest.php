@@ -15,7 +15,7 @@ class ChangePasswordTest extends BaseApiTestCase
      */
     public function testChangePasswordAction()
     {
-        $user = $this->userRepository->findUserByEmail(self::TEST_EMAIL);
+        $user = $this->userRepository->findByEmail(self::TEST_EMAIL);
         $authToken = $this->getAuthToken($user);
         $client = $this->makeClient();
         $url = sprintf('/api/users/%s/password', $user->getId());
@@ -48,7 +48,7 @@ class ChangePasswordTest extends BaseApiTestCase
 
     public function testBlankPassword()
     {
-        $user = $this->userRepository->findUserByEmail(self::TEST_EMAIL);
+        $user = $this->userRepository->findByEmail(self::TEST_EMAIL);
         $authToken = $this->getAuthToken($user);
         $client = $this->makeClient();
         $url = sprintf('/api/users/%s/password', $user->getId());

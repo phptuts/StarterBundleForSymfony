@@ -37,7 +37,7 @@ class StarterKitStartBundleTest extends BaseTestCase
 
     public function testThatTestEnvironmentDoesCompilerPass()
     {
-        $this->containerBuilder->shouldReceive('getParameter')->with('kernel.environment')->andReturn('test');
+        $this->containerBuilder->shouldReceive('getParameter')->with('kernel.environment')->andReturn('starter_kit_test');
         $this->containerBuilder->shouldReceive('getParameter')->with('test_bundle')->andReturn(true);
         $this->containerBuilder->shouldReceive('addCompilerPass')->withAnyArgs()->once();
         $this->bundle->build($this->containerBuilder);

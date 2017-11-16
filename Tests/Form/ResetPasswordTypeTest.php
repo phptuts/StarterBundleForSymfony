@@ -15,7 +15,7 @@ class ResetPasswordTypeTest extends TypeTestCase
      * Allows us to mock the transformer
      * @return array
      */
-    protected function getExtensions()
+    public function getExtensions()
     {
         $form = new ResetPasswordType(User::class);
 

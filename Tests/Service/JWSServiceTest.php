@@ -20,8 +20,9 @@ class JWSServiceTest extends BaseTestCase
 
     public static $homeDir;
 
-    protected function setUp()
+    public function setUp()
     {
+        parent::setUp();
         self::$passphrase = $this->getContainer()->getParameter('starter_kit_start.jws_pass_phrase') ;
         self::$homeDir = $this->getContainer()->getParameter('kernel.project_dir');
         parent::setUp();

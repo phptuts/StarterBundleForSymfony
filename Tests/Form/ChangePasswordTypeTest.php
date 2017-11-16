@@ -18,7 +18,7 @@ class ChangePasswordTypeTest extends TypeTestCase
      */
     private $authorizationChecker;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->authorizationChecker = \Mockery::mock(AuthorizationCheckerInterface::class);
 
@@ -29,7 +29,7 @@ class ChangePasswordTypeTest extends TypeTestCase
      * This allows for us mock the AuthorizationCheckerInterface in the form
      * @return array
      */
-    protected function getExtensions()
+    public function getExtensions()
     {
         $form = new ChangePasswordType($this->authorizationChecker);
 

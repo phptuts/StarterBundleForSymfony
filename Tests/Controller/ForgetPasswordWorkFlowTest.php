@@ -30,7 +30,7 @@ class ForgetPasswordWorkFlowTest extends BaseApiTestCase
         Assert::assertEquals(Response::HTTP_NO_CONTENT, $response->getStatusCode());
 
         return $this->userRepository
-                    ->findUserByEmail(self::TEST_EMAIL)
+                    ->findByEmail(self::TEST_EMAIL)
                     ->getForgetPasswordToken();
     }
 

@@ -34,6 +34,8 @@ class BaseApiTestCase extends BaseTestCase
 
     public function setUp()
     {
+        $this->environment = 'starter_kit_test';
+
         parent::setUp();
         $this->jwsService = new AuthTokenService(
             $this->getContainer()->getParameter('starter_kit_start.jws_pass_phrase'),
@@ -56,7 +58,7 @@ class BaseApiTestCase extends BaseTestCase
      * @param User $user
      * @return string
      */
-    protected function getAuthToken($user)
+    public function getAuthToken($user)
     {
         return $this->jwsService->createAuthTokenModel($user)
             ->getToken();
@@ -170,7 +172,7 @@ class BaseApiTestCase extends BaseTestCase
      *
      * @return array
      */
-    protected function getFacebookAuthTokenAndEmail()
+    public function getFacebookAuthTokenAndEmail()
     {
         $url = 'https://graph.facebook.com/oauth/access_token?client_id=' . $this->getContainer()->getParameter('starter_kit_start.facebook_app_id')
             . '&client_secret=' . $this->getContainer()->getParameter('starter_kit_start.facebook_app_secret') . '&grant_type=client_credentials&redirect_uri=http://skfsp.info';

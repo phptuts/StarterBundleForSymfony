@@ -48,7 +48,6 @@ class AuthResponseService implements AuthResponseServiceInterface
      */
     public function createAuthResponse(BaseUser $user)
     {
-        $user = $this->userService->updateUserRefreshToken($user);
         $responseModel = $this->createResponseAuthModel($user);
 
         return $this->createResponse($responseModel);
@@ -60,8 +59,9 @@ class AuthResponseService implements AuthResponseServiceInterface
      * @param BaseUser $user
      * @return ResponseAuthenticationModel
      */
-    private function createResponseAuthModel(BaseUser $user)
+    public function createResponseAuthModel(BaseUser $user)
     {
+        $user = $this->userService->updateUserRefreshToken($user);
         $authTokenModel = $this->authTokenService->createAuthTokenModel($user);
 
         return new ResponseAuthenticationModel($user, $authTokenModel, $user->getAuthRefreshModel());

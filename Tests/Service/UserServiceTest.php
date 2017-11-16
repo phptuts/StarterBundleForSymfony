@@ -8,11 +8,11 @@ use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Event\UserEvent;
 use StarterKit\StartBundle\Exception\ProgrammerException;
 use StarterKit\StartBundle\Service\UserService;
+use StarterKit\StartBundle\Tests\BaseTestCase;
 use StarterKit\StartBundle\Tests\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
-use Tests\BaseTestCase;
 
 class UserServiceTest extends BaseTestCase
 {
@@ -38,6 +38,7 @@ class UserServiceTest extends BaseTestCase
 
     public function setUp()
     {
+        parent::setUp();
         $this->encoderFactory = \Mockery::mock(EncoderFactory::class);
         $this->em = \Mockery::mock(EntityManager::class);
         $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);

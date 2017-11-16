@@ -32,7 +32,7 @@ class GoogleProviderTest extends BaseTestCase
     protected $userService;
 
 
-    protected function setUp()
+    public function setUp()
     {
         parent::setUp();
         $googleClientFactory = \Mockery::mock(GoogleClientFactory::class);

@@ -9,8 +9,8 @@ use Mockery\Mock;
 use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Factory\S3ClientFactory;
 use StarterKit\StartBundle\Service\S3Service;
+use StarterKit\StartBundle\Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
-use Tests\BaseTestCase;
 
 class S3ServiceTest extends BaseTestCase
 {

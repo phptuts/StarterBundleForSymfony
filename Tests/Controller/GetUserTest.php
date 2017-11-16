@@ -21,7 +21,7 @@ class GetUserTest extends BaseApiTestCase
     public function testGetUser()
     {
         $client = $this->makeClient();
-        $user = $this->userRepository->findUserByEmail(self::TEST_EMAIL);
+        $user = $this->userRepository->findByEmail(self::TEST_EMAIL);
 
         $authToken = $this->getAuthToken($user);
 
@@ -48,7 +48,7 @@ class GetUserTest extends BaseApiTestCase
     public function testGetUserDoesNotExist404()
     {
         $client = $this->makeClient();
-        $user = $this->userRepository->findUserByEmail(self::TEST_EMAIL);
+        $user = $this->userRepository->findByEmail(self::TEST_EMAIL);
 
         $authToken = $this->getAuthToken($user);
 
@@ -72,7 +72,7 @@ class GetUserTest extends BaseApiTestCase
     public function testGetUsers($queryString)
     {
         $client = $this->makeClient();
-        $user = $this->userRepository->findUserByEmail(self::TEST_EMAIL);
+        $user = $this->userRepository->findByEmail(self::TEST_EMAIL);
         $authToken = $this->getAuthToken($user);
 
         $response = $this->makeJsonRequest(

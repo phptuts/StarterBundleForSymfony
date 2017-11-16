@@ -6,10 +6,16 @@ use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 class BaseTestCase extends WebTestCase
 {
+    public function setUp()
+    {
+        $this->environment = 'starter_kit_test';
+        parent::setUp();
+    }
+
     /**
      * @link https://github.com/mockery/mockery/issues/376
      */
-    protected function tearDown()
+    public function tearDown()
     {
         if ($container = \Mockery::getContainer()) {
             $this->addToAssertionCount($container->mockery_getExpectationCount());

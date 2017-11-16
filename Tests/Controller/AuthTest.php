@@ -125,7 +125,7 @@ class AuthTest extends BaseApiTestCase
 
         $this->assertCredentialsResponse($response, $client, $facebookAuthToken['email']);
 
-        $user = $this->userRepository->findUserByEmail($facebookAuthToken['email']);
+        $user = $this->userRepository->findByEmail($facebookAuthToken['email']);
 
         Assert::assertInstanceOf(BaseUser::class, $user);
         // Tests that the facebook user id is not empty

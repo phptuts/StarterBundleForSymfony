@@ -16,7 +16,7 @@ class UpdateUserTest extends BaseApiTestCase
     public function testUpdateUser()
     {
         $client = $this->makeClient();
-        $user = $this->userRepository->findUserByEmail(self::TEST_EMAIL);
+        $user = $this->userRepository->findByEmail(self::TEST_EMAIL);
         $authToken = $this->getAuthToken($user);
         $url = sprintf('/api/users/%s', $user->getId());
         $response = $this->makeJsonRequest(
@@ -41,7 +41,7 @@ class UpdateUserTest extends BaseApiTestCase
     public function testFormErrorUpdateUser()
     {
         $client = $this->makeClient();
-        $user = $this->userRepository->findUserByEmail(self::TEST_EMAIL);
+        $user = $this->userRepository->findByEmail(self::TEST_EMAIL);
         $authToken = $this->getAuthToken($user);
         $url = sprintf('/api/users/%s', $user->getId());
         $response = $this->makeJsonRequest(

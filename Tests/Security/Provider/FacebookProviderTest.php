@@ -36,7 +36,7 @@ class FacebookProviderTest extends BaseTestCase
     protected $facebookProvider;
 
 
-    protected function setUp()
+    public function setUp()
     {
         parent::setUp();
         $facebookClientFactory = \Mockery::mock(FaceBookClientFactory::class);

@@ -17,7 +17,7 @@ class ForgetPasswordTypeTest extends TypeTestCase
      */
     private $transformer;
 
-    protected function setUp()
+    public function setUp()
     {
         $this->transformer = \Mockery::mock(UserEmailTransformer::class);
 
@@ -28,7 +28,7 @@ class ForgetPasswordTypeTest extends TypeTestCase
      * Allows us to mock the transformer
      * @return array
      */
-    protected function getExtensions()
+    public function getExtensions()
     {
         $form = new ForgetPasswordType($this->transformer, User::class);
 
