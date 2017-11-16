@@ -31,12 +31,14 @@ class StarterKitStartBundleTest extends BaseTestCase
     {
         $this->containerBuilder->shouldReceive('getParameter')->with('kernel.environment')->andReturn('prod');
         $this->containerBuilder->shouldReceive('addCompilerPass')->withAnyArgs()->never();
+        $this->containerBuilder->shouldReceive('getParameter')->with('test_bundle')->andReturn(false);
         $this->bundle->build($this->containerBuilder);
     }
 
     public function testThatTestEnvironmentDoesCompilerPass()
     {
         $this->containerBuilder->shouldReceive('getParameter')->with('kernel.environment')->andReturn('test');
+        $this->containerBuilder->shouldReceive('getParameter')->with('test_bundle')->andReturn(true);
         $this->containerBuilder->shouldReceive('addCompilerPass')->withAnyArgs()->once();
         $this->bundle->build($this->containerBuilder);
     }

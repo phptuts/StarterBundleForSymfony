@@ -15,6 +15,7 @@ use StarterKit\StartBundle\Service\AuthResponseServiceInterface;
 use StarterKit\StartBundle\Tests\BaseTestCase;
 use StarterKit\StartBundle\Tests\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Intl\Exception\NotImplementedException;
@@ -42,10 +43,6 @@ class SimpleGuardTest extends BaseTestCase
      */
     protected $userProviderFactory;
 
-    /**
-     * @var \Twig_Environment|Mock
-     */
-    protected $twig;
 
     /**
      * @var SimpleGuard
@@ -63,15 +60,14 @@ class SimpleGuardTest extends BaseTestCase
         $this->encoderFactory = \Mockery::mock(EncoderFactoryInterface::class);
         $this->authResponseService = \Mockery::mock(AuthResponseServiceInterface::class);
         $this->userProviderFactory = \Mockery::mock(UserProviderFactoryInterface::class);
-        $this->twig = \Mockery::mock(\Twig_Environment::class);
         $this->dispatcher = \Mockery::mock(EventDispatcherInterface::class);
 
         $this->guard = new SimpleGuard(
             $this->encoderFactory,
             $this->authResponseService,
             $this->userProviderFactory,
-            $this->twig,
-            $this->dispatcher
+            $this->dispatcher,
+            '/login'
         );
     }
 
@@ -250,9 +246,8 @@ class SimpleGuardTest extends BaseTestCase
     public function testOnAuthFailureWithHTML()
     {
         $exception =  new AuthenticationException('failure');
-        $request = Request::create('/users', 'GET',[]);
+        $request = Request::create('/admin', 'GET',[]);
         $request->headers->set('Content-Type', 'html/text');
-        $this->twig->shouldReceive('render')->with('TwigBundle:Exception:error403.html.twig')->andReturn('hello');
 
         $this->dispatcher->shouldReceive('dispatch')
             ->with(SimpleGuard::AUTH_FAILED_EVENT,
@@ -262,11 +257,11 @@ class SimpleGuardTest extends BaseTestCase
                 return true;
             })
             )->once();
+        /** @var RedirectResponse $response */
         $response = $this->guard->onAuthenticationFailure($request,$exception);
 
-        Assert::assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
-        Assert::assertEquals('hello', $response->getContent());
-
+        Assert::assertEquals(Response::HTTP_FOUND, $response->getStatusCode());
+        Assert::assertEquals('/login?nextUrl=/admin', $response->getTargetUrl());
     }
 
     public function testOnAuthFailureWithJSON()
@@ -291,15 +286,27 @@ class SimpleGuardTest extends BaseTestCase
 
     public function testStartWithHTML()
     {
-        $request = Request::create('/users', 'GET',[]);
+        $request = Request::create('/admin', 'GET',[]);
         $request->headers->set('Content-Type', 'html/text');
-        $this->twig->shouldReceive('render')->with('TwigBundle:Exception:error403.html.twig')->andReturn('hello');
 
+        /** @var RedirectResponse $response */
         $response = $this->guard->start($request, new AuthenticationException('failure'));
 
-        Assert::assertEquals(Response::HTTP_UNAUTHORIZED, $response->getStatusCode());
-        Assert::assertEquals('hello', $response->getContent());
+        Assert::assertInstanceOf(RedirectResponse::class, $response);
+        Assert::assertEquals(Response::HTTP_FOUND, $response->getStatusCode());
+        Assert::assertEquals('/login?nextUrl=/admin',  $response->getTargetUrl());
+    }
 
+    public function testStartWithNoContentType()
+    {
+        $request = Request::create('/premium-area', 'GET',[]);
+
+        /** @var RedirectResponse $response */
+        $response = $this->guard->start($request, new AuthenticationException('failure'));
+
+        Assert::assertInstanceOf(RedirectResponse::class, $response);
+        Assert::assertEquals(Response::HTTP_FOUND, $response->getStatusCode());
+        Assert::assertEquals('/login?nextUrl=/premium-area',  $response->getTargetUrl());
     }
 
     public function testStartWithJSON()

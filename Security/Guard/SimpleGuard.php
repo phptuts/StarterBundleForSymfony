@@ -12,6 +12,7 @@ use StarterKit\StartBundle\Model\Credential\CredentialTokenModel;
 use StarterKit\StartBundle\Service\AuthResponseService;
 use StarterKit\StartBundle\Service\AuthResponseServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Intl\Exception\NotImplementedException;
@@ -95,37 +96,37 @@ class SimpleGuard extends AbstractGuardAuthenticator implements SimpleGuardInter
      * @var UserProviderFactoryInterface
      */
     private $userProviderFactory;
-    /**
-     * @var \Twig_Environment
-     */
-    private $twig;
 
     /**
      * @var EventDispatcherInterface
      */
     private $dispatcher;
+    /**
+     * @var string
+     */
+    private $loginPath;
 
     /**
      * ApiLoginGuard constructor.
      * @param EncoderFactoryInterface $encoderFactory
      * @param AuthResponseServiceInterface $authResponseService
      * @param UserProviderFactoryInterface $userProviderFactory
-     * @param  \Twig_Environment $twig
      * @param EventDispatcherInterface $dispatcher
+     * @param string $loginPath
      */
     public function __construct(
         EncoderFactoryInterface $encoderFactory,
         AuthResponseServiceInterface $authResponseService,
         UserProviderFactoryInterface $userProviderFactory,
-        \Twig_Environment $twig,
-        EventDispatcherInterface $dispatcher
+        EventDispatcherInterface $dispatcher,
+        $loginPath
     )
     {
         $this->encoderFactory = $encoderFactory;
         $this->authResponseService = $authResponseService;
         $this->userProviderFactory = $userProviderFactory;
-        $this->twig = $twig;
         $this->dispatcher = $dispatcher;
+        $this->loginPath = $loginPath;
     }
 
     /**
@@ -142,7 +143,7 @@ class SimpleGuard extends AbstractGuardAuthenticator implements SimpleGuardInter
         }
 
         // Otherwise we assume that it is regular request
-        $jwtToken = $this->getJWTTokenFromRequest($request);
+        $jwtToken = $this->getAuthTokenFromRequest($request);
 
         if (!empty($jwtToken)) {
             return new CredentialTokenModel(CredentialInterface::PROVIDER_TYPE_JWT, $jwtToken);
@@ -204,13 +205,13 @@ class SimpleGuard extends AbstractGuardAuthenticator implements SimpleGuardInter
      */
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
     {
-        if ($this->isLoginRequest($request)) {
-            $user = $token->getUser();
-            $this->dispatcher->dispatch(self::AUTH_LOGIN_SUCCESS, new UserEvent($user));
-            return $this->authResponseService->createAuthResponse($user);
+        if (!$this->isLoginRequest($request)) {
+            return null;
         }
 
-        return null;
+        $user = $token->getUser();
+        $this->dispatcher->dispatch(self::AUTH_LOGIN_SUCCESS, new UserEvent($user));
+        return $this->authResponseService->createAuthResponse($user);
     }
 
     /**
@@ -224,9 +225,12 @@ class SimpleGuard extends AbstractGuardAuthenticator implements SimpleGuardInter
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $this->dispatcher->dispatch(self::AUTH_FAILED_EVENT, new AuthFailedEvent($request, $exception));
-        if ($this->isRequestHtmlContentType($request)) {
 
-            return new Response($this->twig->render('TwigBundle:Exception:error403.html.twig'), Response::HTTP_FORBIDDEN);
+        // This redirect all html request that are html and not login to login page
+        // This will not hit authorization request so most likely expired cookies
+        if ($this->isRequestHtmlContentType($request) && !$this->isLoginRequest($request)) {
+
+            return new RedirectResponse($this->createLoginPath($request));
         }
 
         return new Response('Authentication Failed', Response::HTTP_FORBIDDEN);
@@ -243,8 +247,7 @@ class SimpleGuard extends AbstractGuardAuthenticator implements SimpleGuardInter
     public function start(Request $request, AuthenticationException $authException = null)
     {
         if ($this->isRequestHtmlContentType($request)) {
-
-            return new Response($this->twig->render('TwigBundle:Exception:error403.html.twig'), Response::HTTP_UNAUTHORIZED);
+            return new RedirectResponse($this->createLoginPath($request));
         }
 
         return new Response('Authentication Required', Response::HTTP_UNAUTHORIZED);
@@ -267,7 +270,7 @@ class SimpleGuard extends AbstractGuardAuthenticator implements SimpleGuardInter
      * @param Request $request
      * @return bool
      */
-    private function isLoginRequest(Request $request)
+    protected function isLoginRequest(Request $request)
     {
         return $request->getPathInfo() == '/login_check' && $request->isMethod(Request::METHOD_POST);
     }
@@ -276,7 +279,7 @@ class SimpleGuard extends AbstractGuardAuthenticator implements SimpleGuardInter
      * @param Request $request
      * @return CredentialEmailModel|CredentialTokenModel|null
      */
-    private function createCredentialModel(Request $request)
+    protected function createCredentialModel(Request $request)
     {
         $post = $request->headers->get('Content-Type') === 'application/json' ?
             json_decode($request->getContent(), true) : $request->request->all();
@@ -293,12 +296,12 @@ class SimpleGuard extends AbstractGuardAuthenticator implements SimpleGuardInter
     }
 
     /**
-     * Attempts to get the JWT token from the request,  Looks for the auth cookie and the header token
+     * Attempts to get the auth token from the request,  Looks for the auth cookie and the header token
      *
      * @param Request $request
      * @return string|null
      */
-    private function getJWTTokenFromRequest(Request $request)
+    protected function getAuthTokenFromRequest(Request $request)
     {
         $token = str_replace(self::BEARER, '', $request->headers->get(self::AUTHORIZATION_HEADER, ''));
 
@@ -322,7 +325,7 @@ class SimpleGuard extends AbstractGuardAuthenticator implements SimpleGuardInter
      * @param array $post
      * @return bool
      */
-    private function isEmailLoginResponse($post)
+    protected function isEmailLoginResponse($post)
     {
         return !empty($post[self::EMAIL_FIELD]) && !empty($post[self::PASSWORD_FIELD]);
     }
@@ -333,8 +336,34 @@ class SimpleGuard extends AbstractGuardAuthenticator implements SimpleGuardInter
      * @param Request $request
      * @return bool
      */
-    private function isRequestHtmlContentType(Request $request)
+    protected function isRequestHtmlContentType(Request $request)
     {
-        return $request->headers->get('Content-Type') === 'html/text';
+        return $request->headers->get('Content-Type') === 'html/text' || empty($request->headers->get('Content-Type'));
     }
+
+    /**
+     * Returns the login path for the url and will append a next param
+     *
+     * @param Request $request
+     * @return string
+     */
+    protected function createLoginPath(Request $request)
+    {
+        $url = $this->loginPath;
+        $url .= $this->appendNextUrl($request) ?  '?nextUrl=' . $request->getPathInfo() : '';
+
+        return $url;
+    }
+
+    /**
+     * Returns true if next url should be appended
+     *
+     * @param Request $request
+     * @return bool
+     */
+    protected function appendNextUrl(Request $request)
+    {
+        return !empty($request->getPathInfo()) && strpos($request->getPathInfo(), $this->loginPath) == false;
+    }
+
 }

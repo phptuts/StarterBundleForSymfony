@@ -13,10 +13,10 @@ class StarterKitStartBundle extends Bundle
         parent::build($container);
 
         // This is done so we can test the mapped supper class user
-        if ($container->getParameter('kernel.environment') === 'test') {
+        if ($container->getParameter('kernel.environment') === 'test' ) {
             // With annotation configuration format
             $container->addCompilerPass(DoctrineOrmMappingsPass::createAnnotationMappingDriver(
-                ['StarterKit\StartBundle\Tests\Entity'], [__DIR__ . '/../../StarterKit/StartBundle/Tests/Entity']
+                ['StarterKit\StartBundle\Tests\Entity'], [__DIR__ . '/Tests/Entity']
             ));
         }
     }

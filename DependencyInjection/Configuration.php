@@ -25,6 +25,7 @@ class Configuration implements ConfigurationInterface
             ->integerNode('jws_ttl')->defaultValue(5184000)->end()
             ->integerNode('refresh_token_ttl')->defaultValue(10368000)->end()
             ->scalarNode('user_class')->defaultValue('AppBundle\Entity\User')->end()
+            ->scalarNode('login_url')->defaultValue('login')->end()
 
             // Required for facebook and google login
             ->scalarNode('facebook_app_secret')->defaultNull()->end()

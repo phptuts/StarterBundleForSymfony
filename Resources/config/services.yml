@@ -56,7 +56,12 @@ services:
     # Guards
     StarterKit\StartBundle\Security\Guard\SimpleGuard:
         class: StarterKit\StartBundle\Security\Guard\SimpleGuard
-        autowire: true
+        arguments:
+            - '@security.encoder_factory.generic'
+            - '@StarterKit\StartBundle\Service\AuthResponseServiceInterface'
+            - '@StarterKit\StartBundle\Factory\UserProviderFactoryInterface'
+            - '@event_dispatcher'
+            - '%starter_kit_start.login_url%'
 
     #Voters
     StarterKit\StartBundle\Security\Voter\UserVoter:
