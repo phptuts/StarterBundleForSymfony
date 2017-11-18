@@ -1,0 +1,37 @@
+language: php
+
+php:
+  - 7.1
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+services:
+  - sqlite
+  - redis
+
+matrix:
+  include:
+    - php: 7.1
+  fast_finish: true
+
+before_install:
+  - composer create-project symfony/skeleton *
+  - composer require start-kit-symfony/start-bundle:dev-master
+
+install:
+  - composer update --prefer-dist
+
+before_script:
+  - cp vendor/start-kit-symfony/start-bundle/scripts/parameters.yml.dist app/config/parameters.yml
+  - cp vendor/start-kit-symfony/start-bundle/scripts/config_starter_kit_test.yml app/config/config_starter_kit_test.yml
+  - mkdir var/jwt
+  - cp vendor/start-kit-symfony/start-bundle/scripts/private.pem var/jwt/private.pem
+  - cp vendor/start-kit-symfony/start-bundle/scripts/public.pem var/jwt/public.pem
+  - sh vendor/start-kit-symfony/start-bundle/scripts/run_before_travis.sh
+
+script:
+    - php bin/phpunit -c vendor/start-kit-symfony/start-bundle/ --exclude-group exclude_travis  --coverage-clover build/logs/clover.xml
