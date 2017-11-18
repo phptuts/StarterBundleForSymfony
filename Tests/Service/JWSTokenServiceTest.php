@@ -2,19 +2,26 @@
 
 namespace StarterKit\StartBundle\Tests\Service\Credential;
 
+use Mockery\Mock;
 use Namshi\JOSE\SimpleJWS;
 use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Exception\ProgrammerException;
-use StarterKit\StartBundle\Service\AuthTokenService;
+use StarterKit\StartBundle\Service\JWSTokenService;
+use StarterKit\StartBundle\Service\UserServiceInterface;
 use StarterKit\StartBundle\Tests\Entity\User;
 use Tests\BaseTestCase;
 
-class AuthTokenServiceTest extends BaseTestCase
+class JWSTokenServiceTest extends BaseTestCase
 {
     /**
-     * @var AuthTokenService
+     * @var JWSTokenService
      */
-    protected $authTokenService;
+    protected $jwsTokenService;
+
+    /**
+     * @var UserServiceInterface|Mock
+     */
+    protected $userService;
 
     public static $passphrase;
 
@@ -26,8 +33,10 @@ class AuthTokenServiceTest extends BaseTestCase
         self::$passphrase = $this->getContainer()->getParameter('starter_kit_start.jws_pass_phrase') ;
         self::$homeDir = $this->getContainer()->getParameter('kernel.project_dir');
         parent::setUp();
-        $this->authTokenService =
-            new AuthTokenService(self::$passphrase,
+        $this->userService = \Mockery::mock(UserServiceInterface::class);
+        $this->jwsTokenService = new JWSTokenService(
+                $this->userService,
+                self::$passphrase,
                 $this->getContainer()->getParameter('starter_kit_start.jws_ttl'),
                 self::$homeDir
             );
@@ -43,7 +52,7 @@ class AuthTokenServiceTest extends BaseTestCase
         $user = new User();
         $this->setObjectId($user, 15);
 
-        $model = $this->authTokenService->createAuthTokenModel($user);
+        $model = $this->jwsTokenService->createAuthTokenModel($user);
 
         $ttl = $this->getContainer()->getParameter('starter_kit_start.jws_ttl');
 
@@ -52,8 +61,8 @@ class AuthTokenServiceTest extends BaseTestCase
 
         Assert::assertTrue($lessThanExpirationTimeStamp < $model->getExpirationTimeStamp());
         Assert::assertTrue($greaterThanExpirationTimeStamp > $model->getExpirationTimeStamp());
-        Assert::assertTrue($this->authTokenService->isValid($model->getToken()));
-        $payload = $this->authTokenService->getPayload($model->getToken());
+        Assert::assertTrue($this->jwsTokenService->isValid($model->getToken()));
+        $payload = $this->jwsTokenService->getPayload($model->getToken());
         Assert::assertEquals(15, $payload['user_id']);
         Assert::assertEquals($model->getExpirationTimeStamp(), $payload['exp']);
         Assert::assertArrayHasKey('iat', $payload);
@@ -67,7 +76,7 @@ class AuthTokenServiceTest extends BaseTestCase
         $this->expectException(ProgrammerException::class);
         $this->expectExceptionCode(ProgrammerException::JWS_INVALID_TOKEN_FORMAT);
         $this->expectExceptionMessage('Unable to read jws token.');
-        $this->authTokenService->getPayload('token');
+        $this->jwsTokenService->getPayload('token');
     }
 
     /**
@@ -77,7 +86,47 @@ class AuthTokenServiceTest extends BaseTestCase
      */
     public function testInvalidToken($token)
     {
-        Assert::assertFalse($this->authTokenService->isValid($token));
+        Assert::assertFalse($this->jwsTokenService->isValid($token));
+    }
+
+    /**
+     * Tests that if there is no user id in the token the proper exception is thrown
+     */
+    public function testTokenWithNoUserId()
+    {
+        $this->expectException(ProgrammerException::class);
+        $this->expectExceptionCode(ProgrammerException::AUTH_TOKEN_NO_USER_ID);
+        $user = new User();
+        $this->setObjectId($user, 15);
+        $token = self::createTokenWithOutUserId($user);
+        $this->jwsTokenService->getUser($token);
+    }
+
+    /**
+     * Tests that if there is no user id in the token the proper exception is thrown
+     */
+    public function testTokenWhereUserCanNotBeFound()
+    {
+        $this->expectException(ProgrammerException::class);
+        $this->expectExceptionCode(ProgrammerException::AUTH_TOKEN_NO_USER_WITH_ID_FOUND);
+        $user = new User();
+        $this->setObjectId($user, 15);
+        $token = self::createExpiredToken($user);
+        $this->userService->shouldReceive('findUserById')->with(15)->once()->andReturnNull();
+        $this->jwsTokenService->getUser($token);
+    }
+
+    /**
+     * Tests that if a user is found with the token id that it is return
+     */
+    public function testTokenWithValidUserId()
+    {
+        $user = new User();
+        $this->setObjectId($user, 15);
+        $token = self::createExpiredToken($user);
+        $this->userService->shouldReceive('findUserById')->with(15)->once()->andReturn($user);
+        $actualUser = $this->jwsTokenService->getUser($token);
+        Assert::assertEquals($user, $actualUser);
     }
 
     /**
@@ -101,7 +150,7 @@ class AuthTokenServiceTest extends BaseTestCase
         $this->setObjectId($user, 15);
         $expiredToken = self::createExpiredToken($user);
 
-        Assert::assertFalse($this->authTokenService->isValid($expiredToken));
+        Assert::assertFalse($this->jwsTokenService->isValid($expiredToken));
     }
 
     /**
@@ -121,6 +170,31 @@ class AuthTokenServiceTest extends BaseTestCase
 
         $jws->setPayload([
             'user_id' => $user->getId(),
+            'exp' => $expirationTimestamp,
+            'iat' => (new \DateTime())->getTimestamp()
+        ]);
+
+        $jws->sign($privateKey);
+
+        return $jws->getTokenString();
+    }
+
+        /**
+         * @param User $user
+         * @return string
+         */
+    public static function createTokenWithOutUserId(User $user)
+    {
+        $privateKey = openssl_pkey_get_private(file_get_contents(self::$homeDir . '/var/jwt/private.pem'), self::$passphrase);
+        $jws = new SimpleJWS([
+            'alg' => 'RS256'
+        ]);
+
+        $expirationDate = new \DateTime();
+        $expirationDate->modify('-10 seconds');
+        $expirationTimestamp = $expirationDate->getTimestamp();
+
+        $jws->setPayload([
             'exp' => $expirationTimestamp,
             'iat' => (new \DateTime())->getTimestamp()
         ]);

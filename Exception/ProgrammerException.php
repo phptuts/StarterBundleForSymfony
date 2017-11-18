@@ -75,4 +75,17 @@ class ProgrammerException extends \Exception
      */
     const STUPID_EXCEPTION = 10233243;
 
+    /**
+     * This means the jws token does not have a user id
+     * @var integer
+     */
+    const AUTH_TOKEN_NO_USER_ID = 10233244;
+
+    /**
+     * This means the user was not found with the id
+     * @var integer
+     */
+    const AUTH_TOKEN_NO_USER_WITH_ID_FOUND = 10233245;
+
+
 }

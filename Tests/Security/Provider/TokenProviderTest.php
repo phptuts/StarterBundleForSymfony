@@ -6,8 +6,9 @@ namespace StarterKit\StartBundle\Security\Provider;
 use AppBundle\Entity\User;
 use Mockery\Mock;
 use PHPUnit\Framework\Assert;
+use StarterKit\StartBundle\Exception\ProgrammerException;
 use StarterKit\StartBundle\Security\Provider\TokenProvider;
-use StarterKit\StartBundle\Service\AuthTokenService;
+use StarterKit\StartBundle\Service\JWSTokenService;
 use StarterKit\StartBundle\Service\UserService;
 use StarterKit\StartBundle\Tests\BaseTestCase;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -20,7 +21,7 @@ class TokenProviderTest extends BaseTestCase
     protected $tokenProvider;
 
     /**
-     * @var AuthTokenService|Mock
+     * @var JWSTokenService|Mock
      */
     protected $jwsService;
 
@@ -33,7 +34,7 @@ class TokenProviderTest extends BaseTestCase
     {
         parent::setUp();
 
-        $this->jwsService = \Mockery::mock(AuthTokenService::class);
+        $this->jwsService = \Mockery::mock(JWSTokenService::class);
         $this->userService = \Mockery::mock(UserService::class);
         $this->tokenProvider = new TokenProvider($this->jwsService, $this->userService);
     }
@@ -45,8 +46,7 @@ class TokenProviderTest extends BaseTestCase
     {
         $user = new User();
         $this->jwsService->shouldReceive('isValid')->with('token')->andReturn(true);
-        $this->jwsService->shouldReceive('getPayload')->with('token')->andReturn(['user_id' => 33]);
-        $this->userService->shouldReceive('findUserById')->with('33')->andReturn($user);
+        $this->jwsService->shouldReceive('getUser')->with('token')->andReturn($user);
         $userFound = $this->tokenProvider->loadUserByUsername('token');
 
         Assert::assertEquals($user, $userFound);
@@ -63,17 +63,6 @@ class TokenProviderTest extends BaseTestCase
         $this->tokenProvider->loadUserByUsername('token');
     }
 
-    /**
-     * Tests a token without user_id in payload throw UsernameNotFoundException
-     */
-    public function testTokenWithNoUserIdInPayload()
-    {
-        $this->expectException(UsernameNotFoundException::class);
-        $this->jwsService->shouldReceive('isValid')->with('token')->andReturn(true);
-        $this->jwsService->shouldReceive('getPayload')->with('token')->andReturn(['id' => 33]);
-
-        $this->tokenProvider->loadUserByUsername('token');
-    }
 
     /**
      * Tests that if the user id is not found in the db it throws UsernameNotFoundException
@@ -81,10 +70,14 @@ class TokenProviderTest extends BaseTestCase
     public function testUserIdNotFoundInDatabase()
     {
         $this->expectException(UsernameNotFoundException::class);
+        $this->expectExceptionCode(ProgrammerException::AUTH_TOKEN_NO_USER_ID);
         $this->jwsService->shouldReceive('isValid')->with('token')->andReturn(true);
-        $this->jwsService->shouldReceive('getPayload')->with('token')->andReturn(['user_id' => 33]);
+        $this->jwsService
+            ->shouldReceive('getUser')
+            ->with('token')
+            ->once()
+            ->andThrow(new ProgrammerException('bad user', ProgrammerException::AUTH_TOKEN_NO_USER_ID));
 
-        $this->userService->shouldReceive('findUserById')->with('33')->andReturnNull();
         $this->tokenProvider->loadUserByUsername('token');
     }
 }

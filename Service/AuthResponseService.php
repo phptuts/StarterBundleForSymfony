@@ -20,7 +20,7 @@ class AuthResponseService implements AuthResponseServiceInterface
     const AUTH_COOKIE = 'auth_cookie';
 
     /**
-     * @var AuthTokenService
+     * @var JWSTokenService
      */
     private $authTokenService;
 

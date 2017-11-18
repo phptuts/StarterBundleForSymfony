@@ -29,11 +29,11 @@ interface AuthTokenServiceInterface
 
 
     /**
-     * Gets the payload out of the token.
+     * Returns the user's id from the token
      *
      * @param $token
-     * @return array
+     * @return BaseUser
      */
-    public function getPayload($token);
+    public function getUser($token);
 
 }

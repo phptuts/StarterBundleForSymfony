@@ -11,7 +11,7 @@ use Namshi\JOSE\SimpleJWS;
  * Class JWSService
  * @package StarterKit\StartBundle\Service
  */
-class AuthTokenService implements AuthTokenServiceInterface
+class JWSTokenService implements AuthTokenServiceInterface
 {
     const ALG = 'RS256';
 
@@ -50,18 +50,24 @@ class AuthTokenService implements AuthTokenServiceInterface
      * @var string
      */
     private $kernelDir;
+    /**
+     * @var UserServiceInterface
+     */
+    private $userService;
 
     /**
-     * JWSService constructor.
+     * AuthTokenService constructor.
+     * @param UserServiceInterface $userService
      * @param $passPhrase
      * @param integer $ttl
      * @param string $kernelDir
      */
-    public function __construct($passPhrase, $ttl, $kernelDir)
+    public function __construct(UserServiceInterface $userService, $passPhrase, $ttl, $kernelDir)
     {
         $this->passPhrase = $passPhrase;
         $this->ttl = $ttl;
         $this->kernelDir = $kernelDir;
+        $this->userService = $userService;
     }
 
     /**
@@ -116,6 +122,36 @@ class AuthTokenService implements AuthTokenServiceInterface
     }
 
     /**
+     * Returns the user attached to the token
+     *
+     * @param string $token
+     *
+     * @return BaseUser
+     * @throws ProgrammerException
+     */
+    public function getUser($token)
+    {
+        $payload = $this->getPayload($token);
+
+        if (empty($payload[JWSTokenService::USER_ID_KEY])) {
+            throw new ProgrammerException("No user_id in token payload", ProgrammerException::AUTH_TOKEN_NO_USER_ID);
+        }
+
+        $userId = $payload[JWSTokenService::USER_ID_KEY];
+
+        $user =  $this->userService->findUserById($userId);
+
+        if (empty($user)) {
+            throw new ProgrammerException(
+                "Unknown user id in token, " . $userId,
+                ProgrammerException::AUTH_TOKEN_NO_USER_WITH_ID_FOUND
+            );
+        }
+
+        return $user;
+    }
+
+    /**
      * Gets the payload out of the token.
      *
      * @param $token
@@ -131,7 +167,6 @@ class AuthTokenService implements AuthTokenServiceInterface
         } catch (\InvalidArgumentException $ex) {
             throw new ProgrammerException('Unable to read jws token.', ProgrammerException::JWS_INVALID_TOKEN_FORMAT);
         }
-
     }
 
     /**
@@ -146,4 +181,6 @@ class AuthTokenService implements AuthTokenServiceInterface
 
         return isset($payload[self::EXP_KEY]) && $payload[self::EXP_KEY] > (new \DateTime())->getTimestamp();
     }
+
+
 }

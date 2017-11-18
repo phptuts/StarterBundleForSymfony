@@ -3,7 +3,8 @@
 namespace StarterKit\StartBundle\Security\Provider;
 
 use StarterKit\StartBundle\Entity\BaseUser;
-use StarterKit\StartBundle\Service\AuthTokenService;
+use StarterKit\StartBundle\Exception\ProgrammerException;
+use StarterKit\StartBundle\Service\JWSTokenService;
 use StarterKit\StartBundle\Service\AuthTokenServiceInterface;
 use StarterKit\StartBundle\Service\UserServiceInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -18,7 +19,7 @@ class TokenProvider implements TokenProviderInterface
     use CustomProviderTrait;
 
     /**
-     * @var AuthTokenService
+     * @var JWSTokenService
      */
     private $authTokenService;
 
@@ -46,22 +47,12 @@ class TokenProvider implements TokenProviderInterface
             throw new UsernameNotFoundException("Invalid Token.");
         }
 
-        $payload = $this->authTokenService->getPayload($username);
+        try {
 
-        if (empty($payload[AuthTokenService::USER_ID_KEY])) {
-            throw new UsernameNotFoundException("No user_id in token payload");
+            return $this->authTokenService->getUser($username);
+        } catch (ProgrammerException $ex) {
+            throw new UsernameNotFoundException($ex->getMessage(), $ex->getCode());
         }
-
-        $userId = $payload[AuthTokenService::USER_ID_KEY];
-
-        /** @var BaseUser $user */
-        $user = $this->userService->findUserById($userId);
-
-        if (empty($user)) {
-            throw new UsernameNotFoundException("No user found with id provided.");
-        }
-
-        return $user;
     }
 
 }
