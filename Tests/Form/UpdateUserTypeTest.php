@@ -8,7 +8,7 @@ use StarterKit\StartBundle\Form\UpdateUserType;
 use PHPUnit\Framework\Assert;
 use Symfony\Component\Form\PreloadedExtension;
 use Symfony\Component\Form\Test\TypeTestCase;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+use GuzzleHttp\Psr7\UploadedFile;
 
 class UpdateUserTypeTest extends TypeTestCase
 {
@@ -32,7 +32,7 @@ class UpdateUserTypeTest extends TypeTestCase
     public function testFormCompiles()
     {
         $form = $this->factory->create(UpdateUserType::class);
-        $image = new UploadedFile(__DIR__ .'/../Mock/valid_image.png', 'valid_image_.png');
+        $image = \Mockery::mock(UploadedFile::class);
         $form->submit(['email' => 'moo@gmaol.com', 'displayName' => 'madx', 'image' => $image, 'bio' => 'About me']);
 
         Assert::assertTrue($form->isSynchronized());
