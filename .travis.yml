@@ -19,7 +19,7 @@ matrix:
   fast_finish: true
 
 before_install:
-  - composer create-project symfony/skeleton *
+  - composer create-project symfony/skeleton .
   - composer require start-kit-symfony/start-bundle:dev-master
 
 install:
