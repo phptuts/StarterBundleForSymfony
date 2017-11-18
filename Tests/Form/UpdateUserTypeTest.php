@@ -32,7 +32,7 @@ class UpdateUserTypeTest extends TypeTestCase
     public function testFormCompiles()
     {
         $form = $this->factory->create(UpdateUserType::class);
-        $image = \Mockery::mock(UploadedFile::class);
+        $image = new UploadedFile(__DIR__ .'../Mock/valid_image.png', 'valid_image_.png');
         $form->submit(['email' => 'moo@gmaol.com', 'displayName' => 'madx', 'image' => $image, 'bio' => 'About me']);
 
         Assert::assertTrue($form->isSynchronized());

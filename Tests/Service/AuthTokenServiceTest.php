@@ -9,12 +9,12 @@ use StarterKit\StartBundle\Service\AuthTokenService;
 use StarterKit\StartBundle\Tests\Entity\User;
 use Tests\BaseTestCase;
 
-class JWSServiceTest extends BaseTestCase
+class AuthTokenServiceTest extends BaseTestCase
 {
     /**
      * @var AuthTokenService
      */
-    protected $JWSService;
+    protected $authTokenService;
 
     public static $passphrase;
 
@@ -26,7 +26,7 @@ class JWSServiceTest extends BaseTestCase
         self::$passphrase = $this->getContainer()->getParameter('starter_kit_start.jws_pass_phrase') ;
         self::$homeDir = $this->getContainer()->getParameter('kernel.project_dir');
         parent::setUp();
-        $this->JWSService =
+        $this->authTokenService =
             new AuthTokenService(self::$passphrase,
                 $this->getContainer()->getParameter('starter_kit_start.jws_ttl'),
                 self::$homeDir
@@ -43,17 +43,17 @@ class JWSServiceTest extends BaseTestCase
         $user = new User();
         $this->setObjectId($user, 15);
 
-        $model = $this->JWSService->createAuthTokenModel($user);
+        $model = $this->authTokenService->createAuthTokenModel($user);
 
         $ttl = $this->getContainer()->getParameter('starter_kit_start.jws_ttl');
 
         $lessThanExpirationTimeStamp = (new \DateTime())->modify('+' . $ttl - 500 .  ' seconds')->getTimestamp();
-        $greaterThanExpirationTimeStamp = (new \DateTime())->modify('+' . $ttl + 500 .  ' seconds')->getTimestamp();
+        $greaterThanExpirationTimeStamp = (new \DateTime())->modify('+' . ($ttl + 500) .  ' seconds')->getTimestamp();
 
         Assert::assertTrue($lessThanExpirationTimeStamp < $model->getExpirationTimeStamp());
         Assert::assertTrue($greaterThanExpirationTimeStamp > $model->getExpirationTimeStamp());
-        Assert::assertTrue($this->JWSService->isValid($model->getToken()));
-        $payload = $this->JWSService->getPayload($model->getToken());
+        Assert::assertTrue($this->authTokenService->isValid($model->getToken()));
+        $payload = $this->authTokenService->getPayload($model->getToken());
         Assert::assertEquals(15, $payload['user_id']);
         Assert::assertEquals($model->getExpirationTimeStamp(), $payload['exp']);
         Assert::assertArrayHasKey('iat', $payload);
@@ -67,7 +67,7 @@ class JWSServiceTest extends BaseTestCase
         $this->expectException(ProgrammerException::class);
         $this->expectExceptionCode(ProgrammerException::JWS_INVALID_TOKEN_FORMAT);
         $this->expectExceptionMessage('Unable to read jws token.');
-        $this->JWSService->getPayload('token');
+        $this->authTokenService->getPayload('token');
     }
 
     /**
@@ -77,7 +77,7 @@ class JWSServiceTest extends BaseTestCase
      */
     public function testInvalidToken($token)
     {
-        Assert::assertFalse($this->JWSService->isValid($token));
+        Assert::assertFalse($this->authTokenService->isValid($token));
     }
 
     /**
@@ -101,7 +101,7 @@ class JWSServiceTest extends BaseTestCase
         $this->setObjectId($user, 15);
         $expiredToken = self::createExpiredToken($user);
 
-        Assert::assertFalse($this->JWSService->isValid($expiredToken));
+        Assert::assertFalse($this->authTokenService->isValid($expiredToken));
     }
 
     /**
