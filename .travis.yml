@@ -23,7 +23,6 @@ before_install:
   - cd starter-bundle-example
 
 install:
-  - cd starter-bundle-example
   - composer update --prefer-dist
 
 before_script:
