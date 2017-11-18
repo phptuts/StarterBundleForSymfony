@@ -27,7 +27,6 @@ install:
   - composer update --prefer-dist
 
 before_script:
-  - cd starter-bundle-example
   - cp vendor/start-kit-symfony/start-bundle/scripts/parameters.yml.dist app/config/parameters.yml
   - mkdir var/jwt
   - cp vendor/start-kit-symfony/start-bundle/scripts/private.pem var/jwt/private.pem
@@ -35,5 +34,4 @@ before_script:
   - sh vendor/start-kit-symfony/start-bundle/scripts/run_before_travis.sh
 
 script:
-    - cd starter-bundle-example
     - php bin/phpunit -c vendor/start-kit-symfony/start-bundle/ --exclude-group exclude_travis  --coverage-clover build/logs/clover.xml
