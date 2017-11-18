@@ -26,8 +26,6 @@ install:
   - composer update --prefer-dist
 
 before_script:
-  - rm -rf vendor/start-kit-symfony/start-bundle
-  - git clone https://github.com/phptuts/starter-bundle-example.git  vendor/start-kit-symfony/start-bundle
   - cp app/config/parameters.yml.dist app/config/parameters.yml
   - mkdir var/jwt
   - cp scripts/private.pem var/jwt/private.pem
