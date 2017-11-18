@@ -37,5 +37,4 @@ before_script:
 
 
 script:
-    - php bin/phpunit -c vendor/start-kit-symfony/start-bundle/ --exclude-group exclude_travis  --coverage-clover
-    build/logs/clover.xml --verbose
+    - php bin/phpunit -c vendor/start-kit-symfony/start-bundle/ --exclude-group exclude_travis --coverage-clover build/logs/clover.xml --verbose
