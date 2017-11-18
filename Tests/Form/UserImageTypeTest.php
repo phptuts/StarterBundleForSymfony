@@ -30,11 +30,10 @@ class UserImageTypeTest extends TypeTestCase
     public function testFormCompiles()
     {
         $form = $this->factory->create(UserImageType::class);
-        $image = \Mockery::mock(UploadedFile::class);
+        $image = new UploadedFile(__DIR__ .'/../Mock/valid_image.png', 'valid_image_.png');
         $form->submit([ 'image' => $image]);
 
         Assert::assertTrue($form->isSynchronized());
-        $image = new UploadedFile(__DIR__ .'/../Mock/valid_image.png', 'valid_image_.png');
 
         $user = new User();
         $user->setImage($image);

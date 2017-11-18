@@ -6,7 +6,6 @@
          backupGlobals="false"
          colors="true"
          coverage-html="./reports"
-         stopOnFailure="true"
          bootstrap="../../../vendor/autoload.php"
 >
     <php>
