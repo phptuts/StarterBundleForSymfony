@@ -64,10 +64,10 @@ class JWSTokenService implements AuthTokenServiceInterface
      */
     public function __construct(UserServiceInterface $userService, $passPhrase, $ttl, $kernelDir)
     {
+        $this->userService = $userService;
         $this->passPhrase = $passPhrase;
         $this->ttl = $ttl;
         $this->kernelDir = $kernelDir;
-        $this->userService = $userService;
     }
 
     /**
@@ -168,6 +168,7 @@ class JWSTokenService implements AuthTokenServiceInterface
             throw new ProgrammerException('Unable to read jws token.', ProgrammerException::JWS_INVALID_TOKEN_FORMAT);
         }
     }
+
 
     /**
      * Returns true if the token is not expired

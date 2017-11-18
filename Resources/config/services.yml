@@ -4,7 +4,7 @@ services:
     StarterKit\StartBundle\Service\AuthTokenService:
         class: StarterKit\StartBundle\Service\JWSTokenService
         arguments:
-            - 'StarterKit\StartBundle\Service\UserServiceInterface'
+            - '@StarterKit\StartBundle\Service\UserServiceInterface'
             - '%starter_kit_start.jws_pass_phrase%'
             - '%starter_kit_start.jws_ttl%'
             - '%kernel.project_dir%'

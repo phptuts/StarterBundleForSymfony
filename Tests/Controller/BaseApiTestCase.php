@@ -6,6 +6,8 @@ use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Factory\FaceBookClientFactory;
 use StarterKit\StartBundle\Repository\UserRepository;
 use StarterKit\StartBundle\Service\JWSTokenService;
+use StarterKit\StartBundle\Service\UserService;
+use StarterKit\StartBundle\Service\UserServiceInterface;
 use StarterKit\StartBundle\Tests\BaseTestCase;
 use StarterKit\StartBundle\Tests\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -34,11 +36,20 @@ class BaseApiTestCase extends BaseTestCase
 
     public function setUp()
     {
+        parent::setUp();
+
         $this->environment = 'starter_kit_test';
 
-        parent::setUp();
+        $userService = new UserService(
+            $this->getContainer()->get('doctrine.orm.entity_manager'),
+            $this->getContainer()->get('security.encoder_factory'),
+            $this->getContainer()->get('event_dispatcher'),
+            $this->getContainer()->getParameter('starter_kit_start.refresh_token_ttl'),
+            $this->getContainer()->getParameter('starter_kit_start.user_class')
+        );
+
         $this->jwsService = new JWSTokenService(
-            $this->getContainer()->getParameter('StarterKit\StartBundle\Services\UserService'),
+            $userService,
             $this->getContainer()->getParameter('starter_kit_start.jws_pass_phrase'),
             $this->getContainer()->getParameter('starter_kit_start.jws_ttl'),
             $this->getContainer()->getParameter('kernel.project_dir')
