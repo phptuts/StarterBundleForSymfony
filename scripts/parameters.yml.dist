@@ -1,0 +1,52 @@
+# This file is a "template" of what your parameters.yml file should look like
+# Set parameters here that may be different on each deployment target of the app, e.g. development, staging, production.
+# https://symfony.com/doc/current/best_practices/configuration.html#infrastructure-related-configuration
+parameters:
+    app.database_host: 127.0.0.1
+    app.database_port: ~
+    app.database_name: symfony
+    app.database_user: root
+    app.database_password: ~
+
+    # You should uncomment this if you want to use pdo_sqlite
+    #database_path: '%kernel.project_dir%/var/data/data.sqlite'
+
+    app.mailer_transport: smtp
+    app.mailer_host: 127.0.0.1
+    app.mailer_user: ~
+    app.mailer_password: ~
+
+    # A secret key that's used to generate certain security-related tokens
+    app.secret: ThisTokenIsNotSoSecretChangeIt
+
+    # Email string
+    app.from_email: you@example.com
+
+    # Login Url
+    app.login_url: '/login'
+
+    # Amazon s3
+    app.aws_api_version: '2006-03-01'
+    app.aws_region: 'us-west-2'
+    app.aws_s3_bucket_name: bucket
+    app.aws_key: fake_key
+    app.aws_secret: fake_secret
+
+    # Facebook
+    app.facebook_app_secret: fake_secret
+    app.facebook_app_id: fake_app_id
+    app.facebook_api_version: v2.9
+
+    # Google
+    app.google_client_id: fake_crap
+    app.google_client_secret: fake_crap
+
+    # JWT / JWS Passphrase
+    app.jws_pass_phrase: blah
+    app.jws_ttl: 5184000
+
+    # Refresh_tokens
+    app.refresh_token_ttl: 10368000
+
+    # User Class
+    app.user_class: 'AppBundle\Entity\User'
