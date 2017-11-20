@@ -70,27 +70,27 @@ class UserService implements UserServiceInterface
     /**
      * @var UserRepository
      */
-    private $userRepository;
+    protected $userRepository;
 
     /**
      * @var integer the number of seconds for a refresh token to live
      */
-    private $refreshTokenTTL;
+    protected $refreshTokenTTL;
 
     /**
      * @var EntityManagerInterface
      */
-    private $em;
+    protected $em;
 
     /**
      * @var EventDispatcherInterface
      */
-    private $dispatcher;
+    protected $dispatcher;
 
     /**
      * @var string the concrete user class
      */
-    private $userClass;
+    protected $userClass;
 
 
     /**
