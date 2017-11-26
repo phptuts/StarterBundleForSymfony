@@ -88,7 +88,7 @@ class UserController extends BaseRestController
 
             $user = $this->userService->registerUser($form->getData());
 
-            return $this->authResponseService->createAuthResponse($user);
+            return $this->authResponseService->createJsonAuthResponse($user);
         }
 
         return $this->serializeFormError($form);

@@ -211,7 +211,7 @@ class SimpleGuard extends AbstractGuardAuthenticator implements SimpleGuardInter
 
         $user = $token->getUser();
         $this->dispatcher->dispatch(self::AUTH_LOGIN_SUCCESS, new UserEvent($user));
-        return $this->authResponseService->createAuthResponse($user);
+        return $this->authResponseService->createJsonAuthResponse($user);
     }
 
     /**

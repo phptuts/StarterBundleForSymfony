@@ -49,7 +49,7 @@ class AuthResponseServiceTest extends BaseTestCase
         $this->userService->shouldReceive('updateUserRefreshToken')->with($user)->once()->andReturn($user);
         $this->jwsService->shouldReceive('createAuthTokenModel')->with($user)->once()->andReturn($jwtModel);
 
-        $response = $this->authResponseService->createAuthResponse($user);
+        $response = $this->authResponseService->createJsonAuthResponse($user);
 
         $json = json_decode($response->getContent(), true);
 

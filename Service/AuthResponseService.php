@@ -46,7 +46,7 @@ class AuthResponseService implements AuthResponseServiceInterface
      * @param BaseUser $user
      * @return JsonResponse
      */
-    public function createAuthResponse(BaseUser $user)
+    public function createJsonAuthResponse(BaseUser $user)
     {
         $responseModel = $this->createResponseAuthModel($user);
 

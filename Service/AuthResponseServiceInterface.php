@@ -15,7 +15,7 @@ interface AuthResponseServiceInterface
      * @param BaseUser $user
      * @return JsonResponse
      */
-    public function createAuthResponse(BaseUser $user);
+    public function createJsonAuthResponse(BaseUser $user);
 
     /**
      * Creates a credentials model for the user
