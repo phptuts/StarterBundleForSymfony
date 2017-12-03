@@ -10,6 +10,7 @@ use StarterKit\StartBundle\Service\JWSTokenService;
 use StarterKit\StartBundle\Service\UserService;
 use StarterKit\StartBundle\Tests\BaseTestCase;
 use StarterKit\StartBundle\Tests\Entity\User;
+use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthResponseServiceTest extends BaseTestCase
@@ -64,7 +65,26 @@ class AuthResponseServiceTest extends BaseTestCase
 
         Assert::assertEquals($json['data']['refreshTokenModel']['token'], 'refresh_token');
         Assert::assertEquals($json['data']['refreshTokenModel']['expirationTimeStamp'], $expireRefreshToken->getTimestamp());
+    }
 
+    /**
+     * Tests that auth cookie is set
+     */
+    public function testAuthenticateResponse()
+    {
+        $expireRefreshToken = new \DateTime();
+        $user = new User();
+        $user->setRefreshToken('refresh_token')->setRefreshTokenExpire($expireRefreshToken);
+        $jwtModel = new AuthTokenModel('jwt_token', 333);
+        $this->userService->shouldReceive('updateUserRefreshToken')->with($user)->once()->andReturn($user);
+        $this->jwsService->shouldReceive('createAuthTokenModel')->with($user)->once()->andReturn($jwtModel);
 
+        $response = $this->authResponseService->authenticateResponse($user, new Response());
+
+        /** @var Cookie $cookie */
+        $cookie = $response->headers->getCookies()[0];
+
+        Assert::assertEquals('auth_cookie', $cookie->getName());
+        Assert::assertEquals('jwt_token', $cookie->getValue());
     }
 }

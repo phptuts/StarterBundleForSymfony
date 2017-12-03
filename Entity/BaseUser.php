@@ -112,6 +112,15 @@ abstract class BaseUser implements AdvancedUserInterface, ViewInterface
     protected $googleUserId;
 
     /**
+     * This would be something like their slack user id
+     *
+     * @var string
+     *
+     * @ORM\Column(name="slack_user_id", type="string", nullable=true, unique=true)
+     */
+    protected $slackUserId;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="forget_password_token", type="string", nullable=true)
@@ -583,6 +592,25 @@ abstract class BaseUser implements AdvancedUserInterface, ViewInterface
     public function setGoogleUserId($googleUserId)
     {
         $this->googleUserId = $googleUserId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlackUserId()
+    {
+        return $this->slackUserId;
+    }
+
+    /**
+     * @param string $slackUserId
+     * @return BaseUser
+     */
+    public function setSlackUserId($slackUserId)
+    {
+        $this->slackUserId = $slackUserId;
 
         return $this;
     }

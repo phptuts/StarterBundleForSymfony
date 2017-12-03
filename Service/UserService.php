@@ -42,6 +42,13 @@ class UserService implements UserServiceInterface
     const SOURCE_TYPE_FACEBOOK = 'facebook';
 
     /**
+     * This means the user registered from the facebook
+     * @var string
+     */
+    const SOURCE_TYPE_SLACK = 'slack';
+
+
+    /**
      * This means the user was created from the admin
      * @var string
      */
@@ -159,6 +166,17 @@ class UserService implements UserServiceInterface
     public function findByGoogleUserId($googleUserId)
     {
         return $this->userRepository->findByGoogleUserId($googleUserId);
+    }
+
+    /**
+     * Finds a user by their linked in user id
+     *
+     * @param $slackUserId
+     * @return null|object|BaseUser
+     */
+    public function findBySlackUserId($slackUserId)
+    {
+        return $this->userRepository->findBySlackUserId($slackUserId);
     }
 
     /**

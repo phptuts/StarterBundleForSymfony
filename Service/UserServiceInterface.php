@@ -42,6 +42,13 @@ interface UserServiceInterface
      */
     public function findByGoogleUserId($googleUserId);
 
+    /**
+     * Finds a user by their linked in user id
+     *
+     * @param $slackUserId
+     * @return BaseUser|null|object
+     */
+    public function findBySlackUserId($slackUserId);
 
     /**
      * Return a paginator of users

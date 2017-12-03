@@ -38,7 +38,11 @@ class Configuration implements ConfigurationInterface
             ->scalarNode('aws_key')->defaultNull()->end()
             ->scalarNode('aws_secret')->defaultNull()->end()
             ->scalarNode('aws_s3_bucket_name')->defaultNull()->end()
-            ->scalarNode('aws_api_version')->defaultNull()->end();
+            ->scalarNode('aws_api_version')->defaultNull()->end()
+
+            // Required for slack login
+            ->scalarNode('slack_client_secret')->defaultNull()->end()
+            ->scalarNode('slack_client_id')->defaultNull()->end();
 
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for

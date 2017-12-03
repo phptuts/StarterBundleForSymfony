@@ -1,6 +1,3 @@
-login_check:
-    path: login_check
-
 starter_kit_start_security_api_routes:
     resource: '@StarterKitStartBundle/Controller/SecurityController.php'
     type: annotation

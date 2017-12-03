@@ -1,5 +1,16 @@
 services:
 
+    # Clients
+    GuzzleHttp\Client:
+        class: GuzzleHttp\Client
+
+    StarterKit\StartBundle\Client\SlackClient:
+        class: StarterKit\StartBundle\Client\SlackClient
+        arguments:
+            - '@GuzzleHttp\Client'
+            - '%starter_kit_start.slack_client_secret%'
+            - '%starter_kit_start.slack_client_id%'
+
     # Services
     StarterKit\StartBundle\Service\JWSTokenService:
         class: StarterKit\StartBundle\Service\JWSTokenService
@@ -54,15 +65,36 @@ services:
         class: StarterKit\StartBundle\Security\Provider\RefreshTokenProvider
         autowire: true
 
+    StarterKit\StartBundle\Security\Provider\SlackProvider:
+        class: StarterKit\StartBundle\Security\Provider\SlackProvider
+        autowire: true
+
+
     # Guards
-    StarterKit\StartBundle\Security\Guard\SimpleGuard:
-        class: StarterKit\StartBundle\Security\Guard\SimpleGuard
+    StarterKit\StartBundle\Security\Guard\OAuthGuard:
+        class: StarterKit\StartBundle\Security\Guard\OAuthGuard
         arguments:
-            - '@security.encoder_factory.generic'
+            - '@Symfony\Component\EventDispatcher\EventDispatcherInterface'
             - '@StarterKit\StartBundle\Service\AuthResponseServiceInterface'
-            - '@StarterKit\StartBundle\Factory\UserProviderFactoryInterface'
-            - '@event_dispatcher'
+            - '@twig'
             - '%starter_kit_start.login_url%'
+
+    StarterKit\StartBundle\Security\Guard\LoginGuard:
+        class: StarterKit\StartBundle\Security\Guard\LoginGuard
+        autowire: true
+
+    StarterKit\StartBundle\Security\Guard\StateLess\WebsiteGuard:
+        class: StarterKit\StartBundle\Security\Guard\StateLess\WebsiteGuard
+        arguments:
+            - '@Symfony\Component\EventDispatcher\EventDispatcherInterface'
+            - '%starter_kit_start.login_url%'
+
+    StarterKit\StartBundle\Security\Guard\StateLess\ApiGuard:
+        class: StarterKit\StartBundle\Security\Guard\StateLess\ApiGuard
+        arguments:
+            - '@Symfony\Component\EventDispatcher\EventDispatcherInterface'
+            - '%starter_kit_start.login_url%'
+
 
     #Voters
     StarterKit\StartBundle\Security\Voter\UserVoter:
@@ -84,11 +116,6 @@ services:
         class: StarterKit\StartBundle\Factory\GoogleClientFactory
         arguments:
             - '%starter_kit_start.google_client_id%'
-
-
-    StarterKit\StartBundle\Factory\UserProviderFactory:
-        class: StarterKit\StartBundle\Factory\UserProviderFactory
-        autowire: true
 
     StarterKit\StartBundle\S3ClientFactory:
         class: StarterKit\StartBundle\Factory\S3ClientFactory
@@ -174,10 +201,12 @@ services:
     StarterKit\StartBundle\Security\Provider\RefreshTokenProviderInterface: '@StarterKit\StartBundle\Security\Provider\RefreshTokenProvider'
 
     # Guards
-    StarterKit\StartBundle\Security\Guard\SimpleGuardInterface: '@StarterKit\StartBundle\Security\Guard\SimpleGuard'
+    StarterKit\StartBundle\Security\Guard\OAuthGuardInterface: '@StarterKit\StartBundle\Security\Guard\OAuthGuard'
+    StarterKit\StartBundle\Security\Guard\LoginGuardInterface: '@StarterKit\StartBundle\Security\Guard\LoginGuard'
+    StarterKit\StartBundle\Security\Guard\StateLess\ApiGuardInterface: '@StarterKit\StartBundle\Security\Guard\StateLess\ApiGuard'
+    StarterKit\StartBundle\Security\Guard\StateLess\WebsiteGuardInterface: '@StarterKit\StartBundle\Security\Guard\StateLess\WebsiteGuard'
 
     # Factories
     StarterKit\StartBundle\Factory\FaceBookClientFactoryInterface: '@StarterKit\StartBundle\Factory\FaceBookClientFactory'
     StarterKit\StartBundle\Factory\GoogleClientFactoryInterface: '@StarterKit\StartBundle\Factory\GoogleClientFactory'
-    StarterKit\StartBundle\Factory\UserProviderFactoryInterface: '@StarterKit\StartBundle\Factory\UserProviderFactory'
     StarterKit\StartBundle\S3ClientFactoryInterface: '@StarterKit\StartBundle\S3ClientFactory'

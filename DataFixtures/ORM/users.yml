@@ -58,6 +58,15 @@ StarterKit\StartBundle\Tests\Entity\User:
         enabled: true
         source: 'website'
 
+    slack_user:
+        email: 'slack_user@gmail.com'
+        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        roles: ['ROLE_USER']
+        enabled: true
+        source: 'slack'
+        slackUserId: 'slack_33'
+
+
 
     forget_password_1:
         email: 'forget_password_1@gmail.com'

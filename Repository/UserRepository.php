@@ -53,6 +53,15 @@ class UserRepository extends EntityRepository
     }
 
     /**
+     * @param $id
+     * @return null|object|BaseUser
+     */
+    public function findBySlackUserId($id)
+    {
+        return $this->findOneBy(['slackUserId' => $id]);
+    }
+
+    /**
      * Returns a user with the right password token.
      * If multiple tokens are found in the db a programmer exception is thrown with a specific code.
      *

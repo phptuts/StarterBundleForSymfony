@@ -12,9 +12,8 @@ class CredentialTokenModelTest extends BaseTestCase
 {
     public function testModel()
     {
-        $model = new CredentialTokenModel( 'facebook', 'token');
+        $model = new CredentialTokenModel('token');
         Assert::assertEquals('token', $model->getUserIdentifier());
-        Assert::assertEquals('facebook', $model->getProvider());
         Assert::assertEquals('token',$model->getToken());
     }
 }

@@ -13,15 +13,10 @@ class CredentialTokenModel implements CredentialInterface
      */
     private $token;
 
-    /**
-     * @var string
-     */
-    private $provider;
 
-    public function __construct($provider, $token)
+    public function __construct($token)
     {
         $this->token = $token;
-        $this->provider = $provider;
     }
 
     /**
@@ -41,16 +36,4 @@ class CredentialTokenModel implements CredentialInterface
     {
         return $this->getToken();
     }
-
-    /**
-     * Returns the type of user provider to user
-     *
-     * @return string
-     */
-    public function getProvider()
-    {
-        return $this->provider;
-    }
-
-
 }

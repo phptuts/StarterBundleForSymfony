@@ -98,8 +98,8 @@ class AuthTest extends BaseApiTestCase
         $response = $this->makeJsonRequest(
             $client,
             Request::METHOD_POST,
-            '/login_check',
-            ['type' => 'refresh_token', 'token' => $refreshToken]
+            '/access-tokens/refresh',
+            ['token' => $refreshToken]
         );
 
         $this->assertCredentialsResponse($response, $client, self::TEST_EMAIL);
@@ -119,8 +119,8 @@ class AuthTest extends BaseApiTestCase
         $response = $this->makeJsonRequest(
             $client,
             Request::METHOD_POST,
-            '/login_check',
-            ['type' => 'facebook', 'token' => $facebookAuthToken['token']]
+            '/access-tokens/facebook',
+            ['token' => $facebookAuthToken['token']]
         );
 
         $this->assertCredentialsResponse($response, $client, $facebookAuthToken['email']);

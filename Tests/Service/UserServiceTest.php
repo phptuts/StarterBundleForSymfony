@@ -175,6 +175,7 @@ class UserServiceTest extends BaseTestCase
         Assert::assertEquals(1, $pageUser->getTotal());
     }
 
+
     /**
      * Tests that a user can be found by user id
      */
@@ -193,6 +194,14 @@ class UserServiceTest extends BaseTestCase
     public function testFindByFacebookUserId()
     {
         Assert::assertInstanceOf(User::class, $this->userService->findByFacebookUserId('facebook_test_user_id32'));
+    }
+
+    /**
+     * Tests that a user can be found by facebook id
+     */
+    public function testGetSlackUser()
+    {
+        Assert::assertInstanceOf(User::class, $this->userService->findBySlackUserId('slack_33'));
     }
 
     /**

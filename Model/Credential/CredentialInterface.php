@@ -39,13 +39,11 @@ interface CredentialInterface
      */
     const PROVIDER_TYPE_REFRESH = 'refresh_token';
 
-
     /**
-     * Returns the type of user provider to user
-     *
-     * @return string
+     * This means that we are authenticating the user via linked_in
+     * @var string
      */
-    public function getProvider();
+    const PROVIDER_TYPE_LINKED_IN = 'linkedin';
 
     /**
      * Returns the string to identify the user

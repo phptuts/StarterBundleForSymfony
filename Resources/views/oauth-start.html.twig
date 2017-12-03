@@ -1,0 +1,16 @@
+<html>
+<head>
+    <style>
+        h1, p {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+<h1>Back to Login Page</h1>
+<p>We are navigating you back to the login page.</p>
+<script>
+    window.location.href = '{{ login_path }}?oauth=start';
+</script>
+</body>
+</html>

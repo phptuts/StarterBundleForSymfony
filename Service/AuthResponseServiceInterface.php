@@ -6,6 +6,8 @@ namespace StarterKit\StartBundle\Service;
 use StarterKit\StartBundle\Entity\BaseUser;
 use StarterKit\StartBundle\Model\Response\ResponseAuthenticationModel;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 interface AuthResponseServiceInterface
 {
@@ -21,7 +23,8 @@ interface AuthResponseServiceInterface
      * Creates a credentials model for the user
      *
      * @param BaseUser $user
-     * @return ResponseAuthenticationModel
+     * @param Response $response
+     * @return Response
      */
-    public function createResponseAuthModel(BaseUser $user);
+    public function authenticateResponse(BaseUser $user, Response $response);
 }

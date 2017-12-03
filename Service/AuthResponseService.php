@@ -5,6 +5,7 @@ namespace StarterKit\StartBundle\Service;
 use StarterKit\StartBundle\Entity\BaseUser;
 use StarterKit\StartBundle\Model\Response\ResponseAuthenticationModel;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
@@ -44,37 +45,38 @@ class AuthResponseService implements AuthResponseServiceInterface
      * Creates a json response that will contain new credentials for the user.
      *
      * @param BaseUser $user
-     * @return JsonResponse
+     * @return JsonResponse|Response
      */
     public function createJsonAuthResponse(BaseUser $user)
     {
         $responseModel = $this->createResponseAuthModel($user);
 
-        return $this->createResponse($responseModel);
+        $response = new JsonResponse($responseModel->getBody(), Response::HTTP_CREATED);
+
+        return $this->setCookieForResponse($response, $responseModel);
     }
 
     /**
-     * Creates a credentials model for the user
+     * Sets the auth cookie for an authenticated response
      *
      * @param BaseUser $user
-     * @return ResponseAuthenticationModel
+     * @param Response $response
+     * @return Response
      */
-    public function createResponseAuthModel(BaseUser $user)
+    public function authenticateResponse(BaseUser $user, Response $response)
     {
-        $user = $this->userService->updateUserRefreshToken($user);
-        $authTokenModel = $this->authTokenService->createAuthTokenModel($user);
-
-        return new ResponseAuthenticationModel($user, $authTokenModel, $user->getAuthRefreshModel());
+        return $this->setCookieForResponse($response, $this->createResponseAuthModel($user));
     }
 
     /**
-     * @param ResponseAuthenticationModel $responseModel
+     * Sets the auth cookie
      *
-     * @return JsonResponse
+     * @param Response $response
+     * @param ResponseAuthenticationModel $responseModel
+     * @return Response
      */
-    private function createResponse(ResponseAuthenticationModel $responseModel)
+    protected function setCookieForResponse(Response $response, ResponseAuthenticationModel $responseModel)
     {
-        $response = new JsonResponse($responseModel->getBody(), Response::HTTP_CREATED);
         $response->headers->setCookie(
             new Cookie(
                 self::AUTH_COOKIE,
@@ -88,4 +90,20 @@ class AuthResponseService implements AuthResponseServiceInterface
 
         return $response;
     }
+
+    /**
+     * Creates a credentials model for the user
+     *
+     * @param BaseUser $user
+     * @return ResponseAuthenticationModel
+     */
+    protected function createResponseAuthModel(BaseUser $user)
+    {
+        $user = $this->userService->updateUserRefreshToken($user);
+        $authTokenModel = $this->authTokenService->createAuthTokenModel($user);
+
+        return new ResponseAuthenticationModel($user, $authTokenModel, $user->getAuthRefreshModel());
+    }
+
+
 }
