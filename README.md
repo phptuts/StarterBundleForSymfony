@@ -128,7 +128,12 @@ I think that every response should be wrap around envelope that describes what i
 - [Response / Serialization](docs/serialize-response.md)
 - [Forms](docs/forms.md)
 - Security
-    - Voters
+    - Login Guard
+    - StateLess Guard
+    - OAuth Guard
+    - OAuth Provider
+    - Access Token Provider
+    
     
 ## How To / Examples
 
@@ -136,3 +141,5 @@ I think that every response should be wrap around envelope that describes what i
 - How to add Linked In Login (OAuth Provider)
 - How to add EasyAdmin Bundle For User Management
 - How to put in a Global Exception Handler
+- How to log the user in after they have registered
+- How to send an email after the user registers

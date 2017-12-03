@@ -126,6 +126,8 @@ class UserController extends BaseRestController
             /** @var BaseUser $user */
             $user = $form->getData();
 
+            $this->denyAccessUnlessGranted(UserVoter::USER_CAN_VIEW_EDIT, $user);
+
             $this->userService->save($user);
 
             return $this->serializeSingleObject($user->singleView(), BaseUser::RESPONSE_TYPE,  Response::HTTP_OK);
@@ -230,6 +232,8 @@ class UserController extends BaseRestController
     {
         $user = $this->getUserById($id);
 
+        $this->denyAccessUnlessGranted(UserVoter::USER_CAN_VIEW_EDIT, $user);
+
         $form = $this->createForm(ChangePasswordType::class);
 
         $form->submit($request->request->all());
@@ -272,6 +276,9 @@ class UserController extends BaseRestController
     public function imageAction(Request $request, $id)
     {
         $user = $this->getUserById($id);
+
+        $this->denyAccessUnlessGranted(UserVoter::USER_CAN_VIEW_EDIT, $user);
+
         $form = $this->createForm(UserImageType::class, $user);
 
         $form->submit(['image' => $request->files->get('image')]);

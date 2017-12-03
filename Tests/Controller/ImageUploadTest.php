@@ -12,9 +12,11 @@ use StarterKit\StartBundle\Service\FormSerializer;
 use StarterKit\StartBundle\Service\S3Service;
 use StarterKit\StartBundle\Service\UserService;
 use StarterKit\StartBundle\Tests\Entity\User;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class ImageUploadTest extends BaseApiTestCase
 {
@@ -59,7 +61,16 @@ class ImageUploadTest extends BaseApiTestCase
             $this->s3Service
             );
 
-        $this->userController->setContainer($this->getContainer());
+        $security =  \Mockery::mock(AuthorizationCheckerInterface::class);
+        $security->shouldReceive('isGranted')->withAnyArgs()->andReturn(true);
+
+        $containerMock = \Mockery::mock(ContainerInterface::class);
+        $containerMock->shouldReceive('has')->with('security.authorization_checker')->andReturn(true);
+        $containerMock->shouldReceive('get')->with('security.authorization_checker')->andReturn($security);
+
+        $containerMock->shouldReceive('get')->with('form.factory')->andReturn($this->getContainer()->get('form.factory'));
+
+        $this->userController->setContainer($containerMock);
     }
 
     public function testUploadImage()
@@ -113,6 +124,8 @@ class ImageUploadTest extends BaseApiTestCase
         $user->setEmail('blue@gmail.com');
 
         $this->setObjectId($user, 444);
+
+
 
         $image = new UploadedFile(
             dirname(__FILE__)  . '/../Mock/image_10Mb.jpg',
