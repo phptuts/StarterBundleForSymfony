@@ -52,9 +52,9 @@ slack:
 ``` 
 /**
  * @Security("has_role('ROLE_USER')")
- * @Route(path="/access-tokens/{provider}", name="_access_doc_oauth", methods={"POST"})
+ * @Route(path="/oauth/{provider}", name="_api_doc_oauth", methods={"GET"})
  */
-public function accessTokenAction()
+public function oauthAction()
 {
     throw new \LogicException("Should never hit this end point symfony should take this over.");
 }
