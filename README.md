@@ -2,16 +2,15 @@
 
 [![Build Status](https://travis-ci.org/phptuts/starterkitforsymfony.svg?branch=master)](https://travis-ci.org/phptuts/starterkitforsymfony)  [![Maintainability](https://api.codeclimate.com/v1/badges/43a21891fd78cc000fc1/maintainability)](https://codeclimate.com/github/phptuts/StarterBundleForSymfony/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/43a21891fd78cc000fc1/test_coverage)](https://codeclimate.com/github/phptuts/StarterBundleForSymfony/test_coverage)
 
-## Setup Guide
-
-### Symfony 3
+## Setup Guide Symfony 3 / 4
+ 
 
 1) Install the bundle
 ``` 
 composer require start-kit-symfony/start-bundle
 ```
 
-2) Add to Bundle class to the app kernel
+2) Add to Bundle class to the app kernel, only need if you are using symfony 3.
 
 ``` 
     new StarterKit\StartBundle\StarterKitStartBundle(),
@@ -35,7 +34,7 @@ openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
 
 7) In your AppBundle -> Entity folder create a User class that extends the [BaseUser]().
 
-8) Configure the Bundle, in the app -> config -> config.yml file.
+8) Configure the Bundle, in the app -> config -> config.yml file for symfony 3 and for symfony for create a file called starter_kit_start.yaml in config -> packages.  They are both yaml files.
 
 ``` 
 starter_kit_start:
@@ -126,4 +125,4 @@ I think that every response should be wrap around envelope that describes what i
 ## Table of Contents
 
 - [Services](docs/services.md)
-- 
+- [Response / Serialization](docs/serialize-response.md)
