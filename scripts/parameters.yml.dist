@@ -50,3 +50,6 @@ parameters:
 
     # User Class
     app.user_class: 'AppBundle\Entity\User'
+
+    app.slack_client_secret: ''
+    app.slack_client_id: ''

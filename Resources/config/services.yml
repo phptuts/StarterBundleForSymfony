@@ -199,6 +199,7 @@ services:
     StarterKit\StartBundle\Security\Provider\GoogleProviderInterface: '@StarterKit\StartBundle\Security\Provider\GoogleProvider'
     StarterKit\StartBundle\Security\Provider\TokenProviderInterface: '@StarterKit\StartBundle\Security\Provider\TokenProvider'
     StarterKit\StartBundle\Security\Provider\RefreshTokenProviderInterface: '@StarterKit\StartBundle\Security\Provider\RefreshTokenProvider'
+    StarterKit\StartBundle\Security\Provider\SlackProviderInterface: '@StarterKit\StartBundle\Security\Provider\SlackProvider'
 
     # Guards
     StarterKit\StartBundle\Security\Guard\OAuthGuardInterface: '@StarterKit\StartBundle\Security\Guard\OAuthGuard'
