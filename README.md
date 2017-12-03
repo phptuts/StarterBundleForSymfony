@@ -127,3 +127,12 @@ I think that every response should be wrap around envelope that describes what i
 - [Services](docs/services.md)
 - [Response / Serialization](docs/serialize-response.md)
 - [Forms](docs/forms.md)
+- Security
+    - Voters
+    
+## How To / Examples
+
+- How to use Auth Tokens Stored In the database
+- How to add Linked In Login (OAuth Provider)
+- How to add EasyAdmin Bundle For User Management
+- How to put in a Global Exception Handler
