@@ -1,10 +1,76 @@
-# Project Overview
+# Setup Guide and Project Overview
 
 [![Build Status](https://travis-ci.org/phptuts/starterkitforsymfony.svg?branch=master)](https://travis-ci.org/phptuts/starterkitforsymfony)  [![Maintainability](https://api.codeclimate.com/v1/badges/43a21891fd78cc000fc1/maintainability)](https://codeclimate.com/github/phptuts/StarterBundleForSymfony/maintainability) [![Test Coverage](https://api.codeclimate.com/v1/badges/43a21891fd78cc000fc1/test_coverage)](https://codeclimate.com/github/phptuts/StarterBundleForSymfony/test_coverage)
 
-## [Setup Guide]()
+## Setup Guide
 
-## Services and Interfaces
+### Symfony 3
+
+1) Install the bundle
+``` 
+composer require start-kit-symfony/start-bundle
+```
+
+2) Add to Bundle class to the app kernel
+
+``` 
+    new StarterKit\StartBundle\StarterKitStartBundle(),
+```
+
+3) cd into the directory where your project is
+4) Create a jwt directory in your var folder
+``` 
+mkdir var/jwt
+```
+5) Create your private key with and write down the pass phrase you used.
+
+``` 
+openssl genrsa -out var/jwt/private.pem -aes256 4096
+```
+6) Create your public key, you will need the pass phrase here and in the composer install step
+
+``` 
+openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
+```
+
+7) In your AppBundle -> Entity folder create a User class that extends the [BaseUser]().
+
+8) Configure the Bundle, in the app -> config -> config.yml file.
+
+``` 
+starter_kit_start:
+
+    login_url: '%app.login_url%' # this is the path that your login screen is.  This where website guard will nagivate people if login is required and the user is not logged in.
+
+    jws_ttl: '%app.jws_ttl%' # This the number of seconds the jwt token will live
+    jws_pass_phrase: '%app.jws_pass_phrase%' # This the pass phrased you used to create jwt private / public keys.
+    refresh_token_ttl: '%app.refresh_token_ttl%' # This how long the refresh token will live.
+
+    user_class: '%app.user_class%' # This is concrete class that extends the base user
+
+    facebook_app_secret: '%app.facebook_app_secret%' # This is client secret that you get when you register your website with facebook
+    facebook_api_version: '%app.facebook_api_version%' # Facebook Api Version
+    facebook_app_id: '%app.facebook_app_id%' # This is your facebook app id
+
+    google_client_id: '%app.google_client_id%' # This is your google client id
+ 
+
+    # All this information is found when you create the bucket
+    aws_api_version: '%app.aws_api_version%' 
+    aws_key: '%app.aws_key%'
+    aws_secret: '%app.aws_secret%'
+    aws_region: '%app.aws_region%' 
+    aws_s3_bucket_name: '%app.aws_region%'
+
+    # This client secret / client are found when u register your app with slack
+    slack_client_secret: '%app.slack_client_secret%'
+    slack_client_id: '%app.slack_client_id%'
+
+```
+
+## Project Overview
+
+### Services and Interfaces
 
 Every service has an interface that is registered as a service.  This bundle only uses interfaces in the constructor of the classes.  This means that all you have to do to over ride a service is find the interface it is implementing and register the interface as a service in the app bundle.  
 
@@ -27,7 +93,7 @@ You can find the actual class implementation [here](https://github.com/phptuts/s
 Here is where services are registered for the bundle. [services.yml](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Resources/config/services.yml)
 
 
-## No JMS Serializer, Symfony Serializer, FOS Rest Bundles
+### No JMS Serializer, Symfony Serializer, FOS Rest Bundles
 
 Here are some reasons we decided not to use theses. 
 
@@ -36,17 +102,17 @@ Here are some reasons we decided not to use theses.
 3) FOS Rest Bundle is confusing to configure and most projects will use json and not xml so you bias you api based on that
 4) You can always add theses if u want, I think the authors have done an amazing job. ;)
 
-## Stateless Authentication
+### Stateless Authentication
 
 I feel that php sessions are confusing and vary too much from version to version.  It's easier to understand authentication if every request has a token / string that represents who the user is.  I believe this also helps separate concerns in the sense that client is responsible for storing the auth token and server is responsible for validating it.  
 
 
-## Ajax Login
+### Ajax Login
 
 I think it's better to do ajax login and just have the request contain a cookie that the client stores for authentication.  This means that you don't have to work about getting the last username and refreshing the page.  It's also makes  the guard logic simpler because every login response will have an auth cookie and authenticated response.
 
 
-## Response Envelopes
+### Response Envelopes
 
 I think that every response should be wrap around envelope that describes what it how to parse it.  The response envelops the project uses is meta, and data.  Meta will have a type that will clients to build parsers based on those types.
 
@@ -56,3 +122,8 @@ I think that every response should be wrap around envelope that describes what i
     "data":...
 }
 ```
+
+## Table of Contents
+
+- [Services](docs/services.md)
+- 
