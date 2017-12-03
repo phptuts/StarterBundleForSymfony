@@ -1,6 +1,5 @@
 <?php
 
-
 namespace StarterKit\StartBundle\Tests\Service;
 
 use Aws\Result;
