@@ -64,6 +64,6 @@ class SlackClientTest extends BaseTestCase
         $slackModel = $this->slackClient->getSlackUserFromOAuthCode('code');
 
         Assert::assertEquals('fake_email@gmail.com', $slackModel->getEmail());
-        Assert::assertEquals('fake_user_id', $slackModel->getSlackUserId());
+        Assert::assertEquals('fake_user_id', $slackModel->getUserId());
     }
 }

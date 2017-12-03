@@ -3,7 +3,7 @@
 namespace StarterKit\StartBundle\Client;
 
 use GuzzleHttp\Client;
-use StarterKit\StartBundle\Model\User\SlackUserModel;
+use StarterKit\StartBundle\Model\User\OAuthUser;
 
 /**
  * Class SlackClient
@@ -38,7 +38,7 @@ class SlackClient
      * identity.basic,identity.email
      *
      * @param string $code
-     * @return SlackUserModel
+     * @return OAuthUser
      */
     public function getSlackUserFromOAuthCode($code)
     {
@@ -52,7 +52,7 @@ class SlackClient
 
         $data = json_decode($request->getBody()->getContents(), true);
 
-        return new SlackUserModel(
+        return new OAuthUser(
             empty($data['user']['id']) ? null : $data['user']['id'],
             empty($data['user']['email']) ? null : $data['user']['email']
         );

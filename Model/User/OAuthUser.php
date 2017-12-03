@@ -6,12 +6,12 @@ namespace StarterKit\StartBundle\Model\User;
  * Class SlackUser
  * @package StarterKit\StartBundle\Model\User
  */
-class SlackUserModel
+class OAuthUser
 {
     /**
      * @var string
      */
-    private $slackUserId;
+    private $userId;
 
     /**
      * @var string
@@ -20,21 +20,21 @@ class SlackUserModel
 
     /**
      * SlackUser constructor.
-     * @param $slackUserId
+     * @param $userId
      * @param $email
      */
-    public function __construct($slackUserId, $email)
+    public function __construct($userId, $email)
     {
-        $this->slackUserId = $slackUserId;
+        $this->userId = $userId;
         $this->email = $email;
     }
 
     /**
      * @return string
      */
-    public function getSlackUserId()
+    public function getUserId()
     {
-        return $this->slackUserId;
+        return $this->userId;
     }
 
     /**
@@ -52,6 +52,6 @@ class SlackUserModel
      */
     public function isValid()
     {
-        return !empty($this->email) && !empty($this->slackUserId);
+        return !empty($this->email) && !empty($this->userId);
     }
 }

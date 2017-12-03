@@ -7,7 +7,7 @@ namespace StarterKit\StartBundle\Tests\Security\Provider;
 use Mockery\Mock;
 use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Client\SlackClient;
-use StarterKit\StartBundle\Model\User\SlackUserModel;
+use StarterKit\StartBundle\Model\User\OAuthUser;
 use StarterKit\StartBundle\Security\Provider\SlackProvider;
 use StarterKit\StartBundle\Service\UserService;
 use StarterKit\StartBundle\Service\UserServiceInterface;
@@ -48,7 +48,7 @@ class SlackProviderTest extends BaseTestCase
         $this->expectException(UsernameNotFoundException::class);
         $this->slackClient->shouldReceive('getSlackUserFromOAuthCode')
             ->with('bad_code')
-            ->andReturn(new SlackUserModel(null, null));
+            ->andReturn(new OAuthUser(null, null));
         $this->slackProvider->loadUserByUsername('bad_code');
     }
 
@@ -61,7 +61,7 @@ class SlackProviderTest extends BaseTestCase
 
         $this->slackClient->shouldReceive('getSlackUserFromOAuthCode')
             ->with('code_exists')
-            ->andReturn(new SlackUserModel('slack_id', 'email@gmail.com'));
+            ->andReturn(new OAuthUser('slack_id', 'email@gmail.com'));
 
         $this->userService->shouldReceive('findBySlackUserId')
                 ->with('slack_id')
@@ -82,7 +82,7 @@ class SlackProviderTest extends BaseTestCase
 
         $this->slackClient->shouldReceive('getSlackUserFromOAuthCode')
             ->with('code_exists')
-            ->andReturn(new SlackUserModel('slack_id', 'email@gmail.com'));
+            ->andReturn(new OAuthUser('slack_id', 'email@gmail.com'));
 
         $this->userService->shouldReceive('findBySlackUserId')
             ->with('slack_id')
@@ -108,7 +108,7 @@ class SlackProviderTest extends BaseTestCase
         $registeredUser = new User();
         $this->slackClient->shouldReceive('getSlackUserFromOAuthCode')
             ->with('code_new')
-            ->andReturn(new SlackUserModel('slack_id', 'email@gmail.com'));
+            ->andReturn(new OAuthUser('slack_id', 'email@gmail.com'));
 
         $this->userService->shouldReceive('findBySlackUserId')
             ->with('slack_id')

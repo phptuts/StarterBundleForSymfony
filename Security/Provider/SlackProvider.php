@@ -4,7 +4,7 @@ namespace StarterKit\StartBundle\Security\Provider;
 
 use StarterKit\StartBundle\Client\SlackClient;
 use StarterKit\StartBundle\Entity\BaseUser;
-use StarterKit\StartBundle\Model\User\SlackUserModel;
+use StarterKit\StartBundle\Model\User\OAuthUser;
 use StarterKit\StartBundle\Service\UserService;
 use StarterKit\StartBundle\Service\UserServiceInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -43,7 +43,7 @@ class SlackProvider implements SlackProviderInterface
             throw new UsernameNotFoundException('No access token found.');
         }
 
-        $user = $this->userService->findBySlackUserId($slackUser->getSlackUserId());
+        $user = $this->userService->findBySlackUserId($slackUser->getUserId());
 
         if (!empty($user)) {
             return $user;
@@ -52,7 +52,7 @@ class SlackProvider implements SlackProviderInterface
         $user = $this->userService->findUserByEmail($slackUser->getEmail());
 
         if (!empty($user)) {
-            $user->setSlackUserId($slackUser->getSlackUserId());
+            $user->setSlackUserId($slackUser->getUserId());
 
             return $user;
         }
@@ -63,16 +63,16 @@ class SlackProvider implements SlackProviderInterface
     /**
      * We register the user with their google id and email.
      *
-     * @param SlackUserModel $slackUser
+     * @param OAuthUser $slackUser
      * @return BaseUser
      */
-    protected function registerUser(SlackUserModel $slackUser)
+    protected function registerUser(OAuthUser $slackUser)
     {
         $className = $this->userService->getUserClass();
         /** @var BaseUser $user */
         $user = (new $className());
         $user->setEmail($slackUser->getEmail())
-            ->setSlackUserId($slackUser->getSlackUserId())
+            ->setSlackUserId($slackUser->getUserId())
             ->setPlainPassword(base64_encode(random_bytes(20)));
 
         return $this->userService->registerUser($user, UserService::SOURCE_TYPE_SLACK);
