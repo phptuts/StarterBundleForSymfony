@@ -60,3 +60,6 @@ Form errors are serialized like they are in the jms serializer bundle.  There is
 }
 ```
 
+## [ViewInterface](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Entity/ViewInterface.php)
+
+From what I have seen the most popular views to create of object are the single view and the list view.  We use these methods implemented in the user service to create the data to display to the frontend.

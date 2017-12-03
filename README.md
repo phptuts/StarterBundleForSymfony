@@ -126,3 +126,4 @@ I think that every response should be wrap around envelope that describes what i
 
 - [Services](docs/services.md)
 - [Response / Serialization](docs/serialize-response.md)
+- [Forms](docs/forms.md)
