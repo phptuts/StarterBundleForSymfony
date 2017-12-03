@@ -8,9 +8,7 @@ slack.com/oauth/authorize?client_id=276877614980.276992373984&scope=identity.bas
 
 ![oauth_screen](slack_screen.png)
 
-2 a) If the user clicks continue the user will send a get request with token in a query param called code.  This will be used to return CredentialTokenModel.
-
-2 b) If the user clicks cancel they will be sent to a page that will redirect them to the login page with oauth=start in the query parameter. It will hit the [getCredentials](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Security/Guard/OAuthGuard.php#L81) function which will return null.  Then it will be fed to the [start](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Security/Guard/OAuthGuard.php#L133) function.
+2) If the user clicks continue the user will send a get request with token in a query param called code.  This will be used to return CredentialTokenModel.  If the user clicks cancel they will be sent to a page that will redirect them to the login page with oauth=start in the query parameter. It will hit the [getCredentials](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Security/Guard/OAuthGuard.php#L81) function which will return null.  Then it will be fed to the [start](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Security/Guard/OAuthGuard.php#L133) function.
 
 3) Then getUser is called which will pass the token to the slack provider.
 
