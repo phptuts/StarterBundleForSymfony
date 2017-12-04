@@ -122,18 +122,16 @@ I think that every response should be wrap around envelope that describes what i
 }
 ```
 
+### Email Only Login
+
+I feel that email are the best approach to login and not username.  Mainly because they are unique and allow user tables to merged on a single point.  
+
 ## Table of Contents
 
 - [Services](docs/services.md)
 - [Response / Serialization](docs/serialize-response.md)
 - [Forms](docs/forms.md)
-- Security
-    - Login Guard
-    - StateLess Guard
-    - OAuth Guard
-    - OAuth Provider
-    - Access Token Provider
-    
+- [Security](docs/security.md)    
     
 ## How To / Examples
 
