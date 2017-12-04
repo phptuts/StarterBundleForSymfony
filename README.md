@@ -36,9 +36,14 @@ openssl genrsa -out var/jwt/private.pem -aes256 4096
 openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
 ```
 
-7) In your AppBundle -> Entity folder create a User class that extends the [BaseUser]().
+7) In your AppBundle -> Entity folder create a User class that extends the [BaseUser](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Entity/BaseUser.php).
 
-8) Configure the Bundle, in the app -> config -> config.yml file for symfony 3 and for symfony for create a file called starter_kit_start.yaml in config -> packages.  They are both yaml files.
+8) When u create your s3 Bucket you will need to a folder for each environment you have. In that folder you will need to add another folder called profile_pics which is where the personal pictures are stored. Say you have dev and prod.  You can over ride this or not use s3 if you want to.
+
+    prod -> profile_pics
+    dev -> profile_pics
+
+9) Configure the Bundle, in the app -> config -> config.yml file for symfony 3 and for symfony for create a file called starter_kit_start.yaml in config -> packages.  They are both yaml files.
 
 ``` 
 starter_kit_start:
@@ -71,7 +76,7 @@ starter_kit_start:
 
 ```
 
-9) Register Firewalls and Security Providers. This will be in the app -> config -> security.yml for symfony 3 and in config -> packages -> security.yaml for symfony 4.
+10) Register Firewalls and Security Providers. This will be in the app -> config -> security.yml for symfony 3 and in config -> packages -> security.yaml for symfony 4.
 
 
 ``` 
