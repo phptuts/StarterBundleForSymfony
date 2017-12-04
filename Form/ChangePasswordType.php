@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Authorization\AuthorizationChecker;
 use Symfony\Component\Form\Extension\Core\Type as Types;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Validator\Constraint;
 
 /**
  * Class ChangePasswordType
@@ -40,8 +41,14 @@ class ChangePasswordType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $validationGroups = [ChangePasswordModel::DEFAULT_CHANGE_PASSWORD_VALIDATION_GROUP];
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $validationGroups[] = ChangePasswordModel::VALIDATE_CURRENT_PASSWORD_GROUP;
+        }
+
         $resolver->setDefaults([
             'data_class' => ChangePasswordModel::class,
+            'validation_groups' => $validationGroups,
             'csrf_protection' => false,
         ]);
     }

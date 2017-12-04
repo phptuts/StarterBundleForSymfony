@@ -13,15 +13,33 @@ use StarterKit\StartBundle\Entity\BaseUser;
 class ChangePasswordModel
 {
     /**
+     * This validation group is only applied when the user is not admin
      * @var string
-     * @UserPassword(message="The password you entered does not match your current password.")
-     * @Constraints\NotBlank()
+     */
+    const VALIDATE_CURRENT_PASSWORD_GROUP = 'validate_current_password_group';
+
+    /**
+     * This is applied to all the validation groups
+     * @var string
+     */
+    const DEFAULT_CHANGE_PASSWORD_VALIDATION_GROUP = 'validate_default_group';
+
+    /**
+     * @var string
+     * @UserPassword(
+     *     message="The password you entered does not match your current password.",
+     *     groups={ChangePasswordModel::VALIDATE_CURRENT_PASSWORD_GROUP})
+     * @Constraints\NotBlank(groups={ChangePasswordModel::VALIDATE_CURRENT_PASSWORD_GROUP})
      */
     private $currentPassword;
 
     /**
-     * @Constraints\NotBlank()
-     * @Constraints\Length(min=BaseUser::MIN_PASSWORD_LENGTH, max=BaseUser::MAX_PASSWORD_LENGTH)
+     * @Constraints\NotBlank(groups={ChangePasswordModel::DEFAULT_CHANGE_PASSWORD_VALIDATION_GROUP})
+     * @Constraints\Length(
+     *     min=BaseUser::MIN_PASSWORD_LENGTH,
+     *     max=BaseUser::MAX_PASSWORD_LENGTH,
+     *     groups={ChangePasswordModel::DEFAULT_CHANGE_PASSWORD_VALIDATION_GROUP}
+     * )
      * @var string
      */
     private $newPassword;
