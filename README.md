@@ -135,7 +135,7 @@ I feel that email are the best approach to login and not username.  Mainly becau
     
 ## How To / Examples
 
-- How to use Auth Tokens Stored In the database
+- [How to use Auth Tokens Stored In the database](docs/examples/auth-db-tokens.md)
 - How to add Linked In Login (OAuth Provider)
 - How to add EasyAdmin Bundle For User Management
 - How to put in a Global Exception Handler
