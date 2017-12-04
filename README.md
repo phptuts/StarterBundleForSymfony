@@ -71,6 +71,106 @@ starter_kit_start:
 
 ```
 
+9) Register Firewalls and Security Providers. This will be in the app -> config -> security.yml for symfony 3 and in config -> packages -> security.yaml for symfony 4.
+
+
+``` 
+security:
+
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        email:
+            id: StarterKit\StartBundle\Security\Provider\EmailProviderInterface
+        slack:
+            id: StarterKit\StartBundle\Security\Provider\SlackProviderInterface
+        token:
+            id: StarterKit\StartBundle\Security\Provider\TokenProviderInterface
+        facebook:
+            id: StarterKit\StartBundle\Security\Provider\FacebookProviderInterface
+        google:
+            id: StarterKit\StartBundle\Security\Provider\GoogleProviderInterface
+        refresh:
+            id: StarterKit\StartBundle\Security\Provider\RefreshTokenProviderInterface
+
+    role_hierarchy:
+        ROLE_ADMIN:  [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
+
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        facebook:
+            pattern: ^/access-tokens/facebook
+            stateless: true
+            provider: facebook
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\LoginGuardInterface
+
+        google:
+            pattern: ^/access-tokens/google
+            stateless: true
+            provider: google
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\LoginGuardInterface
+
+        slack:
+            pattern: ^/oauth/slack*
+            stateless: true
+            provider: slack
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\OAuthGuardInterface
+
+        refresh:
+            pattern: ^/access-tokens/refresh
+            stateless: true
+            provider: refresh
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\LoginGuardInterface
+
+        login:
+            pattern: ^/login_check
+            stateless: true
+            provider: email
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\LoginGuardInterface
+
+        api:
+            pattern: ^/api*
+            anonymous: ~
+            stateless: true
+            provider: token
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\StateLess\ApiGuardInterface
+
+        main:
+            pattern: ^/*
+            anonymous: ~
+            provider: token
+            stateless: true
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\StateLess\WebsiteGuardInterface
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+```
+
+
 ## Project Overview
 
 ### Services and Interfaces
