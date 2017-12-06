@@ -22,7 +22,6 @@
     "egulias/email-validator": "^2.1",
     "facebook/graph-sdk": "^5.5",
     "guzzlehttp/guzzle": "^6.3",
-    "incenteev/composer-parameter-handler": "^2.0",
     "namshi/jose": "^7.2",
     "nelmio/api-doc-bundle": "^2.13",
     "sensio/framework-extra-bundle": "~2.3|~3.0|4.0.x|~5.0",
