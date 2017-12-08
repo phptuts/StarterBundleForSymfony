@@ -25,7 +25,7 @@
     "guzzlehttp/guzzle": "^6.3",
     "namshi/jose": "^7.2",
     "nelmio/api-doc-bundle": "^2.13",
-    "sensio/framework-extra-bundle": "^3.3",
+    "sensio/framework-extra-bundle": "3.0.*",
     "symfony/symfony": "3.3.*"
   },
   "require-dev": {
