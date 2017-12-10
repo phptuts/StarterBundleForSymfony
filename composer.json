@@ -24,7 +24,6 @@
     "google/apiclient": "^2.0",
     "guzzlehttp/guzzle": "^6.3",
     "namshi/jose": "^7.2",
-    "nelmio/api-doc-bundle": "^2.13",
     "sensio/framework-extra-bundle": "3.0.*",
     "symfony/security-bundle": "3.4.*|^4.0",
     "symfony/form": "~3.0|^4.0",
