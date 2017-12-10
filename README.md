@@ -1,4 +1,4 @@
-# Setup Guide and Project Overview 
+# Setup Guide and Project Overview
 
 [![Build Status](https://travis-ci.org/phptuts/starterkitforsymfony.svg?branch=master)](https://travis-ci.org/phptuts/starterkitforsymfony)  
 
