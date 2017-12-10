@@ -5,6 +5,7 @@ namespace StarterKit\StartBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Nelmio\Alice\Fixtures;
+use Nelmio\Alice\Loader\NativeLoader;
 
 /**
  * Class LoadStartUserData
@@ -19,10 +20,12 @@ class LoadStartUserData implements FixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        Fixtures::load([
-            __DIR__ . '/starter_user.yml',
-            ], $manager
-        );
+        $loader = new NativeLoader();
+        $objectSet = $loader->loadFile(__DIR__ . '/starter_user.yml');
+        foreach ($objectSet->getObjects() as $object) {
+            $manager->persist($object);
+        }
+        $manager->flush();
     }
 
 }

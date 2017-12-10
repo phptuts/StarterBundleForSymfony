@@ -3,7 +3,7 @@ StarterKit\StartBundle\Tests\Entity\User:
     users{1..100}:
         email: <email()>
         displayName: <username()>
-        password: $2a$06$kMlfGawSV7sI1trHzAYuK.8Bg8YNHuIHgp4Kvwpn2nBmtTadizbJ.
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m'
         roles: ['ROLE_USER']
         enabled: true
         source: 'website'
@@ -11,66 +11,57 @@ StarterKit\StartBundle\Tests\Entity\User:
 
     example_user:
         email: 'example@gmail.com'
-        password: $2a$06$kMlfGawSV7sI1trHzAYuK.8Bg8YNHuIHgp4Kvwpn2nBmtTadizbJ.
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m'
         roles: ['ROLE_USER']
         enabled: true
         source: 'website'
 
     regular_user:
         email: 'regular_user@gmail.com'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_USER']
         enabled: true
         source: 'website'
 
     admin_user:
         email: 'admin_user@gmail.com'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_ADMIN']
         enabled: true
         source: 'website'
 
     change_email_user:
         email: 'change_email_user@gmail.com'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_ADMIN']
         enabled: true
         source: 'website'
 
     disable_user:
         email: 'disable_user@gmail.com'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_ADMIN']
         enabled: true
         source: 'website'
 
     change_password_user:
         email: 'change_password_user@gmail.com'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_ADMIN']
         enabled: true
         source: 'website'
 
     future_admin_user:
         email: 'future_admin_user@gmail.com'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_USER']
         enabled: true
         source: 'website'
 
-    slack_user:
-        email: 'slack_user@gmail.com'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
-        roles: ['ROLE_USER']
-        enabled: true
-        source: 'slack'
-        slackUserId: 'slack_33'
-
-
 
     forget_password_1:
         email: 'forget_password_1@gmail.com'
-        password: $2a$06$kMlfGawSV7sI1trHzAYuK.8Bg8YNHuIHgp4Kvwpn2nBmtTadizbJ.
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m'
         roles: ['ROLE_USER']
         enabled: true
         forgetPasswordToken: 'token'
@@ -79,7 +70,7 @@ StarterKit\StartBundle\Tests\Entity\User:
 
     forget_password_2:
         email: 'forget_password_2@gmail.com'
-        password: $2a$06$kMlfGawSV7sI1trHzAYuK.8Bg8YNHuIHgp4Kvwpn2nBmtTadizbJ.
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m'
         roles: ['ROLE_USER']
         enabled: true
         forgetPasswordToken: 'token'
@@ -89,7 +80,7 @@ StarterKit\StartBundle\Tests\Entity\User:
     forget_password_3:
         email: 'forget_password_3@gmail.com'
         displayName: 'forgotten'
-        password: $2a$06$kMlfGawSV7sI1trHzAYuK.8Bg8YNHuIHgp4Kvwpn2nBmtTadizbJ.
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m'
         roles: ['ROLE_USER']
         enabled: true
         forgetPasswordToken: 'token_1'
@@ -99,7 +90,7 @@ StarterKit\StartBundle\Tests\Entity\User:
     forget_password_end_2_end:
         email: 'forget_password_end_2_end@gmail.com'
         displayName: 'forget_password_end_2_end'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_USER']
         enabled: true
         source: 'website'
@@ -107,7 +98,7 @@ StarterKit\StartBundle\Tests\Entity\User:
     change_password_end_2_end:
         email: 'change_password_end_2_end@gmail.com'
         displayName: 'change_password_end_2_end'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_USER']
         enabled: true
         source: 'website'
@@ -115,28 +106,28 @@ StarterKit\StartBundle\Tests\Entity\User:
     update_user_e2e:
         email: update_user_e2e@email.com
         displayName: 'update_user_e2e'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_USER']
         enabled: true
         source: 'website'
 
     account_setting_user:
         email: 'update_profile@gmail.com'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_USER']
         enabled: true
         source: 'website'
 
     account_setting_change_password:
         email: 'change_password@gmail.com'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_USER']
         enabled: true
         source: 'website'
 
     facebook_user_id_test:
         email: 'facebook_user_id_test@gmail.com'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_USER']
         enabled: true
         source: 'website'
@@ -144,7 +135,7 @@ StarterKit\StartBundle\Tests\Entity\User:
 
     google_user_id_test:
         email: 'google_user_id_test@gmail.com'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_USER']
         enabled: true
         source: 'website'
@@ -152,7 +143,7 @@ StarterKit\StartBundle\Tests\Entity\User:
 
     refresh_token_valid:
         email: 'refresh_token_valid@gmail.com'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_USER']
         enabled: true
         source: 'website'
@@ -161,9 +152,17 @@ StarterKit\StartBundle\Tests\Entity\User:
 
     refresh_token_expired:
         email: 'refresh_token_expired@gmail.com'
-        password: $2a$12$b/Qrjir.7xX31iX7VQ0vVuy65DesSQqQarcDg54W/AbFo1.alHD4q #password
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
         roles: ['ROLE_USER']
         enabled: true
         source: 'website'
         refreshToken: 'refresh_token_expired'
         refreshTokenExpire: '<dateTimeBetween("-10 days", "-1 days")>'
+
+    slack_user:
+        email: 'slack_user@gmail.com'
+        password: '\$2a\$12\$JO7QBUxZb1nsKupfz/DG..GmP4gsWMmaZ41oUt7MUf0Ot4yuZM46m' #password
+        roles: ['ROLE_USER']
+        enabled: true
+        source: 'slack'
+        slackUserId: 'slack_33'
