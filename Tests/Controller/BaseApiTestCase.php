@@ -13,6 +13,7 @@ use StarterKit\StartBundle\Tests\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class BaseApiTestCase extends BaseTestCase
 {
@@ -40,9 +41,10 @@ class BaseApiTestCase extends BaseTestCase
 
         $this->environment = 'starter_kit_test';
 
+        // Does not do password only for searching user's
         $userService = new UserService(
             $this->getContainer()->get('doctrine.orm.entity_manager'),
-            $this->getContainer()->get('security.encoder_factory'),
+            \Mockery::mock(UserPasswordEncoderInterface::class),
             $this->getContainer()->get('event_dispatcher'),
             $this->getContainer()->getParameter('starter_kit_start.refresh_token_ttl'),
             $this->getContainer()->getParameter('starter_kit_start.user_class')
@@ -55,7 +57,7 @@ class BaseApiTestCase extends BaseTestCase
             $this->getContainer()->getParameter('kernel.project_dir')
         );
 
-        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
+        $em = $this->getContainer()->get('doctrine.orm.default_entity_manager');
         $this->userRepository = $em->getRepository(User::class);
         $this->facebookClientFactory = new FaceBookClientFactory(
             $this->getContainer()->getParameter('starter_kit_start.facebook_app_id'),

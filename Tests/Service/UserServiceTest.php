@@ -11,8 +11,7 @@ use StarterKit\StartBundle\Service\UserService;
 use StarterKit\StartBundle\Tests\BaseTestCase;
 use StarterKit\StartBundle\Tests\Entity\User;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactory;
-use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class UserServiceTest extends BaseTestCase
 {
@@ -22,9 +21,9 @@ class UserServiceTest extends BaseTestCase
     protected $em;
 
     /**
-     * @var EncoderFactory|Mock
+     * @var UserPasswordEncoderInterface|Mock
      */
-    protected $encoderFactory;
+    protected $userPasswordEncoder;
 
     /**
      * @var UserService
@@ -39,7 +38,7 @@ class UserServiceTest extends BaseTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->encoderFactory = \Mockery::mock(EncoderFactory::class);
+        $this->userPasswordEncoder = \Mockery::mock(UserPasswordEncoderInterface::class);
         $this->em = \Mockery::mock(EntityManager::class);
         $this->eventDispatcher = \Mockery::mock(EventDispatcherInterface::class);
         $this->em->shouldReceive('getRepository')->with(User::class)->andReturn(
@@ -47,7 +46,7 @@ class UserServiceTest extends BaseTestCase
         );
         $this->userService = new UserService(
             $this->em,
-            $this->encoderFactory,
+            $this->userPasswordEncoder,
             $this->eventDispatcher,
             10368000,
             User::class
@@ -77,9 +76,7 @@ class UserServiceTest extends BaseTestCase
         $user = new User();
         $user->setPlainPassword('password');
 
-        $encoder = \Mockery::mock(PasswordEncoderInterface::class);
-        $encoder->shouldReceive('encodePassword')->with('password', null)->andReturn('adfasdf3dafsa');
-        $this->encoderFactory->shouldReceive('getEncoder')->with($user)->andReturn($encoder);
+        $this->userPasswordEncoder->shouldReceive('encodePassword')->with($user, 'password')->andReturn('adfasdf3dafsa');
 
         $this->em->shouldReceive('persist')->once()->with($user);
         $this->em->shouldReceive('flush')->once();
@@ -97,9 +94,7 @@ class UserServiceTest extends BaseTestCase
         $user = new User();
         $user->setPlainPassword('password')->setForgetPasswordToken('token')->setForgetPasswordExpired(new \DateTime());
 
-        $encoder = \Mockery::mock(PasswordEncoderInterface::class);
-        $encoder->shouldReceive('encodePassword')->with('password', null)->andReturn('adfasdf3dafsa');
-        $this->encoderFactory->shouldReceive('getEncoder')->with($user)->andReturn($encoder);
+        $this->userPasswordEncoder->shouldReceive('encodePassword')->with($user, 'password')->andReturn('adfasdf3dafsa');
 
         $this->em->shouldReceive('persist')->once()->with($user);
         $this->em->shouldReceive('flush')->once();
@@ -237,13 +232,8 @@ class UserServiceTest extends BaseTestCase
     {
         $user = new User();
         $user->setPlainPassword('moomoo');
-        $encoder = \Mockery::mock(PasswordEncoderInterface::class);
-        $encoder->shouldReceive('encodePassword')->with('moomoo', null)->andReturn('adfasdfasdfasdfa');
+        $this->userPasswordEncoder->shouldReceive('encodePassword')->with($user, 'moomoo')->andReturn('adfasdfasdfasdfa');
 
-        $this->encoderFactory
-            ->shouldReceive('getEncoder')
-            ->with($user)
-            ->andReturn($encoder);
 
         $this->eventDispatcher->shouldReceive('dispatch')->with(
             UserService::REGISTER_EVENT,

@@ -10,6 +10,7 @@ use StarterKit\StartBundle\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class UserService
@@ -70,9 +71,9 @@ class UserService implements UserServiceInterface
     const FORGET_PASSWORD_EVENT = 'forget_password_event';
 
     /**
-     * @var EncoderFactoryInterface
+     * @var UserPasswordEncoderInterface
      */
-    protected $encoderFactory;
+    protected $userPasswordEncoder;
 
     /**
      * @var UserRepository
@@ -103,19 +104,19 @@ class UserService implements UserServiceInterface
     /**
      * UserService constructor.
      * @param EntityManagerInterface $em
-     * @param EncoderFactoryInterface $encoderFactory
+     * @param UserPasswordEncoderInterface $userPasswordEncoder
      * @param EventDispatcherInterface $dispatcher
      * @param int $refreshTokenTTL
      * @param string $userClass the fully qualified user user class
      */
     public function __construct(
         EntityManagerInterface $em,
-        EncoderFactoryInterface $encoderFactory,
+        UserPasswordEncoderInterface $userPasswordEncoder,
         EventDispatcherInterface $dispatcher,
         $refreshTokenTTL,
         $userClass
     ) {
-        $this->encoderFactory = $encoderFactory;
+        $this->userPasswordEncoder = $userPasswordEncoder;
         $this->refreshTokenTTL = $refreshTokenTTL;
         $this->em = $em;
         $this->userRepository = $this->em->getRepository($userClass);
@@ -245,8 +246,7 @@ class UserService implements UserServiceInterface
             throw new ProgrammerException("Plain Password must be set.", ProgrammerException::NO_PLAIN_PASSWORD_ON_USER_ENTITY_EXCEPTION_CODE);
         }
 
-        $encoder = $this->encoderFactory->getEncoder($user);
-        $user->setPassword($encoder->encodePassword($user->getPlainPassword(), $user->getSalt()));
+        $user->setPassword($this->userPasswordEncoder->encodePassword($user, $user->getPlainPassword()));
         $user->eraseCredentials();
         $this->save($user);
     }

@@ -2,14 +2,38 @@
 
 namespace StarterKit\StartBundle\Tests;
 
-use Liip\FunctionalTestBundle\Test\WebTestCase;
+
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Client;
 
 class BaseTestCase extends WebTestCase
 {
+    const ENVIRONMENT = 'starter_kit_test';
+
+    /**
+     * @var Client
+     */
+    protected $client;
+
+    /**
+     * @var string
+     */
+    protected $environment = self::ENVIRONMENT;
+
     public function setUp()
     {
-        $this->environment = 'starter_kit_test';
+        $this->client = static::createClient(['environment' => $this->environment]);
         parent::setUp();
+    }
+
+    public function getContainer()
+    {
+        return $this->client->getContainer();
+    }
+
+    public function makeClient()
+    {
+        return $this->client;
     }
 
     /**

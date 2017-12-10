@@ -17,6 +17,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class ImageUploadTest extends BaseApiTestCase
 {
@@ -29,11 +30,6 @@ class ImageUploadTest extends BaseApiTestCase
      * @var UserService|Mock
      */
     protected $userService;
-
-    /**
-     * @var FormSerializer|Mock
-     */
-    protected $formSerializer;
 
     /**
      * @var AuthResponseService|Mock
@@ -52,10 +48,12 @@ class ImageUploadTest extends BaseApiTestCase
         $this->s3Service = \Mockery::mock(S3Service::class);
         $this->userService = \Mockery::mock(UserService::class);
         $this->authResponseService = \Mockery::mock(AuthResponseService::class);
-        $this->formSerializer = \Mockery::mock(FormSerializer::class);
+        $translator = \Mockery::mock(TranslatorInterface::class);
+        $translator->shouldReceive('trans')->withAnyArgs()->andReturn('form_error');
+        $translator->shouldReceive('transChoice')->withAnyArgs()->andReturn('form_error');
 
         $this->userController = new UserController(
-            $this->getContainer()->get('StarterKit\StartBundle\Service\FormSerializer'),
+            new FormSerializer($translator),
             $this->userService,
             $this->authResponseService,
             $this->s3Service

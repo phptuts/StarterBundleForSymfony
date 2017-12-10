@@ -6,12 +6,13 @@ namespace StarterKit\StartBundle\Tests\Service;
 use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Service\FormSerializer;
 use StarterKit\StartBundle\Tests\BaseTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
@@ -29,13 +30,16 @@ class FormSerializerTest extends BaseTestCase
     public function setUp()
     {
         parent::setUp();
-        $this->formSerializer = $this->getContainer()->get('StarterKit\StartBundle\Service\FormSerializer');
+        $translator = \Mockery::mock(TranslatorInterface::class);
+        $translator->shouldReceive('trans')->withAnyArgs()->andReturn('form_error');
+        $translator->shouldReceive('transChoice')->withAnyArgs()->andReturn('form_error');
+        $this->formSerializer = new FormSerializer($translator);
 
     }
 
     public function testEmptyForm()
     {
-        $expectedJsonString = '{"errors":["The CSRF token is invalid. Please try to resubmit the form."],"children":{"name":{"errors":["This value should not be blank."]},"emails":{"errors":["This collection should contain 3 elements or more."]}}}';
+        $expectedJsonString = '{"errors":["form_error"],"children":{"name":{"errors":["form_error"]},"emails":{"errors":["form_error"]}}}';
 
 
         /** @var Form $form  */
@@ -64,29 +68,29 @@ class FormSerializerTest extends BaseTestCase
         $form->submit($data);
 
         $jsonString = '{"errors":[  
-      "The CSRF token is invalid. Please try to resubmit the form."
+      "form_error"
    ],
    "children":{  
       "name":{  
          "errors":[  
-            "This value should not be blank."
+            "form_error"
          ]
       },
       "emails":{  
          "errors":[  
-            "This collection should contain 0 elements or less."
+            "form_error"
          ],
          "children":[  
             {  
                "children":{  
                   "provider":{  
                      "errors":[  
-                        "This value should not be blank."
+                        "form_error"
                      ]
                   },
                   "email":{  
                      "errors":[  
-                        "This value is not a valid email address."
+                        "form_error"
                      ]
                   }
                }

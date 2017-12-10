@@ -8,8 +8,8 @@ use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Exception\ProgrammerException;
 use StarterKit\StartBundle\Service\JWSTokenService;
 use StarterKit\StartBundle\Service\UserServiceInterface;
+use StarterKit\StartBundle\Tests\BaseTestCase;
 use StarterKit\StartBundle\Tests\Entity\User;
-use Tests\BaseTestCase;
 
 class JWSTokenServiceTest extends BaseTestCase
 {

@@ -1,14 +1,13 @@
 <?php
 
-namespace StarterKit\StartBundle\Tests\Security\Guard;
+namespace StarterKit\StartBundle\Tests\Security\Guard\Login;
 
 use Mockery\Mock;
 use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Event\AuthFailedEvent;
 use StarterKit\StartBundle\Event\UserEvent;
 use StarterKit\StartBundle\Model\Credential\CredentialEmailModel;
-use StarterKit\StartBundle\Model\Credential\CredentialTokenModel;
-use StarterKit\StartBundle\Security\Guard\LoginGuard;
+use StarterKit\StartBundle\Security\Guard\Login\EmailGuard;
 use StarterKit\StartBundle\Service\AuthResponseServiceInterface;
 use StarterKit\StartBundle\Tests\BaseTestCase;
 use StarterKit\StartBundle\Tests\Entity\User;
@@ -16,25 +15,16 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\PreAuthenticatedToken;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\PasswordEncoderInterface;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
-/**
- * Class LoginGuardTest
- * @package StarterKit\StartBundle\Tests\Security\Guard        EncoderFactoryInterface $encoderFactory,
-EventDispatcherInterface $dispatcher,
-AuthResponseServiceInterface $authResponseService)
-
- */
-
-class LoginGuardTest extends BaseTestCase
+class EmailGuardTest extends BaseTestCase
 {
-
     /**
-     * @var EncoderFactoryInterface|Mock
+     * @var UserPasswordEncoderInterface|Mock
      */
-    protected $encoderFactory;
+    protected $userPasswordEncoderFactory;
 
     /**
      * @var EventDispatcherInterface|Mock
@@ -47,7 +37,7 @@ class LoginGuardTest extends BaseTestCase
     protected $authResponseService;
 
     /**
-     * @var LoginGuard
+     * @var EmailGuard
      */
     protected $guard;
 
@@ -56,14 +46,40 @@ class LoginGuardTest extends BaseTestCase
         parent::setUp();
         $this->dispatcher = \Mockery::mock(EventDispatcherInterface::class);
         $this->authResponseService = \Mockery::mock(AuthResponseServiceInterface::class);
-        $this->encoderFactory = \Mockery::mock(EncoderFactoryInterface::class);
-        $this->guard = new LoginGuard($this->encoderFactory, $this->dispatcher, $this->authResponseService);
+        $this->userPasswordEncoderFactory = \Mockery::mock(UserPasswordEncoderInterface::class);
+        $this->guard = new EmailGuard($this->dispatcher, $this->authResponseService, $this->userPasswordEncoderFactory);
     }
 
     /**
-     * Tests that email / password combo creates the right CredentialModel
+     * Test that a valid request returns true
      */
-    public function testEmailPasswordRequest()
+    public function testSupportWithValidRequest()
+    {
+        $jsonString = json_encode(['email' => 'glaserpower@gmail.com', 'password' => 'password']);
+        $request = Request::create('/login_check', 'POST', [], [], [], [], $jsonString);
+
+        Assert::assertTrue($this->guard->supports($request));
+    }
+
+    /**
+     * Tests that invalid requests return false
+     */
+    public function testSupportWithInvalidRequests()
+    {
+        $jsonString = json_encode(['email' => 'glaserpower@gmail.com']);
+        $request = Request::create('/login_check', 'POST', [], [], [], [], $jsonString);
+
+        Assert::assertFalse($this->guard->supports($request));
+
+        $request = Request::create('/login_check', 'POST');
+
+        Assert::assertFalse($this->guard->supports($request));
+    }
+
+    /**
+     * Tests that CredentialEmailModel is return
+     */
+    public function testGetCredentials()
     {
         $jsonString = json_encode(['email' => 'glaserpower@gmail.com', 'password' => 'password']);
         $request = Request::create('/login_check', 'POST', [], [], [], [], $jsonString);
@@ -73,39 +89,7 @@ class LoginGuardTest extends BaseTestCase
         Assert::assertInstanceOf(CredentialEmailModel::class, $model);
         Assert::assertEquals('glaserpower@gmail.com', $model->getEmail());
         Assert::assertEquals('password', $model->getPassword());
-    }
 
-    /**
-     * Tests that the token model returns the right model
-     */
-    public function testTokenRequest()
-    {
-        $jsonString = json_encode(['token' => 'fb_token']);
-        $request = Request::create('/login_check', 'POST', [], [], [], [], $jsonString);
-
-        $model = $this->guard->getCredentials($request);
-
-        Assert::assertInstanceOf(CredentialTokenModel::class, $model);
-        Assert::assertEquals('fb_token', $model->getUserIdentifier());
-    }
-
-    /**
-     * Test invalid request return null
-     */
-    public function testInvalidRequestReturnsNull()
-    {
-        $jsonString = json_encode(['moo' => 'fb_token']);
-        $request = Request::create('/login_check', 'POST', [], [], [], [], $jsonString);
-        Assert::assertNull($this->guard->getCredentials($request));
-    }
-
-    /**
-     * Tests that token credential model return true, this is because the validation is done in provider
-     */
-    public function testCheckCredentialsWithTokenReturnsTrue()
-    {
-        $model = new CredentialTokenModel('token');
-        Assert::assertTrue($this->guard->checkCredentials($model, new User()));
     }
 
     /**
@@ -115,11 +99,12 @@ class LoginGuardTest extends BaseTestCase
     {
         $user = new User();
         $user->setPassword('pass');
-        $encoder = \Mockery::mock(PasswordEncoderInterface::class);
-        $encoder->shouldReceive('isPasswordValid', 'pass', 'no_hash_pass', null)->andReturn(true);
         $model = new CredentialEmailModel('email', 'no_hash_pass');
 
-        $this->encoderFactory->shouldReceive('getEncoder')->with($user)->andReturn($encoder);
+        $this->userPasswordEncoderFactory
+            ->shouldReceive('isPasswordValid')
+            ->with($user, 'no_hash_pass')
+            ->andReturn(true);
 
         Assert::assertTrue($this->guard->checkCredentials($model, $user));
     }
@@ -164,11 +149,14 @@ class LoginGuardTest extends BaseTestCase
             ->with('login_failure', \Mockery::type(AuthFailedEvent::class))
             ->once();
 
-       $response = $this->guard->onAuthenticationFailure($request, new AuthenticationException('blah'));
+        $response = $this->guard->onAuthenticationFailure($request, new AuthenticationException('blah'));
 
-       Assert::assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
+        Assert::assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
     }
 
+    /**
+     * Tests that 401 is returned
+     */
     public function testStart()
     {
         $request =  Request::create('/login_check', 'POST', ['token' => 'toke']);

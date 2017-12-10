@@ -1,11 +1,12 @@
 <?php
 
-namespace StarterKit\StartBundle\Security\Guard;
+namespace StarterKit\StartBundle\Security\Guard\OAuth;
 
 
 use StarterKit\StartBundle\Event\AuthFailedEvent;
 use StarterKit\StartBundle\Event\UserEvent;
 use StarterKit\StartBundle\Model\Credential\CredentialTokenModel;
+use StarterKit\StartBundle\Security\Guard\GuardTrait;
 use StarterKit\StartBundle\Service\AuthResponseServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -72,20 +73,24 @@ class OAuthGuard extends AbstractGuardAuthenticator implements OAuthGuardInterfa
         $this->loginPath = $loginPath;
     }
 
+    public function supports(Request $request)
+    {
+        return $request->isMethod('GET') && $request->query->has('code');
+    }
+
     /**
-     * 1) Gets the code from response.  We check for GET because we want to reject OPTIONS request.
+     * 2) Gets the code from response.  We check for GET because we want to reject OPTIONS request.
      *
      * @param Request $request
      * @return null|CredentialTokenModel
      */
     public function getCredentials(Request $request)
     {
-        return $request->isMethod('GET') && $request->query->has('code') ?
-            new CredentialTokenModel($request->query->get('code')) : null;
+        return new CredentialTokenModel($request->query->get('code'));
     }
 
     /**
-     * 4a) Return an authorized response.
+     * 5a) Return an authorized response.
      *
      * The page rendered will redirect the user to the home page.  We can't do the RedirectResponse.
      *
@@ -105,7 +110,7 @@ class OAuthGuard extends AbstractGuardAuthenticator implements OAuthGuardInterfa
     }
 
     /**
-     * 4a) Returns a 403.
+     * 5a) Returns a 403.
      *
      * The page rendered will redirect the user to the login page.  This happens when third party api fails.
      *

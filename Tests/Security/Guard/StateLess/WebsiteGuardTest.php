@@ -30,25 +30,29 @@ class WebsiteGuardTest extends BaseTestCase
         $this->guard = new WebsiteGuard($this->dispatcher, 'login');
     }
 
+    public function testSupportsValidRequestWithCookieReturnsTrue()
+    {
+        $request = Request::create('/api/users', 'GET');
+        $request->cookies->set('auth_cookie', 'jwt_token');
+        Assert::assertTrue($this->guard->supports($request));
+    }
+
+    public function testSupportInvalidRequestReturnFalse()
+    {
+        $request = Request::create('/api/users', 'POST');
+        Assert::assertFalse($this->guard->supports($request));
+    }
+
     /**
      * Tests that if auth cookie is present that get credentials returns an Model
      */
-    public function testGetCredentialsValidResponse()
+    public function testGetCredentials()
     {
         $request = Request::create('/users', 'GET');
         $request->cookies->set('auth_cookie', 'token');
         $model = $this->guard->getCredentials($request);
 
         Assert::assertEquals('token', $model->getUserIdentifier());
-    }
-
-    /**
-     * Tests that no auth returns null
-     */
-    public function testNoAuthResponseReturnNull()
-    {
-        $request = Request::create('/users', 'GET');
-        Assert::assertNull($this->guard->getCredentials($request));
     }
 
     /**

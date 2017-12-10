@@ -2,9 +2,9 @@
 
 namespace StarterKit\StartBundle\Security\Guard\StateLess;
 
-use Symfony\Component\Security\Guard\GuardAuthenticatorInterface;
+use Symfony\Component\Security\Guard\AuthenticatorInterface;
 
-interface WebsiteGuardInterface extends GuardAuthenticatorInterface
+interface WebsiteGuardInterface extends AuthenticatorInterface
 {
 
 }

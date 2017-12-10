@@ -33,19 +33,27 @@ class ApiGuardTest extends BaseTestCase
         $this->guard = new ApiGuard($this->dispatcher);
     }
 
-    public function testGetCredentialsValidResponse()
+    public function testSupportsValidRequestReturnTrue()
+    {
+        $request = Request::create('/api/users', 'GET');
+        $request->headers->set('Authorization', 'Bearer token');
+        Assert::assertTrue($this->guard->supports($request));
+    }
+
+
+    public function testSupportInvalidRequestReturnFalse()
+    {
+        $request = Request::create('/api/users', 'POST');
+        Assert::assertFalse($this->guard->supports($request));
+    }
+
+    public function testGetCredentialReturnsTokenModel()
     {
         $request = Request::create('/api/users', 'GET');
         $request->headers->set('Authorization', 'Bearer token');
         $model = $this->guard->getCredentials($request);
 
         Assert::assertEquals('token', $model->getUserIdentifier());
-    }
-
-    public function testNonApiResponseReturnsNull()
-    {
-        $request = Request::create('/api/users', 'POST');
-        Assert::assertNull($this->guard->getCredentials($request));
     }
 
     public function testOnSuccessReturnsNull()

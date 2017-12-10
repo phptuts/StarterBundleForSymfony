@@ -1,13 +1,13 @@
 <?php
 
-namespace StarterKit\StartBundle\Tests\Security\Guard;
+namespace StarterKit\StartBundle\Tests\Security\Guard\OAuth;
 
 use Mockery\Mock;
 use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Event\AuthFailedEvent;
 use StarterKit\StartBundle\Event\UserEvent;
 use StarterKit\StartBundle\Model\Credential\CredentialTokenModel;
-use StarterKit\StartBundle\Security\Guard\OAuthGuard;
+use StarterKit\StartBundle\Security\Guard\OAuth\OAuthGuard;
 use StarterKit\StartBundle\Service\AuthResponseService;
 use StarterKit\StartBundle\Service\AuthResponseServiceInterface;
 use StarterKit\StartBundle\Tests\BaseTestCase;
@@ -52,9 +52,21 @@ class OAuthGuardTest extends BaseTestCase
     }
 
     /**
+     * Tests invalid oauth requests return null
+     */
+    public function testSupportsInvalidRequestReturnFalse()
+    {
+        $request =  Request::create('/oauth/slack', 'GET');
+        Assert::assertFalse($this->guard->supports($request));
+
+        $request =  Request::create('/oauth/slack', 'POST', ['code' => 'ouath_code']);
+        Assert::assertFalse($this->guard->supports($request));
+    }
+
+    /**
      * Tests that a valid oauth requests returns a token model with the code
      */
-    public function testGetCredentialsValidRequest()
+    public function testGetCredentialsReturnsCredentialTokenModel()
     {
         $request =  Request::create('/oauth/slack', 'GET', ['code' => 'oauth_code']);
 
@@ -62,18 +74,6 @@ class OAuthGuardTest extends BaseTestCase
 
         Assert::assertInstanceOf(CredentialTokenModel::class, $model);
         Assert::assertEquals('oauth_code', $model->getUserIdentifier());
-    }
-
-    /**
-     * Tests invalid oauth requests return null
-     */
-    public function testGetCredentialsInValidRequest()
-    {
-        $request =  Request::create('/oauth/slack', 'GET');
-        Assert::assertNull($this->guard->getCredentials($request));
-
-        $request =  Request::create('/oauth/slack', 'POST', ['code' => 'ouath_code']);
-        Assert::assertNull($this->guard->getCredentials($request));
     }
 
     /**

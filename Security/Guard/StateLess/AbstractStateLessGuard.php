@@ -10,6 +10,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Guard\AbstractGuardAuthenticator;
 
+/**
+ * Class AbstractStateLessGuard
+ * @package StarterKit\StartBundle\Security\Guard\StateLess
+ */
 abstract class AbstractStateLessGuard extends AbstractGuardAuthenticator
 {
     use GuardTrait;
@@ -38,28 +42,32 @@ abstract class AbstractStateLessGuard extends AbstractGuardAuthenticator
     }
 
     /**
-     * 1) Gets the token from header and creates a CredentialToken Model
+     * 1) Returns true if the guard
+     *
+     * @param Request $request
+     * @return bool
+     */
+    public function supports(Request $request)
+    {
+        return !empty($request->headers->get(self::AUTHORIZATION_HEADER)) || !empty($request->cookies->get(AuthResponseService::AUTH_COOKIE));
+    }
+
+    /**
+     * 2) Gets the token from header and creates a CredentialToken Model
      *
      * @param Request $request
      * @return null|CredentialTokenModel
      */
     public function getCredentials(Request $request)
     {
-        if (!empty($request->headers->get(self::AUTHORIZATION_HEADER))) {
+        $token = $request->headers->get(self::AUTHORIZATION_HEADER) ??
+            $request->cookies->get(AuthResponseService::AUTH_COOKIE);
 
-            return new CredentialTokenModel(str_replace(self::BEARER, '', $request->headers->get(self::AUTHORIZATION_HEADER)));
-        }
-
-        if (!empty($request->cookies->get(AuthResponseService::AUTH_COOKIE))) {
-
-            return new CredentialTokenModel($request->cookies->get(AuthResponseService::AUTH_COOKIE));
-        }
-
-        return null;
+        return new CredentialTokenModel(str_replace(self::BEARER, '', $token));
     }
 
     /**
-     * 4a) This will always return null because we want the request to continue
+     * 5a) This will always return null because we want the request to continue
      *
      * @param Request $request
      * @param TokenInterface $token

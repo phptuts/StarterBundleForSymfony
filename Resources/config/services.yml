@@ -24,7 +24,7 @@ services:
         class: StarterKit\StartBundle\Service\UserService
         arguments:
             - '@doctrine.orm.entity_manager'
-            - '@security.encoder_factory.generic'
+            - '@security.password_encoder'
             - '@event_dispatcher'
             - '%starter_kit_start.refresh_token_ttl%'
             - '%starter_kit_start.user_class%'
@@ -69,18 +69,21 @@ services:
         class: StarterKit\StartBundle\Security\Provider\SlackProvider
         autowire: true
 
-
     # Guards
-    StarterKit\StartBundle\Security\Guard\OAuthGuard:
-        class: StarterKit\StartBundle\Security\Guard\OAuthGuard
+    StarterKit\StartBundle\Security\Guard\OAuth\OAuthGuard:
+        class: StarterKit\StartBundle\Security\Guard\OAuth\OAuthGuard
         arguments:
             - '@Symfony\Component\EventDispatcher\EventDispatcherInterface'
             - '@StarterKit\StartBundle\Service\AuthResponseServiceInterface'
             - '@twig'
             - '%starter_kit_start.login_url%'
 
-    StarterKit\StartBundle\Security\Guard\LoginGuard:
-        class: StarterKit\StartBundle\Security\Guard\LoginGuard
+    StarterKit\StartBundle\Security\Guard\Login\AccessTokenGuard:
+        class: StarterKit\StartBundle\Security\Guard\Login\AccessTokenGuard
+        autowire: true
+
+    StarterKit\StartBundle\Security\Guard\Login\EmailGuard:
+        class: StarterKit\StartBundle\Security\Guard\Login\EmailGuard
         autowire: true
 
     StarterKit\StartBundle\Security\Guard\StateLess\WebsiteGuard:
@@ -202,8 +205,9 @@ services:
     StarterKit\StartBundle\Security\Provider\SlackProviderInterface: '@StarterKit\StartBundle\Security\Provider\SlackProvider'
 
     # Guards
-    StarterKit\StartBundle\Security\Guard\OAuthGuardInterface: '@StarterKit\StartBundle\Security\Guard\OAuthGuard'
-    StarterKit\StartBundle\Security\Guard\LoginGuardInterface: '@StarterKit\StartBundle\Security\Guard\LoginGuard'
+    StarterKit\StartBundle\Security\Guard\OAuth\OAuthGuardInterface:  '@StarterKit\StartBundle\Security\Guard\OAuth\OAuthGuard'
+    StarterKit\StartBundle\Security\Guard\Login\AccessTokenGuardInterface: '@StarterKit\StartBundle\Security\Guard\Login\AccessTokenGuard'
+    StarterKit\StartBundle\Security\Guard\Login\EmailGuardInterface: '@StarterKit\StartBundle\Security\Guard\Login\EmailGuard'
     StarterKit\StartBundle\Security\Guard\StateLess\ApiGuardInterface: '@StarterKit\StartBundle\Security\Guard\StateLess\ApiGuard'
     StarterKit\StartBundle\Security\Guard\StateLess\WebsiteGuardInterface: '@StarterKit\StartBundle\Security\Guard\StateLess\WebsiteGuard'
 
