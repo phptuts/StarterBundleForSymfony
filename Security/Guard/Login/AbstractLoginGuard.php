@@ -83,6 +83,6 @@ abstract class AbstractLoginGuard extends AbstractGuardAuthenticator
     {
         $this->dispatcher->dispatch(self::LOGIN_FAILURE, new AuthFailedEvent($request, $exception));
 
-        return new Response($exception->getMessage(), Response::HTTP_FORBIDDEN);
+        return new Response('Authentication Failed.', Response::HTTP_FORBIDDEN);
     }
 }

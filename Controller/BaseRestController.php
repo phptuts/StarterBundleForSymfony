@@ -11,6 +11,7 @@ use StarterKit\StartBundle\Service\FormSerializer;
 use StarterKit\StartBundle\Service\FormSerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Form;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -31,10 +32,10 @@ class BaseRestController extends Controller
     /**
      * Returns a serialized error response
      *
-     * @param Form $form
+     * @param FormInterface $form
      * @return JsonResponse
      */
-    public function serializeFormError(Form $form)
+    public function serializeFormError(FormInterface $form)
     {
         $errors = $this->formSerializer->createFormErrorArray($form);
 

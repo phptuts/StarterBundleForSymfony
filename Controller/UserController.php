@@ -12,7 +12,7 @@ use StarterKit\StartBundle\Form\UserImageType;
 use StarterKit\StartBundle\Security\Voter\UserVoter;
 use StarterKit\StartBundle\Service\AuthResponseServiceInterface;
 use StarterKit\StartBundle\Service\FormSerializerInterface;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Swagger\Annotations as SWG;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use StarterKit\StartBundle\Service\S3ServiceInterface;
 use StarterKit\StartBundle\Service\UserServiceInterface;
@@ -63,15 +63,28 @@ class UserController extends BaseRestController
 
 
     /**
-     * <p>This is the json body for register request.</p>
-     * <pre> {"email" : "example@gmail.com", "plainPassword" : "******" } </pre>
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="This is for registering the user",
-     *  section="Users"
+     * @SWG\Post(
+     *     tags={"users"},
+     *     description="Register's the user",
+     *     produces={"application/json"},
+     *     consumes={"application/json"},
+     *     @SWG\Parameter(
+     *          name="post body",
+     *          in="body",
+     *          type="json",
+     *          description="Register Post Body",
+     *          required=true,
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(property="email", type="string"),
+     *              @SWG\Property(property="plainPassword", type="string")
+     *          )
+     *     ),
+     *     @SWG\Response(description="Success", response="201"),
+     *     @SWG\Response(description="Failed", response="403"),
+     *     @SWG\Response(description="Validation Errors", response="400"),
+     *     @SWG\Response(description="Nothing was sent", response="401")
      * )
-     *
      * @Route(path="/users", methods={"POST"})
      *
      * @param Request $request
@@ -82,7 +95,7 @@ class UserController extends BaseRestController
     {
         $form = $this->createForm(RegisterType::class);
 
-        $form->submit($request->request->all());
+        $form->submit(json_decode($request->getContent(), true));
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -95,15 +108,44 @@ class UserController extends BaseRestController
     }
 
     /**
-     * <p>This updates the user.  Whatever user field you have.</p>
-     * <pre> {"displayName": "jo32", "email": "example@sdf.com" }</pre>
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Update's the user",
-     *  section="Users",
-     *  authentication=true
+     * @SWG\Patch(
+     *     tags={"users"},
+     *     description="Register's the user",
+     *     produces={"application/json"},
+     *     consumes={"application/json"},
+     *     @SWG\Parameter(
+     *          name="post body",
+     *          in="body",
+     *          type="json",
+     *          description="Update User Post Body",
+     *          required=true,
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(property="email", type="string"),
+     *              @SWG\Property(property="displayName", type="string"),
+     *              @SWG\Property(property="bio", type="string")
+     *          )
+     *     ),
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          type="string",
+     *          description="The user's id",
+     *          required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          in="header",
+     *          type="string",
+     *          description="The user's jwt token",
+     *          default="Bearer "
+     *     ),
+     *     @SWG\Response(description="Success", response="201"),
+     *     @SWG\Response(description="Failed", response="403"),
+     *     @SWG\Response(description="Validation Errors", response="400"),
+     *     @SWG\Response(description="Nothing was sent", response="401")
      * )
+     *
      * @Security("has_role('ROLE_USER')")
      * @param Request $request
      * @param integer $id
@@ -118,7 +160,7 @@ class UserController extends BaseRestController
 
         $form = $this->createForm(UpdateUserType::class, $user);
 
-        $form->submit($request->request->all());
+        $form->submit(json_decode($request->getContent(), true));
 
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -137,13 +179,25 @@ class UserController extends BaseRestController
     }
 
     /**
-     * <p>This is the json body for forget passwor request.</p>
-     * <pre> {"email" : "example@gmail.com" } </pre>
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="For creating a forget password email and token",
-     *  section="Users"
+     * @SWG\Post(
+     *     tags={"users"},
+     *     description="Request's password reset token and sends email to user.",
+     *     produces={"application/json"},
+     *     consumes={"application/json"},
+     *     @SWG\Parameter(
+     *          name="post body",
+     *          in="body",
+     *          type="json",
+     *          description="Forget Password Post Body",
+     *          required=true,
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(property="email", type="string")
+     *          )
+     *     ),
+     *     @SWG\Response(description="Success", response="204"),
+     *     @SWG\Response(description="Failed", response="403"),
+     *     @SWG\Response(description="Validation Errors", response="400")
      * )
      *
      * @Route(path="/users/forget-password", methods={"POST"})
@@ -156,7 +210,7 @@ class UserController extends BaseRestController
     {
         $form = $this->createForm(ForgetPasswordType::class);
 
-        $form->submit($request->request->all());
+        $form->submit(json_decode($request->getContent(), true));
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userService->forgetPassword($form->getData());
@@ -168,16 +222,35 @@ class UserController extends BaseRestController
     }
 
     /**
-     * <p>This is the json body for resetting the password using a forget password token.</p>
-     * <pre> {"plainPassword" : "******" } </pre>
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="For reset's the user's password using a reset password token",
-     *  section="Users"
+     * @SWG\Patch(
+     *     tags={"users"},
+     *     description="Reset's the user's password",
+     *     produces={"application/json"},
+     *     consumes={"application/json"},
+     *     @SWG\Parameter(
+     *          name="post body",
+     *          in="body",
+     *          type="json",
+     *          description="Reset Password Post Body",
+     *          required=true,
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(property="plainPassword", type="string")
+     *          )
+     *     ),
+     *     @SWG\Parameter(
+     *          name="token",
+     *          in="path",
+     *          type="string",
+     *          description="THe password reset token.",
+     *          required=true,
+     *     ),
+     *     @SWG\Response(description="Success", response="204"),
+     *     @SWG\Response(description="Failed", response="403"),
+     *     @SWG\Response(description="Validation Errors", response="400")
      * )
-     * @Route(path="/users/reset-password/{token}", methods={"PATCH"})
      *
+     * @Route(path="/users/reset-password/{token}", methods={"PATCH"})
      * @param Request $request
      * @param string $token
      *
@@ -193,7 +266,7 @@ class UserController extends BaseRestController
         }
 
         $form = $this->createForm(ResetPasswordType::class, $user);
-        $form->submit($request->request->all());
+        $form->submit(json_decode($request->getContent(), true));
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userService->saveUserForResetPassword($user);
@@ -207,21 +280,45 @@ class UserController extends BaseRestController
 
     /**
      *
-     * <p>If the user is not an admin they are required to enter their current password.</p>
-     * <pre> {"newPassword": "*****", "currentPassword": "****" }</pre>
-     *
-     * <p>If the user is an admin</p>
-     * <pre> {"newPassword": "*****" }</pre>
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Changes the user's password",
-     *  section="Users",
-     *  authentication=true
+     * @SWG\Patch(
+     *     tags={"users"},
+     *     description="Reset's the user's password",
+     *     produces={"application/json"},
+     *     consumes={"application/json"},
+     *     @SWG\Parameter(
+     *          name="post body",
+     *          in="body",
+     *          type="json",
+     *          description="Reset Password Post Body",
+     *          required=true,
+     *          @SWG\Schema(
+     *              type="object",
+     *              @SWG\Property(property="currentPassword", type="string", description="Not required for ROLE_ADMIN
+     * user's"),
+     *              @SWG\Property(property="newPassword", type="string")
+     *          )
+     *     ),
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          type="string",
+     *          description="The user's id.",
+     *          required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          in="header",
+     *          type="string",
+     *          description="The user's jwt token",
+     *          default="Bearer "
+     *     ),
+     *     @SWG\Response(description="Success", response="204"),
+     *     @SWG\Response(description="Failed", response="403"),
+     *     @SWG\Response(description="Validation Errors", response="400")
      * )
+     *
      * @Security("has_role('ROLE_USER')")
      * @Route(path="/users/{id}/password", methods={"PATCH"})
-     *
      *
      * @param Request $request
      * @param integer $id
@@ -236,7 +333,7 @@ class UserController extends BaseRestController
 
         $form = $this->createForm(ChangePasswordType::class);
 
-        $form->submit($request->request->all());
+        $form->submit(json_decode($request->getContent(), true));
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -250,22 +347,39 @@ class UserController extends BaseRestController
     }
 
     /**
-     * @Security("has_role('ROLE_USER')")
+     * @SWG\Post(
+     *     tags={"users"},
+     *     description="Updates / Creates the user's profile image.",
+     *     produces={"application/json"},
+     *     consumes={"application/json"},
+     *     @SWG\Parameter(
+     *          name="image",
+     *          in="formData",
+     *          type="file",
+     *          description="The user's profile image.",
+     *          required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          type="string",
+     *          description="The user's id.",
+     *          required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          in="header",
+     *          type="string",
+     *          required=true,
+     *          description="The user's jwt token",
+     *          default="Bearer "
+     *     ),
+     *     @SWG\Response(description="Success", response="204"),
+     *     @SWG\Response(description="Failed", response="403"),
+     *     @SWG\Response(description="Validation Errors", response="400")
+     * )
      *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Update the image for a user",
-     *  section="Users",
-     *  authentication=true,
-     *  parameters={
-     *      {
-     *          "name"="image",
-     *          "dataType"="file",
-     *          "required"=true,
-     *          "description"="The image profile image it can only be jpg, gif, png."
-     *      }
-     *  }
-     *  )
+     * @Security("has_role('ROLE_USER')")
      * @Route(path="/users/{id}/image", methods={"POST"})
      *
      * @param Request $request
@@ -301,14 +415,31 @@ class UserController extends BaseRestController
 
 
     /**
-     * @Security("has_role('ROLE_USER')")
-     *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Get's a user",
-     *  section="Users",
-     *  authentication=true
+     * @SWG\Get(
+     *     tags={"users"},
+     *     description="Get's a single user.",
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="id",
+     *          in="path",
+     *          type="string",
+     *          description="The user's id.",
+     *          required=true,
+     *     ),
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          in="header",
+     *          type="string",
+     *          required=true,
+     *          description="The user's jwt token",
+     *          default="Bearer "
+     *     ),
+     *     @SWG\Response(description="Success", response="204"),
+     *     @SWG\Response(description="Failed", response="403"),
+     *     @SWG\Response(description="Validation Errors", response="400")
      * )
+     *
+     * @Security("has_role('ROLE_USER')")
      * @param integer $id
      * @Route(path="/users/{id}", methods={"GET"})
      *
@@ -325,11 +456,21 @@ class UserController extends BaseRestController
     /**
      * @Security("has_role('ROLE_ADMIN')")
      *
-     * @ApiDoc(
-     *  resource=true,
-     *  description="Get's a list of users, admin only.",
-     *  section="Users",
-     *  authentication=true
+     * @SWG\Get(
+     *     tags={"users"},
+     *     description="Get's a multiple user.",
+     *     produces={"application/json"},
+     *     @SWG\Parameter(
+     *          name="Authorization",
+     *          in="header",
+     *          type="string",
+     *          required=true,
+     *          description="The user's jwt token",
+     *          default="Bearer "
+     *     ),
+     *     @SWG\Response(description="Success", response="204"),
+     *     @SWG\Response(description="Failed", response="403"),
+     *     @SWG\Response(description="Validation Errors", response="400")
      * )
      *
      * @Route(path="/users", methods={"GET"})

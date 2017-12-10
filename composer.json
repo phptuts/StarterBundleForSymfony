@@ -5,7 +5,7 @@
   "keywords": [
     "User management"
   ],
-  "homepage": "http://skfsp.info",
+  "homepage": "http://skbfsp.info",
   "license": "MIT",
   "authors": [
     {
@@ -14,7 +14,7 @@
     }
   ],
   "require": {
-    "php": ">=5.5.9",
+    "php": ">=7.0.0",
     "aws/aws-sdk-php": "^3.30",
     "doctrine/doctrine-bundle": "^1.8",
     "doctrine/doctrine-migrations-bundle": "^1.0",
@@ -24,7 +24,8 @@
     "google/apiclient": "^2.0",
     "guzzlehttp/guzzle": "^6.3",
     "namshi/jose": "^7.2",
-    "sensio/framework-extra-bundle": "3.0.*",
+    "nelmio/api-doc-bundle": "~3.0@beta",
+    "sensio/framework-extra-bundle": "3.0.*|^4.0",
     "symfony/security-bundle": "3.4.*|^4.0",
     "symfony/form": "~3.0|^4.0",
     "symfony/framework-bundle": "~3.0|^4.0",

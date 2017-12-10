@@ -25,7 +25,7 @@ trait RequestTrait
             $headers['HTTP_Authorization'] = 'Bearer ' . $authToken;
         }
 
-        $client->request($method, $url, $data, [], $headers, json_encode($data));
+        $client->request($method, $url, [], [], $headers, json_encode($data));
 
         return $client->getResponse();
     }
