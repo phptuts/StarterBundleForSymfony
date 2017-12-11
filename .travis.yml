@@ -40,4 +40,5 @@ script:
     - php bin/phpunit -c vendor/start-kit-symfony/start-bundle/ --exclude-group exclude_travis  --coverage-clover=coverage.xml
 
 after_success:
+  - cd ~/starter-bundle-example
   - travis_retry  bash <(curl -s https://codecov.io/bash)
