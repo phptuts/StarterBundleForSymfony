@@ -46,7 +46,7 @@ class FormSerializerTest extends BaseTestCase
         /** @var Form $form  */
         $form = $this->getContainer()->get('form.factory')->create(TestFormType::class);
         $form->submit([]);
-
+        
         Assert::assertEquals($expectedJsonString, json_encode($this->formSerializer->createFormErrorArray($form)));
     }
 
@@ -134,6 +134,13 @@ class TestFormType extends AbstractType {
             'allow_add' => true,
             'allow_delete' => true,
             'error_bubbling' => false
+        ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'csrf_protection' => false
         ]);
     }
 }
