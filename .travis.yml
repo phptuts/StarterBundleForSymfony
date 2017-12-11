@@ -39,3 +39,6 @@ before_script:
 script:
     - php bin/phpunit -c vendor/start-kit-symfony/start-bundle/ --exclude-group exclude_travis --coverage-clover build/logs/clover.xml
     - CODECLIMATE_REPO_TOKEN=f04bc19d37067f93b0cc455da14be2136711b76635fc3267f7d5bd2fda2c2702 ./vendor/bin/test-reporter
+
+after_success:
+  - travis_retry php php-coveralls.phar -v
