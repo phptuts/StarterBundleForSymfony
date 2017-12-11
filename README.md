@@ -4,7 +4,7 @@
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/43a21891fd78cc000fc1/maintainability)](https://codeclimate.com/github/phptuts/StarterBundleForSymfony/maintainability)
  
-[![Coverage Status](https://coveralls.io/repos/github/phptuts/StarterBundleForSymfony/badge.svg?branch=master)](https://coveralls.io/github/phptuts/StarterBundleForSymfony?branch=master)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/43a21891fd78cc000fc1/test_coverage)](https://codeclimate.com/github/phptuts/StarterBundleForSymfony/test_coverage)
 
 - [Example Website](https://skbfsp.info)
 - [Example Website / Project Code](https://github.com/phptuts/starter-bundle-example) 
