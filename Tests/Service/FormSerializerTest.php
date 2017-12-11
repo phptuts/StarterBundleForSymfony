@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Form;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Translation\TranslatorInterface;
 use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\Validator\Constraints\Email;
@@ -39,7 +40,7 @@ class FormSerializerTest extends BaseTestCase
 
     public function testEmptyForm()
     {
-        $expectedJsonString = '{"errors":["form_error"],"children":{"name":{"errors":["form_error"]},"emails":{"errors":["form_error"]}}}';
+        $expectedJsonString = '{"children":{"name":{"errors":["form_error"]},"emails":{"errors":["form_error"]}}}';
 
 
         /** @var Form $form  */
@@ -51,15 +52,16 @@ class FormSerializerTest extends BaseTestCase
 
     public function testCollectionFormErrors()
     {
-        $data = ['emails' => [
+        $data = [
+            'emails' => [
                 [
                     'email' => 'not_real_email',
                     'provider' => null,
                 ],
-            [
-                'email' => 'real@gmail.com',
-                'provider' => 'google.',
-            ],
+                [
+                    'email' => 'real@gmail.com',
+                    'provider' => 'google.',
+                ],
             ]
         ];
 
@@ -67,9 +69,7 @@ class FormSerializerTest extends BaseTestCase
         $form = $this->getContainer()->get('form.factory')->create(TestFormType::class);
         $form->submit($data);
 
-        $jsonString = '{"errors":[  
-      "form_error"
-   ],
+        $jsonString = '{
    "children":{  
       "name":{  
          "errors":[  
@@ -135,7 +135,6 @@ class TestFormType extends AbstractType {
             'allow_delete' => true,
             'error_bubbling' => false
         ]);
-
     }
 }
 
@@ -154,5 +153,12 @@ class DescriptionType extends AbstractType {
                     new Email()
                 ]
             ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults([
+            'csrf_protection' => false
+        ]);
     }
 }

@@ -3,14 +3,13 @@
 
 namespace StarterKit\StartBundle\Security\Provider;
 
-use AppBundle\Entity\User;
 use Mockery\Mock;
 use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Exception\ProgrammerException;
-use StarterKit\StartBundle\Security\Provider\TokenProvider;
 use StarterKit\StartBundle\Service\JWSTokenService;
 use StarterKit\StartBundle\Service\UserService;
 use StarterKit\StartBundle\Tests\BaseTestCase;
+use StarterKit\StartBundle\Tests\Entity\User;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 
 class TokenProviderTest extends BaseTestCase

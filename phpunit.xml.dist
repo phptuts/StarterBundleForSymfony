@@ -13,6 +13,31 @@
     <php>
         <ini name="error_reporting" value="-1" />
         <server name="KERNEL_CLASS" value="AppKernel" />
+        <env name="APP_ENV" value="starter_kit_test" />
+        <env name="APP_DEBUG" value="1" />
+
+        <env name="JWS_PASS_PHRASE" value="MOO_MOO_MOO" />
+        <env name="REFRESH_TOKEN_TTL" value="10368000" />
+        <env name="JWS_TTL" value="5184000" />
+
+        <env name="FACEBOOK_APP_SECRET" value="FAKE" />
+        <env name="FACEBOOK_APP_ID" value="FAKE" />
+        <env name="FACEBOOK_API_VERSION" value="v2.11" />
+        <env name="GOOGLE_CLIENT_ID" value="FAKE" />
+
+        <env name="AWS_KEY" value="FAKE" />
+        <env name="AWS_SECRET" value="FAKE" />
+        <env name="AWS_REGION" value="FAKE" />
+        <env name="AWS_BUCKET" value="FAKE" />
+        <env name="AWS_VERSION" value="2006-03-01" />
+
+
+        <env name="SLACK_CLIENT_KEY" value="FAKE" />
+        <env name="SLACK_CLIENT_ID" value="FAKE" />
+
+        <env name="APP_EMAIL" value="fake@email.com" />
+        <env name="USER_CLASS" value="StarterKit\StartBundle\Tests\Entity\User" />
+        <!-- define your env variables for the test env here -->
     </php>
 
     <testsuites>

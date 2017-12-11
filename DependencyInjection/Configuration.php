@@ -22,8 +22,8 @@ class Configuration implements ConfigurationInterface
 
         $rootNode->children()
             ->scalarNode('jws_pass_phrase')->defaultValue('bad_pass_phrase')->end()
-            ->integerNode('jws_ttl')->defaultValue(5184000)->end()
-            ->integerNode('refresh_token_ttl')->defaultValue(10368000)->end()
+            ->scalarNode('jws_ttl')->defaultValue(5184000)->end()
+            ->scalarNode('refresh_token_ttl')->defaultValue(10368000)->end()
             ->scalarNode('user_class')->defaultValue('AppBundle\Entity\User')->end()
             ->scalarNode('login_url')->defaultValue('/login')->end()
 
