@@ -64,7 +64,7 @@ abstract class AbstractStateLessGuard extends AbstractGuardAuthenticator
             $request->headers->get(self::AUTHORIZATION_HEADER) :
             $request->cookies->get(AuthResponseService::AUTH_COOKIE);
 
-        return new CredentialTokenModel($token);
+        return new CredentialTokenModel(str_replace(self::BEARER, '', $token));
     }
 
     /**
