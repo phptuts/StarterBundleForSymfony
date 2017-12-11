@@ -60,10 +60,11 @@ abstract class AbstractStateLessGuard extends AbstractGuardAuthenticator
      */
     public function getCredentials(Request $request)
     {
-        $token = $request->headers->get(self::AUTHORIZATION_HEADER) ??
+        $token = !empty($request->headers->get(self::AUTHORIZATION_HEADER)) ?
+            $request->headers->get(self::AUTHORIZATION_HEADER) :
             $request->cookies->get(AuthResponseService::AUTH_COOKIE);
 
-        return new CredentialTokenModel(str_replace(self::BEARER, '', $token));
+        return new CredentialTokenModel($token);
     }
 
     /**
