@@ -2,164 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="344e7aa7-108c-4a7a-aed4-8776c41acc17" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/StarterKitStartBundle.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/StarterKitStartAppKernel.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/config.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/config_dev.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/config_test.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/parameters.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/routing.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/routing_dev.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/security.yml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/bin/console" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/composer.json" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/var/jwt/private.pem" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/var/jwt/public.pem" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/StarterKitStartBundle.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/Tests/StarterKitStartBundleTest.php" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Client/SlackClient.php" afterPath="$PROJECT_DIR$/src/Client/SlackClient.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Controller/BaseRestController.php" afterPath="$PROJECT_DIR$/src/Controller/BaseRestController.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Controller/ControllerTrait.php" afterPath="$PROJECT_DIR$/src/Controller/ControllerTrait.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Controller/SecurityController.php" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Controller/UserController.php" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/DataFixtures/ORM/LoadData.php" afterPath="$PROJECT_DIR$/src/DataFixtures/ORM/LoadData.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/DataFixtures/ORM/LoadStartUserData.php" afterPath="$PROJECT_DIR$/src/DataFixtures/ORM/LoadStartUserData.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/DataFixtures/ORM/starter_user.yml" afterPath="$PROJECT_DIR$/src/DataFixtures/ORM/starter_user.yml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/DataFixtures/ORM/users.yml" afterPath="$PROJECT_DIR$/src/DataFixtures/ORM/users.yml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/DependencyInjection/Configuration.php" afterPath="$PROJECT_DIR$/src/DependencyInjection/Configuration.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/DependencyInjection/StarterKitStartExtension.php" afterPath="$PROJECT_DIR$/src/DependencyInjection/StarterKitStartExtension.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Entity/BaseUser.php" afterPath="$PROJECT_DIR$/src/Entity/BaseUser.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Entity/TimeStampTrait.php" afterPath="$PROJECT_DIR$/src/Entity/TimeStampTrait.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Entity/ViewInterface.php" afterPath="$PROJECT_DIR$/src/Entity/ViewInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Event/AuthFailedEvent.php" afterPath="$PROJECT_DIR$/src/Event/AuthFailedEvent.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Event/UserEvent.php" afterPath="$PROJECT_DIR$/src/Event/UserEvent.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Exception/ProgrammerException.php" afterPath="$PROJECT_DIR$/src/Exception/ProgrammerException.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/FaceBookClientFactory.php" afterPath="$PROJECT_DIR$/src/Factory/FaceBookClientFactory.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/FaceBookClientFactoryInterface.php" afterPath="$PROJECT_DIR$/src/Factory/FaceBookClientFactoryInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/FactoryInterface.php" afterPath="$PROJECT_DIR$/src/Factory/FactoryInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/GoogleClientFactory.php" afterPath="$PROJECT_DIR$/src/Factory/GoogleClientFactory.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/GoogleClientFactoryInterface.php" afterPath="$PROJECT_DIR$/src/Factory/GoogleClientFactoryInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/S3ClientFactory.php" afterPath="$PROJECT_DIR$/src/Factory/S3ClientFactory.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/S3ClientFactoryInterface.php" afterPath="$PROJECT_DIR$/src/Factory/S3ClientFactoryInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/ChangePasswordType.php" afterPath="$PROJECT_DIR$/src/Form/ChangePasswordType.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/DataTransformer/UserEmailTransformer.php" afterPath="$PROJECT_DIR$/src/Form/DataTransformer/UserEmailTransformer.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/ForgetPasswordType.php" afterPath="$PROJECT_DIR$/src/Form/ForgetPasswordType.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/RegisterType.php" afterPath="$PROJECT_DIR$/src/Form/RegisterType.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/ResetPasswordType.php" afterPath="$PROJECT_DIR$/src/Form/ResetPasswordType.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/UpdateUserType.php" afterPath="$PROJECT_DIR$/src/Form/UpdateUserType.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/UserImageType.php" afterPath="$PROJECT_DIR$/src/Form/UserImageType.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Auth/AuthTokenModel.php" afterPath="$PROJECT_DIR$/src/Model/Auth/AuthTokenModel.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Credential/CredentialEmailModel.php" afterPath="$PROJECT_DIR$/src/Model/Credential/CredentialEmailModel.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Credential/CredentialInterface.php" afterPath="$PROJECT_DIR$/src/Model/Credential/CredentialInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Credential/CredentialTokenModel.php" afterPath="$PROJECT_DIR$/src/Model/Credential/CredentialTokenModel.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Page/PageModel.php" afterPath="$PROJECT_DIR$/src/Model/Page/PageModel.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Response/ResponseAuthenticationModel.php" afterPath="$PROJECT_DIR$/src/Model/Response/ResponseAuthenticationModel.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Response/ResponseFormErrorModel.php" afterPath="$PROJECT_DIR$/src/Model/Response/ResponseFormErrorModel.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Response/ResponseModel.php" afterPath="$PROJECT_DIR$/src/Model/Response/ResponseModel.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Response/ResponseModelInterface.php" afterPath="$PROJECT_DIR$/src/Model/Response/ResponseModelInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Response/ResponsePageModel.php" afterPath="$PROJECT_DIR$/src/Model/Response/ResponsePageModel.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Response/ResponseTypeInterface.php" afterPath="$PROJECT_DIR$/src/Model/Response/ResponseTypeInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/User/ChangePasswordModel.php" afterPath="$PROJECT_DIR$/src/Model/User/ChangePasswordModel.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/User/OAuthUser.php" afterPath="$PROJECT_DIR$/src/Model/User/OAuthUser.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Repository/UserRepository.php" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Resources/config/routing.yml" afterPath="$PROJECT_DIR$/src/Resources/config/routing.yml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Resources/config/services.yml" afterPath="$PROJECT_DIR$/src/Resources/config/services.yml" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Resources/views/oauth-failure.html.twig" afterPath="$PROJECT_DIR$/src/Resources/views/oauth-failure.html.twig" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Resources/views/oauth-start.html.twig" afterPath="$PROJECT_DIR$/src/Resources/views/oauth-start.html.twig" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Resources/views/oauth-success.html.twig" afterPath="$PROJECT_DIR$/src/Resources/views/oauth-success.html.twig" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/GuardTrait.php" afterPath="$PROJECT_DIR$/src/Security/Guard/GuardTrait.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/Login/AbstractLoginGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/Login/AbstractLoginGuard.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/Login/AccessTokenGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/Login/AccessTokenGuard.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/Login/AccessTokenGuardInterface.php" afterPath="$PROJECT_DIR$/src/Security/Guard/Login/AccessTokenGuardInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/Login/EmailGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/Login/EmailGuard.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/Login/EmailGuardInterface.php" afterPath="$PROJECT_DIR$/src/Security/Guard/Login/EmailGuardInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/OAuth/OAuthGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/OAuth/OAuthGuard.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/OAuth/OAuthGuardInterface.php" afterPath="$PROJECT_DIR$/src/Security/Guard/OAuth/OAuthGuardInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/StateLess/AbstractStateLessGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/StateLess/AbstractStateLessGuard.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/StateLess/ApiGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/StateLess/ApiGuard.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/StateLess/ApiGuardInterface.php" afterPath="$PROJECT_DIR$/src/Security/Guard/StateLess/ApiGuardInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/StateLess/WebsiteGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/StateLess/WebsiteGuard.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/StateLess/WebsiteGuardInterface.php" afterPath="$PROJECT_DIR$/src/Security/Guard/StateLess/WebsiteGuardInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/CustomProviderTrait.php" afterPath="$PROJECT_DIR$/src/Security/Provider/CustomProviderTrait.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/EmailProvider.php" afterPath="$PROJECT_DIR$/src/Security/Provider/EmailProvider.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/EmailProviderInterface.php" afterPath="$PROJECT_DIR$/src/Security/Provider/EmailProviderInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/FacebookProvider.php" afterPath="$PROJECT_DIR$/src/Security/Provider/FacebookProvider.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/FacebookProviderInterface.php" afterPath="$PROJECT_DIR$/src/Security/Provider/FacebookProviderInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/GoogleProvider.php" afterPath="$PROJECT_DIR$/src/Security/Provider/GoogleProvider.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/GoogleProviderInterface.php" afterPath="$PROJECT_DIR$/src/Security/Provider/GoogleProviderInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/RefreshTokenProvider.php" afterPath="$PROJECT_DIR$/src/Security/Provider/RefreshTokenProvider.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/RefreshTokenProviderInterface.php" afterPath="$PROJECT_DIR$/src/Security/Provider/RefreshTokenProviderInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/SlackProvider.php" afterPath="$PROJECT_DIR$/src/Security/Provider/SlackProvider.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/SlackProviderInterface.php" afterPath="$PROJECT_DIR$/src/Security/Provider/SlackProviderInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/TokenProvider.php" afterPath="$PROJECT_DIR$/src/Security/Provider/TokenProvider.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/TokenProviderInterface.php" afterPath="$PROJECT_DIR$/src/Security/Provider/TokenProviderInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Voter/UserVoter.php" afterPath="$PROJECT_DIR$/src/Security/Voter/UserVoter.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/AuthResponseService.php" afterPath="$PROJECT_DIR$/src/Service/AuthResponseService.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/AuthResponseServiceInterface.php" afterPath="$PROJECT_DIR$/src/Service/AuthResponseServiceInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/AuthTokenServiceInterface.php" afterPath="$PROJECT_DIR$/src/Service/AuthTokenServiceInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/FormSerializer.php" afterPath="$PROJECT_DIR$/src/Service/FormSerializer.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/FormSerializerInterface.php" afterPath="$PROJECT_DIR$/src/Service/FormSerializerInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/JWSTokenService.php" afterPath="$PROJECT_DIR$/src/Service/JWSTokenService.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/S3Service.php" afterPath="$PROJECT_DIR$/src/Service/S3Service.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/S3ServiceInterface.php" afterPath="$PROJECT_DIR$/src/Service/S3ServiceInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/UserService.php" afterPath="$PROJECT_DIR$/src/Service/UserService.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/UserServiceInterface.php" afterPath="$PROJECT_DIR$/src/Service/UserServiceInterface.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/BaseTestCase.php" afterPath="$PROJECT_DIR$/tests/BaseTestCase.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Client/SlackClientTest.php" afterPath="$PROJECT_DIR$/tests/Client/SlackClientTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/AuthTest.php" afterPath="$PROJECT_DIR$/tests/Controller/AuthTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/BaseApiTestCase.php" afterPath="$PROJECT_DIR$/tests/Controller/BaseApiTestCase.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/ChangePasswordTest.php" afterPath="$PROJECT_DIR$/tests/Controller/ChangePasswordTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/ForgetPasswordWorkFlowTest.php" afterPath="$PROJECT_DIR$/tests/Controller/ForgetPasswordWorkFlowTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/GetUserTest.php" afterPath="$PROJECT_DIR$/tests/Controller/GetUserTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/ImageUploadTest.php" afterPath="$PROJECT_DIR$/tests/Controller/ImageUploadTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/LoginControllerFakeTest.php" afterPath="$PROJECT_DIR$/tests/Controller/LoginControllerFakeTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/RequestTrait.php" afterPath="$PROJECT_DIR$/tests/Controller/RequestTrait.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/UpdateUserTest.php" afterPath="$PROJECT_DIR$/tests/Controller/UpdateUserTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Entity/User.php" afterPath="$PROJECT_DIR$/tests/Entity/User.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Entity/UserTest.php" afterPath="$PROJECT_DIR$/tests/Entity/UserTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Entity/UserValidationTest.php" afterPath="$PROJECT_DIR$/tests/Entity/UserValidationTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Event/AuthFailedEventTest.php" afterPath="$PROJECT_DIR$/tests/Event/AuthFailedEventTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Factory/FaceBookClientFactoryTest.php" afterPath="$PROJECT_DIR$/tests/Factory/FaceBookClientFactoryTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Factory/GoogleClientFactoryTest.php" afterPath="$PROJECT_DIR$/tests/Factory/GoogleClientFactoryTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Factory/S3ClientFactoryTest.php" afterPath="$PROJECT_DIR$/tests/Factory/S3ClientFactoryTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/ChangePasswordTypeTest.php" afterPath="$PROJECT_DIR$/tests/Form/ChangePasswordTypeTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/DataTransformer/UserEmailTransformerTest.php" afterPath="$PROJECT_DIR$/tests/Form/DataTransformer/UserEmailTransformerTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/ForgetPasswordTypeTest.php" afterPath="$PROJECT_DIR$/tests/Form/ForgetPasswordTypeTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/RegisterTypeTest.php" afterPath="$PROJECT_DIR$/tests/Form/RegisterTypeTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/ResetPasswordTypeTest.php" afterPath="$PROJECT_DIR$/tests/Form/ResetPasswordTypeTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/UpdateUserTypeTest.php" afterPath="$PROJECT_DIR$/tests/Form/UpdateUserTypeTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/UserImageTypeTest.php" afterPath="$PROJECT_DIR$/tests/Form/UserImageTypeTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Mock/image_10Mb.jpg" afterPath="$PROJECT_DIR$/tests/Mock/image_10Mb.jpg" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Mock/valid_image.png" afterPath="$PROJECT_DIR$/tests/Mock/valid_image.png" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Auth/AuthTokenModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Auth/AuthTokenModelTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Credential/CredentialEmailModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Credential/CredentialEmailModelTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Credential/CredentialTokenModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Credential/CredentialTokenModelTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Page/PageModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Page/PageModelTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Response/ResponseFormErrorModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Response/ResponseFormErrorModelTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Response/ResponseModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Response/ResponseModelTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Response/ResponsePageModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Response/ResponsePageModelTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/User/SlackUserTest.php" afterPath="$PROJECT_DIR$/tests/Model/User/SlackUserTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Guard/Login/AccessTokenGuardTest.php" afterPath="$PROJECT_DIR$/tests/Security/Guard/Login/AccessTokenGuardTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Guard/Login/EmailGuardTest.php" afterPath="$PROJECT_DIR$/tests/Security/Guard/Login/EmailGuardTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Guard/OAuth/OAuthGuardTest.php" afterPath="$PROJECT_DIR$/tests/Security/Guard/OAuth/OAuthGuardTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Guard/StateLess/ApiGuardTest.php" afterPath="$PROJECT_DIR$/tests/Security/Guard/StateLess/ApiGuardTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Guard/StateLess/WebsiteGuardTest.php" afterPath="$PROJECT_DIR$/tests/Security/Guard/StateLess/WebsiteGuardTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Provider/EmailProviderTest.php" afterPath="$PROJECT_DIR$/tests/Security/Provider/EmailProviderTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Provider/FacebookProviderTest.php" afterPath="$PROJECT_DIR$/tests/Security/Provider/FacebookProviderTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Provider/GoogleProviderTest.php" afterPath="$PROJECT_DIR$/tests/Security/Provider/GoogleProviderTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Provider/RefreshTokenProviderServiceTest.php" afterPath="$PROJECT_DIR$/tests/Security/Provider/RefreshTokenProviderServiceTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Provider/SlackProviderTest.php" afterPath="$PROJECT_DIR$/tests/Security/Provider/SlackProviderTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Provider/TokenProviderTest.php" afterPath="$PROJECT_DIR$/tests/Security/Provider/TokenProviderTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Voter/UserVoterTest.php" afterPath="$PROJECT_DIR$/tests/Security/Voter/UserVoterTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Service/AuthResponseServiceTest.php" afterPath="$PROJECT_DIR$/tests/Service/AuthResponseServiceTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Service/FormSerializerTest.php" afterPath="$PROJECT_DIR$/tests/Service/FormSerializerTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Service/JWSTokenServiceTest.php" afterPath="$PROJECT_DIR$/tests/Service/JWSTokenServiceTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Service/S3ServiceTest.php" afterPath="$PROJECT_DIR$/tests/Service/S3ServiceTest.php" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Service/UserServiceTest.php" afterPath="$PROJECT_DIR$/tests/Service/UserServiceTest.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.travis.yml" afterPath="$PROJECT_DIR$/.travis.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/phpunit.xml.dist" afterPath="$PROJECT_DIR$/phpunit.xml.dist" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -204,7 +47,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="45">
@@ -224,11 +67,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".travis.yml" pinned="false" current-in-tab="false">
+      <file leaf-file-name=".travis.yml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/.travis.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="223">
-              <caret line="30" column="28" lean-forward="false" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
+            <state relative-caret-position="163">
+              <caret line="26" column="86" lean-forward="false" selection-start-line="26" selection-start-column="86" selection-end-line="26" selection-end-column="86" />
               <folding />
             </state>
           </provider>
@@ -316,9 +159,9 @@
         <option value="$PROJECT_DIR$/Tests/Fixtures/app/config/config.yml" />
         <option value="$PROJECT_DIR$/composer.json" />
         <option value="$PROJECT_DIR$/phpunit.xml.dist" />
-        <option value="$PROJECT_DIR$/.travis.yml" />
         <option value="$PROJECT_DIR$/tests/Controller/AuthTest.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/.travis.yml" />
       </list>
     </option>
   </component>
@@ -504,12 +347,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1513269976855</updated>
-      <workItem from="1513269978166" duration="11705000" />
+      <workItem from="1513269978166" duration="11887000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11705000" />
+    <option name="totallyTimeSpent" value="11887000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1437" height="822" extended-state="0" />
@@ -818,14 +661,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.travis.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="223">
-          <caret line="30" column="28" lean-forward="false" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/coverage.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="15">
@@ -838,6 +673,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="163">
+          <caret line="26" column="86" lean-forward="false" selection-start-line="26" selection-start-column="86" selection-end-line="26" selection-end-column="86" />
           <folding />
         </state>
       </provider>
