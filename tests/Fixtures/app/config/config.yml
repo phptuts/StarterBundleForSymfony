@@ -1,0 +1,117 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    locale: en
+
+framework:
+    #esi: ~
+    translator: { fallbacks: ['%locale%'] }
+    secret: '%app.secret%'
+    router:
+        resource: '%kernel.project_dir%/Tests/Fixtures/app/config/routing_dev.yml'
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    #serializer: { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale: '%locale%'
+    trusted_hosts: ~
+    session:
+        # https://symfony.com/doc/current/reference/configuration/framework.html#handler-id
+        handler_id: session.handler.native_file
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+    fragments: ~
+    http_method_override: true
+    assets: ~
+    php_errors:
+        log: true
+
+# Twig Configuration
+twig:
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    form_themes:
+        - 'bootstrap_3_layout.html.twig'
+        - 'form/fields.html.twig'
+    globals:
+        facebook_app_id: '%app.facebook_app_id%'
+        facebook_api_version: '%app.facebook_api_version%'
+        email: '%app.from_email%'
+        google_client_id: '%app.google_client_id%'
+        slack_client_id: '%app.slack_client_id%'
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver: pdo_mysql
+        host: '%app.database_host%'
+        port: '%app.database_port%'
+        dbname: '%app.database_name%'
+        user: '%app.database_user%'
+        password: '%app.database_password%'
+        charset: UTF8
+        # if using pdo_sqlite as your database driver:
+        #   1. add the path in parameters.yml
+        #     e.g. database_path: "%kernel.project_dir%/var/data/data.sqlite"
+        #   2. Uncomment database_path in parameters.yml.dist
+        #   3. Uncomment next line:
+        #path: '%database_path%'
+
+    orm:
+        auto_generate_proxy_classes: '%kernel.debug%'
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            StarterKitStartBundle:
+                type: annotation
+                dir: 'Tests/Entity'
+                prefix: 'StarterKit\StartBundle\Tests\Entity'
+
+
+nelmio_api_doc:
+    routes:
+        path_patterns: # an array of regexps
+            - ^/(api(?!/doc))
+            - ^/oauth
+            - ^/login_check
+            - ^/access-tokens
+
+
+    models: { use_jms: false }
+    documentation:
+        info:
+            title: 'Symfony Starter Api'
+            description: 'Our Symfony Starter Kit Api Documentation.'
+            version: 1.0.0
+
+starter_kit_start:
+
+    login_url: '%app.login_url%'
+
+    jws_ttl: '%app.jws_ttl%'
+    jws_pass_phrase: '%app.jws_pass_phrase%'
+    refresh_token_ttl: '%app.refresh_token_ttl%'
+
+    user_class: '%app.user_class%'
+
+    facebook_app_secret: '%app.facebook_app_secret%'
+    facebook_api_version: '%app.facebook_api_version%'
+    facebook_app_id: '%app.facebook_app_id%'
+
+    google_client_id: '%app.google_client_id%'
+
+
+    aws_api_version: '%app.aws_api_version%'
+    aws_key: '%app.aws_key%'
+    aws_secret: '%app.aws_secret%'
+    aws_region: '%app.aws_region%'
+    aws_s3_bucket_name: '%app.aws_s3_bucket_name%'
+
+    slack_client_secret: '%app.slack_client_secret%'
+    slack_client_id: '%app.slack_client_id%'

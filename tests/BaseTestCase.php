@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Client;
 
 class BaseTestCase extends WebTestCase
 {
-    const ENVIRONMENT = 'starter_kit_test';
+    const ENVIRONMENT = 'test';
 
     /**
      * @var Client

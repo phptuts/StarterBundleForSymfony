@@ -1,0 +1,846 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="344e7aa7-108c-4a7a-aed4-8776c41acc17" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/StarterKitStartBundle.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/StarterKitStartAppKernel.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/config.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/config_dev.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/config_test.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/parameters.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/routing.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/routing_dev.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/app/config/security.yml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/bin/console" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/composer.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/var/jwt/private.pem" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/Fixtures/var/jwt/public.pem" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/StarterKitStartBundle.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/Tests/StarterKitStartBundleTest.php" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Client/SlackClient.php" afterPath="$PROJECT_DIR$/src/Client/SlackClient.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Controller/BaseRestController.php" afterPath="$PROJECT_DIR$/src/Controller/BaseRestController.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Controller/ControllerTrait.php" afterPath="$PROJECT_DIR$/src/Controller/ControllerTrait.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Controller/SecurityController.php" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Controller/UserController.php" afterPath="$PROJECT_DIR$/src/Controller/UserController.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/DataFixtures/ORM/LoadData.php" afterPath="$PROJECT_DIR$/src/DataFixtures/ORM/LoadData.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/DataFixtures/ORM/LoadStartUserData.php" afterPath="$PROJECT_DIR$/src/DataFixtures/ORM/LoadStartUserData.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/DataFixtures/ORM/starter_user.yml" afterPath="$PROJECT_DIR$/src/DataFixtures/ORM/starter_user.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/DataFixtures/ORM/users.yml" afterPath="$PROJECT_DIR$/src/DataFixtures/ORM/users.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/DependencyInjection/Configuration.php" afterPath="$PROJECT_DIR$/src/DependencyInjection/Configuration.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/DependencyInjection/StarterKitStartExtension.php" afterPath="$PROJECT_DIR$/src/DependencyInjection/StarterKitStartExtension.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Entity/BaseUser.php" afterPath="$PROJECT_DIR$/src/Entity/BaseUser.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Entity/TimeStampTrait.php" afterPath="$PROJECT_DIR$/src/Entity/TimeStampTrait.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Entity/ViewInterface.php" afterPath="$PROJECT_DIR$/src/Entity/ViewInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Event/AuthFailedEvent.php" afterPath="$PROJECT_DIR$/src/Event/AuthFailedEvent.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Event/UserEvent.php" afterPath="$PROJECT_DIR$/src/Event/UserEvent.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Exception/ProgrammerException.php" afterPath="$PROJECT_DIR$/src/Exception/ProgrammerException.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/FaceBookClientFactory.php" afterPath="$PROJECT_DIR$/src/Factory/FaceBookClientFactory.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/FaceBookClientFactoryInterface.php" afterPath="$PROJECT_DIR$/src/Factory/FaceBookClientFactoryInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/FactoryInterface.php" afterPath="$PROJECT_DIR$/src/Factory/FactoryInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/GoogleClientFactory.php" afterPath="$PROJECT_DIR$/src/Factory/GoogleClientFactory.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/GoogleClientFactoryInterface.php" afterPath="$PROJECT_DIR$/src/Factory/GoogleClientFactoryInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/S3ClientFactory.php" afterPath="$PROJECT_DIR$/src/Factory/S3ClientFactory.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Factory/S3ClientFactoryInterface.php" afterPath="$PROJECT_DIR$/src/Factory/S3ClientFactoryInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/ChangePasswordType.php" afterPath="$PROJECT_DIR$/src/Form/ChangePasswordType.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/DataTransformer/UserEmailTransformer.php" afterPath="$PROJECT_DIR$/src/Form/DataTransformer/UserEmailTransformer.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/ForgetPasswordType.php" afterPath="$PROJECT_DIR$/src/Form/ForgetPasswordType.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/RegisterType.php" afterPath="$PROJECT_DIR$/src/Form/RegisterType.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/ResetPasswordType.php" afterPath="$PROJECT_DIR$/src/Form/ResetPasswordType.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/UpdateUserType.php" afterPath="$PROJECT_DIR$/src/Form/UpdateUserType.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Form/UserImageType.php" afterPath="$PROJECT_DIR$/src/Form/UserImageType.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Auth/AuthTokenModel.php" afterPath="$PROJECT_DIR$/src/Model/Auth/AuthTokenModel.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Credential/CredentialEmailModel.php" afterPath="$PROJECT_DIR$/src/Model/Credential/CredentialEmailModel.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Credential/CredentialInterface.php" afterPath="$PROJECT_DIR$/src/Model/Credential/CredentialInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Credential/CredentialTokenModel.php" afterPath="$PROJECT_DIR$/src/Model/Credential/CredentialTokenModel.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Page/PageModel.php" afterPath="$PROJECT_DIR$/src/Model/Page/PageModel.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Response/ResponseAuthenticationModel.php" afterPath="$PROJECT_DIR$/src/Model/Response/ResponseAuthenticationModel.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Response/ResponseFormErrorModel.php" afterPath="$PROJECT_DIR$/src/Model/Response/ResponseFormErrorModel.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Response/ResponseModel.php" afterPath="$PROJECT_DIR$/src/Model/Response/ResponseModel.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Response/ResponseModelInterface.php" afterPath="$PROJECT_DIR$/src/Model/Response/ResponseModelInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Response/ResponsePageModel.php" afterPath="$PROJECT_DIR$/src/Model/Response/ResponsePageModel.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/Response/ResponseTypeInterface.php" afterPath="$PROJECT_DIR$/src/Model/Response/ResponseTypeInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/User/ChangePasswordModel.php" afterPath="$PROJECT_DIR$/src/Model/User/ChangePasswordModel.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Model/User/OAuthUser.php" afterPath="$PROJECT_DIR$/src/Model/User/OAuthUser.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Repository/UserRepository.php" afterPath="$PROJECT_DIR$/src/Repository/UserRepository.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Resources/config/routing.yml" afterPath="$PROJECT_DIR$/src/Resources/config/routing.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Resources/config/services.yml" afterPath="$PROJECT_DIR$/src/Resources/config/services.yml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Resources/views/oauth-failure.html.twig" afterPath="$PROJECT_DIR$/src/Resources/views/oauth-failure.html.twig" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Resources/views/oauth-start.html.twig" afterPath="$PROJECT_DIR$/src/Resources/views/oauth-start.html.twig" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Resources/views/oauth-success.html.twig" afterPath="$PROJECT_DIR$/src/Resources/views/oauth-success.html.twig" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/GuardTrait.php" afterPath="$PROJECT_DIR$/src/Security/Guard/GuardTrait.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/Login/AbstractLoginGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/Login/AbstractLoginGuard.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/Login/AccessTokenGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/Login/AccessTokenGuard.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/Login/AccessTokenGuardInterface.php" afterPath="$PROJECT_DIR$/src/Security/Guard/Login/AccessTokenGuardInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/Login/EmailGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/Login/EmailGuard.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/Login/EmailGuardInterface.php" afterPath="$PROJECT_DIR$/src/Security/Guard/Login/EmailGuardInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/OAuth/OAuthGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/OAuth/OAuthGuard.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/OAuth/OAuthGuardInterface.php" afterPath="$PROJECT_DIR$/src/Security/Guard/OAuth/OAuthGuardInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/StateLess/AbstractStateLessGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/StateLess/AbstractStateLessGuard.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/StateLess/ApiGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/StateLess/ApiGuard.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/StateLess/ApiGuardInterface.php" afterPath="$PROJECT_DIR$/src/Security/Guard/StateLess/ApiGuardInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/StateLess/WebsiteGuard.php" afterPath="$PROJECT_DIR$/src/Security/Guard/StateLess/WebsiteGuard.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Guard/StateLess/WebsiteGuardInterface.php" afterPath="$PROJECT_DIR$/src/Security/Guard/StateLess/WebsiteGuardInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/CustomProviderTrait.php" afterPath="$PROJECT_DIR$/src/Security/Provider/CustomProviderTrait.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/EmailProvider.php" afterPath="$PROJECT_DIR$/src/Security/Provider/EmailProvider.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/EmailProviderInterface.php" afterPath="$PROJECT_DIR$/src/Security/Provider/EmailProviderInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/FacebookProvider.php" afterPath="$PROJECT_DIR$/src/Security/Provider/FacebookProvider.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/FacebookProviderInterface.php" afterPath="$PROJECT_DIR$/src/Security/Provider/FacebookProviderInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/GoogleProvider.php" afterPath="$PROJECT_DIR$/src/Security/Provider/GoogleProvider.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/GoogleProviderInterface.php" afterPath="$PROJECT_DIR$/src/Security/Provider/GoogleProviderInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/RefreshTokenProvider.php" afterPath="$PROJECT_DIR$/src/Security/Provider/RefreshTokenProvider.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/RefreshTokenProviderInterface.php" afterPath="$PROJECT_DIR$/src/Security/Provider/RefreshTokenProviderInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/SlackProvider.php" afterPath="$PROJECT_DIR$/src/Security/Provider/SlackProvider.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/SlackProviderInterface.php" afterPath="$PROJECT_DIR$/src/Security/Provider/SlackProviderInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/TokenProvider.php" afterPath="$PROJECT_DIR$/src/Security/Provider/TokenProvider.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Provider/TokenProviderInterface.php" afterPath="$PROJECT_DIR$/src/Security/Provider/TokenProviderInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Security/Voter/UserVoter.php" afterPath="$PROJECT_DIR$/src/Security/Voter/UserVoter.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/AuthResponseService.php" afterPath="$PROJECT_DIR$/src/Service/AuthResponseService.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/AuthResponseServiceInterface.php" afterPath="$PROJECT_DIR$/src/Service/AuthResponseServiceInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/AuthTokenServiceInterface.php" afterPath="$PROJECT_DIR$/src/Service/AuthTokenServiceInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/FormSerializer.php" afterPath="$PROJECT_DIR$/src/Service/FormSerializer.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/FormSerializerInterface.php" afterPath="$PROJECT_DIR$/src/Service/FormSerializerInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/JWSTokenService.php" afterPath="$PROJECT_DIR$/src/Service/JWSTokenService.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/S3Service.php" afterPath="$PROJECT_DIR$/src/Service/S3Service.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/S3ServiceInterface.php" afterPath="$PROJECT_DIR$/src/Service/S3ServiceInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/UserService.php" afterPath="$PROJECT_DIR$/src/Service/UserService.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Service/UserServiceInterface.php" afterPath="$PROJECT_DIR$/src/Service/UserServiceInterface.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/BaseTestCase.php" afterPath="$PROJECT_DIR$/tests/BaseTestCase.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Client/SlackClientTest.php" afterPath="$PROJECT_DIR$/tests/Client/SlackClientTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/AuthTest.php" afterPath="$PROJECT_DIR$/tests/Controller/AuthTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/BaseApiTestCase.php" afterPath="$PROJECT_DIR$/tests/Controller/BaseApiTestCase.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/ChangePasswordTest.php" afterPath="$PROJECT_DIR$/tests/Controller/ChangePasswordTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/ForgetPasswordWorkFlowTest.php" afterPath="$PROJECT_DIR$/tests/Controller/ForgetPasswordWorkFlowTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/GetUserTest.php" afterPath="$PROJECT_DIR$/tests/Controller/GetUserTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/ImageUploadTest.php" afterPath="$PROJECT_DIR$/tests/Controller/ImageUploadTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/LoginControllerFakeTest.php" afterPath="$PROJECT_DIR$/tests/Controller/LoginControllerFakeTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/RequestTrait.php" afterPath="$PROJECT_DIR$/tests/Controller/RequestTrait.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Controller/UpdateUserTest.php" afterPath="$PROJECT_DIR$/tests/Controller/UpdateUserTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Entity/User.php" afterPath="$PROJECT_DIR$/tests/Entity/User.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Entity/UserTest.php" afterPath="$PROJECT_DIR$/tests/Entity/UserTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Entity/UserValidationTest.php" afterPath="$PROJECT_DIR$/tests/Entity/UserValidationTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Event/AuthFailedEventTest.php" afterPath="$PROJECT_DIR$/tests/Event/AuthFailedEventTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Factory/FaceBookClientFactoryTest.php" afterPath="$PROJECT_DIR$/tests/Factory/FaceBookClientFactoryTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Factory/GoogleClientFactoryTest.php" afterPath="$PROJECT_DIR$/tests/Factory/GoogleClientFactoryTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Factory/S3ClientFactoryTest.php" afterPath="$PROJECT_DIR$/tests/Factory/S3ClientFactoryTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/ChangePasswordTypeTest.php" afterPath="$PROJECT_DIR$/tests/Form/ChangePasswordTypeTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/DataTransformer/UserEmailTransformerTest.php" afterPath="$PROJECT_DIR$/tests/Form/DataTransformer/UserEmailTransformerTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/ForgetPasswordTypeTest.php" afterPath="$PROJECT_DIR$/tests/Form/ForgetPasswordTypeTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/RegisterTypeTest.php" afterPath="$PROJECT_DIR$/tests/Form/RegisterTypeTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/ResetPasswordTypeTest.php" afterPath="$PROJECT_DIR$/tests/Form/ResetPasswordTypeTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/UpdateUserTypeTest.php" afterPath="$PROJECT_DIR$/tests/Form/UpdateUserTypeTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Form/UserImageTypeTest.php" afterPath="$PROJECT_DIR$/tests/Form/UserImageTypeTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Mock/image_10Mb.jpg" afterPath="$PROJECT_DIR$/tests/Mock/image_10Mb.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Mock/valid_image.png" afterPath="$PROJECT_DIR$/tests/Mock/valid_image.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Auth/AuthTokenModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Auth/AuthTokenModelTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Credential/CredentialEmailModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Credential/CredentialEmailModelTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Credential/CredentialTokenModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Credential/CredentialTokenModelTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Page/PageModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Page/PageModelTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Response/ResponseFormErrorModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Response/ResponseFormErrorModelTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Response/ResponseModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Response/ResponseModelTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/Response/ResponsePageModelTest.php" afterPath="$PROJECT_DIR$/tests/Model/Response/ResponsePageModelTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Model/User/SlackUserTest.php" afterPath="$PROJECT_DIR$/tests/Model/User/SlackUserTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Guard/Login/AccessTokenGuardTest.php" afterPath="$PROJECT_DIR$/tests/Security/Guard/Login/AccessTokenGuardTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Guard/Login/EmailGuardTest.php" afterPath="$PROJECT_DIR$/tests/Security/Guard/Login/EmailGuardTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Guard/OAuth/OAuthGuardTest.php" afterPath="$PROJECT_DIR$/tests/Security/Guard/OAuth/OAuthGuardTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Guard/StateLess/ApiGuardTest.php" afterPath="$PROJECT_DIR$/tests/Security/Guard/StateLess/ApiGuardTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Guard/StateLess/WebsiteGuardTest.php" afterPath="$PROJECT_DIR$/tests/Security/Guard/StateLess/WebsiteGuardTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Provider/EmailProviderTest.php" afterPath="$PROJECT_DIR$/tests/Security/Provider/EmailProviderTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Provider/FacebookProviderTest.php" afterPath="$PROJECT_DIR$/tests/Security/Provider/FacebookProviderTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Provider/GoogleProviderTest.php" afterPath="$PROJECT_DIR$/tests/Security/Provider/GoogleProviderTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Provider/RefreshTokenProviderServiceTest.php" afterPath="$PROJECT_DIR$/tests/Security/Provider/RefreshTokenProviderServiceTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Provider/SlackProviderTest.php" afterPath="$PROJECT_DIR$/tests/Security/Provider/SlackProviderTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Provider/TokenProviderTest.php" afterPath="$PROJECT_DIR$/tests/Security/Provider/TokenProviderTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Security/Voter/UserVoterTest.php" afterPath="$PROJECT_DIR$/tests/Security/Voter/UserVoterTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Service/AuthResponseServiceTest.php" afterPath="$PROJECT_DIR$/tests/Service/AuthResponseServiceTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Service/FormSerializerTest.php" afterPath="$PROJECT_DIR$/tests/Service/FormSerializerTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Service/JWSTokenServiceTest.php" afterPath="$PROJECT_DIR$/tests/Service/JWSTokenServiceTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Service/S3ServiceTest.php" afterPath="$PROJECT_DIR$/tests/Service/S3ServiceTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/Tests/Service/UserServiceTest.php" afterPath="$PROJECT_DIR$/tests/Service/UserServiceTest.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.travis.yml" afterPath="$PROJECT_DIR$/.travis.yml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/composer.json" afterPath="$PROJECT_DIR$/composer.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/phpunit.xml.dist" afterPath="$PROJECT_DIR$/phpunit.xml.dist" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="config.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/Fixtures/app/config/config.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1080">
+              <caret line="72" column="22" lean-forward="false" selection-start-line="72" selection-start-column="22" selection-end-line="72" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AuthTest.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/Controller/AuthTest.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="coverage.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/coverage.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="15">
+              <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="composer.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/composer.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="223">
+              <caret line="62" column="14" lean-forward="false" selection-start-line="62" selection-start-column="14" selection-end-line="62" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".travis.yml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/.travis.yml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="223">
+              <caret line="30" column="28" lean-forward="false" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="phpunit.xml.dist" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/phpunit.xml.dist">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="73">
+              <caret line="43" column="45" lean-forward="true" selection-start-line="43" selection-start-column="45" selection-end-line="43" selection-end-column="45" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="StarterKitStartAppKernel.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/Fixtures/app/StarterKitStartAppKernel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="253">
+              <caret line="43" column="14" lean-forward="false" selection-start-line="43" selection-start-column="14" selection-end-line="43" selection-end-column="14" />
+              <folding>
+                <element signature="e#7#47#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Kernel.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/vendor/symfony/http-kernel/Kernel.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="313" column="30" lean-forward="false" selection-start-line="313" selection-start-column="20" selection-end-line="313" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="composer.json" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tests/Fixtures/composer.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>twig</find>
+      <find>symfony/symfony</find>
+      <find>StarterKitStartAppKernel</find>
+      <find>swiftmailer</find>
+      <find>Asset</find>
+      <find>KERNEL_DIR</find>
+      <find>router</find>
+      <find>rootDir</find>
+      <find>var</find>
+    </findStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$</dir>
+    </dirStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/StarterKitStartBundle.php" />
+        <option value="$PROJECT_DIR$/Tests/StarterKitStartBundleTest.php" />
+        <option value="$PROJECT_DIR$/Tests/Fixtures/app/StarterKitAppKernel.php" />
+        <option value="$PROJECT_DIR$/Tests/Fixtures/app/AppKernel.php" />
+        <option value="$PROJECT_DIR$/Tests/Fixtures/bin/console" />
+        <option value="$PROJECT_DIR$/Tests/Fixtures/app/config/config_test.yml" />
+        <option value="$PROJECT_DIR$/src/StarterKitStartBundle.php" />
+        <option value="$PROJECT_DIR$/Tests/BaseTestCase.php" />
+        <option value="$PROJECT_DIR$/vendor/liip/functional-test-bundle/Test/WebTestCase.php" />
+        <option value="$PROJECT_DIR$/Tests/Controller/AuthTest.php" />
+        <option value="$PROJECT_DIR$/Tests/Fixtures/app/config/config_dev.yml" />
+        <option value="$PROJECT_DIR$/Tests/Fixtures/app/config/routing_dev.yml" />
+        <option value="$PROJECT_DIR$/Tests/Fixtures/app/StarterKitStartAppKernel.php" />
+        <option value="$PROJECT_DIR$/Tests/Fixtures/app/config/config.yml" />
+        <option value="$PROJECT_DIR$/composer.json" />
+        <option value="$PROJECT_DIR$/phpunit.xml.dist" />
+        <option value="$PROJECT_DIR$/.travis.yml" />
+        <option value="$PROJECT_DIR$/tests/Controller/AuthTest.php" />
+        <option value="$PROJECT_DIR$/.gitignore" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="23" />
+    <option name="width" value="1437" />
+    <option name="height" value="822" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StarterBundleForSymfony" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StarterBundleForSymfony" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StarterBundleForSymfony" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StarterBundleForSymfony" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StarterBundleForSymfony" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="StarterBundleForSymfony" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tests" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Fixtures" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="editor.preferences.import" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="HbShouldOpenHtmlAsHb" value="" />
+    <property name="nodejs_interpreter_path" value="/usr/local/bin/node" />
+    <property name="js.eslint.eslintPackage" value="" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/var" />
+      <recent name="$PROJECT_DIR$/Tests/Fixtures/var" />
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/Tests/Fixtures/bin" />
+      <recent name="$PROJECT_DIR$/var/jwt" />
+      <recent name="$PROJECT_DIR$/Tests" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JavaScript Debug.error.html">
+    <configuration default="false" name="error.html" type="JavascriptDebugType" factoryName="JavaScript Debug" temporary="true" nameIsGenerated="true" uri="http://localhost:63342/StarterBundleForSymfony/error.html">
+      <method />
+    </configuration>
+    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="INTERPRETER_PATH" value="/bin/bash" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <module name="" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerProtractor" factoryName="Protractor">
+      <config-file value="" />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpSpecConfigurationType" factoryName="PHPSpec">
+      <PhpTestRunnerSettings />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.error.html" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="JavaScript Debug.error.html" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="344e7aa7-108c-4a7a-aed4-8776c41acc17" name="Default" comment="" />
+      <created>1513269976855</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1513269976855</updated>
+      <workItem from="1513269978166" duration="11705000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="11705000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="23" width="1437" height="822" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24982603" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32934928" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3997344" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="processedProjectFiles" value="true" />
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/tests/Entity/UserTest.php</url>
+          <line>4</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="3" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/vendor/doctrine/doctrine-bundle/DependencyInjection/Compiler/DoctrineOrmMappingsPass.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="241">
+          <caret line="138" column="27" lean-forward="false" selection-start-line="138" selection-start-column="27" selection-end-line="138" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Fixtures/var/jwt/private.pem">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/composer/autoload_real.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="104">
+          <caret line="15" column="27" lean-forward="false" selection-start-line="15" selection-start-column="27" selection-end-line="15" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/autoload.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="66" lean-forward="false" selection-start-line="6" selection-start-column="66" selection-end-line="6" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Fixtures/app/config/parameters.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Fixtures/bin/console">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="0" lean-forward="false" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="e#26#81#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Fixtures/app/config/security.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="76" column="5" lean-forward="false" selection-start-line="76" selection-start-column="5" selection-end-line="76" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Entity/UserTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="7" lean-forward="false" selection-start-line="18" selection-start-column="7" selection-end-line="18" selection-end-column="7" />
+          <folding>
+            <element signature="e#54#83#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Entity/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="1" lean-forward="false" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+          <folding>
+            <element signature="e#56#99#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Tests/StarterKitStartBundleTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="32" column="40" lean-forward="false" selection-start-line="32" selection-start-column="40" selection-end-line="32" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/liip/functional-test-bundle/Test/WebTestCase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="76" column="41" lean-forward="false" selection-start-line="76" selection-start-column="31" selection-end-line="76" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/BaseTestCase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="8" column="33" lean-forward="false" selection-start-line="8" selection-start-column="33" selection-end-line="8" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/symfony/framework-bundle/Test/KernelTestCase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="160" column="30" lean-forward="false" selection-start-line="160" selection-start-column="30" selection-end-line="160" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/symfony/framework-bundle/Test/WebTestCase.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="32" column="32" lean-forward="false" selection-start-line="32" selection-start-column="32" selection-end-line="32" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/StarterKitStartBundle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="1" lean-forward="false" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/symfony/http-kernel/Config/FileLocator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="51" column="27" lean-forward="false" selection-start-line="51" selection-start-column="27" selection-end-line="51" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="phar://$PROJECT_DIR$/php-coveralls.phar/vendor/symfony/config/FileLocator.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="39" column="26" lean-forward="false" selection-start-line="39" selection-start-column="26" selection-end-line="39" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Fixtures/var/logs/test.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-15425">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Fixtures/app/config/config_dev.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="13" column="48" lean-forward="false" selection-start-line="13" selection-start-column="47" selection-end-line="13" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Fixtures/app/config/config_test.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-12">
+          <caret line="1" column="23" lean-forward="false" selection-start-line="1" selection-start-column="23" selection-end-line="1" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Fixtures/app/config/routing.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="56" lean-forward="false" selection-start-line="1" selection-start-column="56" selection-end-line="1" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Fixtures/app/config/routing_dev.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="17" lean-forward="false" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/var/jwt/public.pem">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Fixtures/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/vendor/symfony/http-kernel/Kernel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="313" column="30" lean-forward="false" selection-start-line="313" selection-start-column="20" selection-end-line="313" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Fixtures/app/StarterKitStartAppKernel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="43" column="14" lean-forward="false" selection-start-line="43" selection-start-column="14" selection-end-line="43" selection-end-column="14" />
+          <folding>
+            <element signature="e#7#47#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Fixtures/app/config/config.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1080">
+          <caret line="72" column="22" lean-forward="false" selection-start-line="72" selection-start-column="22" selection-end-line="72" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.lock">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="5208" column="14" lean-forward="true" selection-start-line="5208" selection-start-column="14" selection-end-line="5208" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="62" column="14" lean-forward="false" selection-start-line="62" selection-start-column="14" selection-end-line="62" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/phpunit.xml.dist">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="73">
+          <caret line="43" column="45" lean-forward="true" selection-start-line="43" selection-start-column="45" selection-end-line="43" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/Controller/AuthTest.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/error.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="99" lean-forward="false" selection-start-line="0" selection-start-column="99" selection-end-line="0" selection-end-column="99" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.travis.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="30" column="28" lean-forward="false" selection-start-line="30" selection-start-column="28" selection-end-line="30" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/coverage.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="6" lean-forward="false" selection-start-line="3" selection-start-column="6" selection-end-line="3" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

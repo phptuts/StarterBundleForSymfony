@@ -1,0 +1,5 @@
+tests/Fixtures/var/cache
+tests/Fixtures/var/logs
+tests/Fixtures/var/log
+vendor
+
