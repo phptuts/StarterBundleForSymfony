@@ -7,7 +7,7 @@
          colors="true"
          stopOnError="true"
          stopOnFailure="true"
-         bootstrap="vendor/autoload.php"
+         bootstrap="./vendor/autoload.php"
 >
     <php>
         <ini name="error_reporting" value="-1" />
@@ -41,18 +41,10 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>./tests</directory>
+        <testsuite name="Starter Project Test Suite">
+            <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-        </whitelist>
-        <blacklist>
-            <directory>./vendor</directory>
-            <directory>./scripts</directory>
-            <directory>./docs</directory>
-        </blacklist>
-    </filter>
+
+
 </phpunit>

@@ -52,12 +52,12 @@
   "minimum-stability": "stable",
   "autoload": {
     "psr-4": {
-      "StarterKit\\StartBundle\\": "src"
+      "StarterKit\\StartBundle\\": "src/"
     }
   },
   "autoload-dev": {
       "psr-4": {
-          "StarterKit\\StartBundle\\Tests\\": "tests"
+          "StarterKit\\StartBundle\\Tests\\": "tests/"
       },
       "classmap": [
         "tests/Fixtures/app/StarterKitStartAppKernel.php"
