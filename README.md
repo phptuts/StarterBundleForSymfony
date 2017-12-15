@@ -8,7 +8,254 @@
 - [Example Website / Project Code](https://github.com/phptuts/starter-bundle-example) 
 
 
-## Setup Guide Symfony 3 / 4
+## Setup Guide Symfony 4
+
+
+1) Install the bundle, don't do the recipe at this time. 
+
+``` 
+composer require start-kit-symfony/start-bundle
+
+```
+
+2) Add the api routes to the bundle in the config -> routes.yaml
+
+``` 
+starter_kit_start:
+    resource: "@StarterKitStartBundle/Resources/config/routing.yml"
+```
+
+3) Add  NelmioApiDocBundle to bundles.php in -> config folder
+
+```
+Nelmio\ApiDocBundle\NelmioApiDocBundle::class => ['all' => true],
+```
+
+4) Add a nelmio_api_doc.yaml to the config folder and paste this in there.
+
+``` 
+nelmio_api_doc:
+    routes:
+        path_patterns: # an array of regexps
+            - ^/(api(?!-docs))
+            - ^/oauth
+            - ^/login_check
+            - ^/access-tokens
+
+
+    models: { use_jms: false }
+    documentation:
+        info:
+            title: 'Symfony Starter Api'
+            description: 'Our Symfony Starter Kit Api Documentation.'
+            version: 1.0.0
+
+```
+
+5) Add the service alias to services.yaml file.  This is a temporary hack.
+
+``` 
+Nelmio\ApiDocBundle\ApiDocGenerator: '@nelmio_api_doc.generator'
+```
+
+6) Add A controller class called ApiDocController and add method called apiDoc
+
+``` 
+<?php
+
+namespace App\Controller;
+
+use Nelmio\ApiDocBundle\ApiDocGenerator;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class ApiDocController extends Controller
+{
+    /**
+     * @var ApiDocGenerator
+     */
+    private $apiDocGenerator;
+
+    public function __construct(ApiDocGenerator $apiDocGenerator)
+    {
+        $this->apiDocGenerator = $apiDocGenerator;
+    }
+
+    /**
+     * @Route(name="api_docs", path="api-docs", methods={"GET"})
+     *
+     * @param Request $request
+     * @return Response
+     */
+    public function apiDoc(Request $request)
+    {
+        $spec = $this->apiDocGenerator->generate()->toArray();
+        if ('' !== $request->getBaseUrl()) {
+            $spec['basePath'] = $request->getBaseUrl();
+        }
+
+        return $this->render('@NelmioApiDoc/SwaggerUi/index.html.twig', ['swagger_data' => ['spec' => $spec]]);
+    }
+}
+```
+
+7) Create a jwt directory in your var folder
+``` 
+mkdir var/jwt
+```
+8) Create your private key with and write down the pass phrase you used.
+
+``` 
+openssl genrsa -out var/jwt/private.pem -aes256 4096
+```
+9) Create your public key, you will need the pass phrase here and in the composer install step
+
+``` 
+openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
+```
+
+10) In your App -> Entity folder create a User class that extends the [BaseUser](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Entity/BaseUser.php).
+
+11) When u create your s3 Bucket you will need to a folder for each environment you have. In that folder you will need to add another folder called profile_pics which is where the personal pictures are stored. Say you have dev and prod.  You can over ride this or not use s3 if you want to.
+
+    prod -> profile_pics
+    dev -> profile_pics
+
+12) Fill out all the information for setting up service parameters in your .env file.
+
+``` 
+###> start-kit-symfony/start-bundle ###
+
+# The Secret Pass
+JWS_PASS_PHRASE=secret_change
+JWS_TTL=5184000
+REFRESH_TOKEN_TTL=10368000
+
+# Facebook Config
+FACEBOOK_APP_SECRET=facebook_secret
+FACEBOOK_APP_ID=facebook_app_id
+FACEBOOK_API_VERSION=2.10
+# Google
+GOOGLE_CLIENT_ID=google_client_id
+
+# Amazon
+AWS_KEY=amazon_key
+AWS_SECRET=amazon_secret
+AWS_REGION=us-west-2
+AWS_BUCKET=fake-bucket
+AWS_VERSION=2006-03-01
+
+# Slack
+SLACK_CLIENT_KEY=slack_client_key
+SLACK_CLIENT_ID=slack_client_id
+
+###< start-kit-symfony/start-bundle ###
+
+APP_EMAIL=fake_email@gmail.com
+```
+
+14) Register Firewalls and Security Providers config -> packages -> security.yaml for symfony 4.
+
+
+``` 
+security:
+
+    encoders:
+        AppBundle\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        email:
+            id: StarterKit\StartBundle\Security\Provider\EmailProviderInterface
+        slack:
+            id: StarterKit\StartBundle\Security\Provider\SlackProviderInterface
+        token:
+            id: StarterKit\StartBundle\Security\Provider\TokenProviderInterface
+        facebook:
+            id: StarterKit\StartBundle\Security\Provider\FacebookProviderInterface
+        google:
+            id: StarterKit\StartBundle\Security\Provider\GoogleProviderInterface
+        refresh:
+            id: StarterKit\StartBundle\Security\Provider\RefreshTokenProviderInterface
+
+    role_hierarchy:
+        ROLE_ADMIN:  [ROLE_USER, ROLE_ALLOWED_TO_SWITCH]
+
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        facebook:
+            pattern: ^/access-tokens/facebook
+            stateless: true
+            provider: facebook
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\LoginGuardInterface
+
+        google:
+            pattern: ^/access-tokens/google
+            stateless: true
+            provider: google
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\LoginGuardInterface
+
+        slack:
+            pattern: ^/oauth/slack*
+            stateless: true
+            provider: slack
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\OAuthGuardInterface
+
+        refresh:
+            pattern: ^/access-tokens/refresh
+            stateless: true
+            provider: refresh
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\LoginGuardInterface
+
+        login:
+            pattern: ^/login_check
+            stateless: true
+            provider: email
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\LoginGuardInterface
+
+        api:
+            pattern: ^/api*
+            anonymous: ~
+            stateless: true
+            provider: token
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\StateLess\ApiGuardInterface
+
+        main:
+            pattern: ^/*
+            anonymous: ~
+            provider: token
+            stateless: true
+            guard:
+                authenticators:
+                    - StarterKit\StartBundle\Security\Guard\StateLess\WebsiteGuardInterface
+
+    access_control:
+        - { path: ^/admin, roles: ROLE_ADMIN }
+
+```
+
+## Setup Guide Symfony 3 
  
 
 1) Install the bundle
@@ -16,13 +263,14 @@
 composer require start-kit-symfony/start-bundle
 ```
 
-2) Add to Bundle class to the app kernel, only need if you are using symfony 3.
+2) Add to Bundle class to the app kernel.
 
 ``` 
     new StarterKit\StartBundle\StarterKitStartBundle(),
 ```
 
 3) cd into the directory where your project is
+
 4) Create a jwt directory in your var folder
 ``` 
 mkdir var/jwt
@@ -45,7 +293,7 @@ openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
     prod -> profile_pics
     dev -> profile_pics
 
-9) Configure the Bundle, in the app -> config -> config.yml file for symfony 3 and for symfony for create a file called starter_kit_start.yaml in config -> packages.  They are both yaml files.
+9) Configure the Bundle, in the app -> config -> config.yml file.
 
 ``` 
 starter_kit_start:
@@ -78,7 +326,7 @@ starter_kit_start:
 
 ```
 
-10) Register Firewalls and Security Providers. This will be in the app -> config -> security.yml for symfony 3 and in config -> packages -> security.yaml for symfony 4.
+10) Register Firewalls and Security Providers. This will be in the app -> config -> security.yml.
 
 
 ``` 
