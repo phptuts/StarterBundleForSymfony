@@ -48,8 +48,7 @@
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix="Test.php">./src</directory>
-
+            <directory suffix=".php">./src</directory>
         </whitelist>
     </filter>
 
