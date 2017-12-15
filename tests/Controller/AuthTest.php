@@ -24,7 +24,6 @@ class AuthTest extends BaseApiTestCase
         $response = $this->makeJsonRequest($client, Request::METHOD_POST, '/api/users', []);
         $json = $this->getJsonResponse($response);
 
-        echo $response->getContent();
         Assert::assertEquals(Response::HTTP_BAD_REQUEST, $response->getStatusCode());
 
         Assert::assertNotEmpty($json['data']['children']['email']['errors']);
