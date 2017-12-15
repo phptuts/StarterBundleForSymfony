@@ -28,7 +28,7 @@ before_script:
 
 
 script:
-    - vendor/bin/phpunit  --exclude-group exclude_travis  --coverage-clover=coverage.xml --verbose
+    - vendor/bin/simple-phpunit  --exclude-group exclude_travis  --coverage-clover=coverage.xml --verbose
 
 after_success:
   - travis_retry  bash <(curl -s https://codecov.io/bash)
