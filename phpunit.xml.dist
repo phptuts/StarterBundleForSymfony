@@ -7,13 +7,13 @@
          colors="true"
          stopOnError="true"
          stopOnFailure="true"
-         coverage-html="./reports"
-         bootstrap="../../../vendor/autoload.php"
+         bootstrap="./vendor/autoload.php"
 >
     <php>
         <ini name="error_reporting" value="-1" />
-        <server name="KERNEL_CLASS" value="AppKernel" />
-        <env name="APP_ENV" value="starter_kit_test" />
+        <server name="KERNEL_DIR" value="./Tests/Fixtures/app" />
+        <server name="KERNEL_CLASS" value="StarterKitStartAppKernel" />
+        <env name="APP_ENV" value="test" />
         <env name="APP_DEBUG" value="1" />
 
         <env name="JWS_PASS_PHRASE" value="MOO_MOO_MOO" />
@@ -41,18 +41,10 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>Tests</directory>
+        <testsuite name="Starter Project Test Suite">
+            <directory suffix="Test.php">./tests</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist>
-            <directory>./</directory>
-            <exclude>
-                <directory>Resources</directory>
-                <directory>DataFixtures</directory>
-                <directory>Tests</directory>
-            </exclude>
-        </whitelist>
-    </filter>
+
+
 </phpunit>

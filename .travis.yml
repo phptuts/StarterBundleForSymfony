@@ -11,34 +11,24 @@ cache:
 
 services:
   - sqlite
-  - redis
 
 matrix:
   include:
     - php: 7.1
   fast_finish: true
 
-before_install:
-  - git clone https://github.com/phptuts/starter-bundle-example.git
-  - cd starter-bundle-example
-
 install:
-  - composer update --prefer-dist
+  - composer update --prefer-dist --dev
 
 before_script:
-  - cp app/config/parameters.yml.dist app/config/parameters.yml
-  - mkdir var/jwt
-  - cp scripts/private.pem var/jwt/private.pem
-  - cp scripts/public.pem var/jwt/public.pem
-  - php bin/console doctrine:database:drop --env=starter_kit_test --force
-  - php bin/console doctrine:database:create --env=starter_kit_test
-  - php bin/console doctrine:schema:update --env=starter_kit_test --force
-  - php bin/console doctrine:fixtures:load --env=starter_kit_test --no-interaction --fixtures=vendor/start-kit-symfony/start-bundle/DataFixtures/ORM/
-
+  - php tests/Fixtures/bin/console doctrine:database:drop --env=test --force
+  - php tests/Fixtures/bin/console doctrine:database:create --env=test
+  - php tests/Fixtures/bin/console doctrine:schema:update --env=test --force
+  - php tests/Fixtures/bin/console doctrine:fixtures:load --env=test --no-interaction
+  - composer dump-autoload
 
 script:
-    - php bin/phpunit -c vendor/start-kit-symfony/start-bundle/ --exclude-group exclude_travis  --coverage-clover=coverage.xml
+    - ./vendor/bin/phpunit  --exclude-group exclude_travis  --coverage-clover=coverage.xml --verbose
 
 after_success:
-  - ls 
   - travis_retry  bash <(curl -s https://codecov.io/bash)

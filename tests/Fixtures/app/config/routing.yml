@@ -1,0 +1,2 @@
+starter_kit_start:
+    resource: "@StarterKitStartBundle/Resources/config/routing.yml"
