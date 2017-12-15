@@ -3,4 +3,4 @@ tests/Fixtures/var/logs
 tests/Fixtures/var/log
 vendor
 .idea
-
+coverage.xml

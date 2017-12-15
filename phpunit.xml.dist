@@ -42,12 +42,18 @@
 
     <testsuites>
         <testsuite name="Project Test Suite">
-            <directory>Tests</directory>
+            <directory>./tests</directory>
         </testsuite>
     </testsuites>
     <filter>
-        <whitelist>
-            <directory>./tests/</directory>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./src</directory>
         </whitelist>
+        <blacklist>
+            <directory>./vendor</directory>
+            <directory>./tests</directory>
+            <directory>./scripts</directory>
+            <directory>./docs</directory>
+        </blacklist>
     </filter>
 </phpunit>
