@@ -19,7 +19,7 @@ class StarterKitStartAppKernel extends Kernel
             new StarterKit\StartBundle\StarterKitStartBundle(),
         ];
 
-        if (in_array($this->getEnvironment(), ['dev', 'test', 'starter_kit_test'], true)) {
+        if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
         }
 
@@ -28,7 +28,7 @@ class StarterKitStartAppKernel extends Kernel
 
     public function getProjectDir()
     {
-        return dirname(__DIR__);
+        return dirname(__DIR__) . '../';
     }
 
     public function getRootDir()
