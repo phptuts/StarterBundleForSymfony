@@ -28,7 +28,7 @@ class StarterKitStartAppKernel extends Kernel
 
     public function getProjectDir()
     {
-        return dirname(__DIR__) . '../';
+        return dirname(__DIR__);
     }
 
     public function getRootDir()
