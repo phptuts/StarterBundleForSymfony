@@ -18,7 +18,7 @@ matrix:
   fast_finish: true
 
 install:
-  - composer update --prefer-dist --dev
+  - composer update --prefer-dist
 
 before_script:
   - php tests/Fixtures/bin/console doctrine:database:drop --env=test --force
@@ -29,7 +29,6 @@ before_script:
 
 script:
     - ./vendor/bin/phpunit  --exclude-group exclude_travis --coverage-clover=coverage.xml --verbose
-    - ls
 
 after_success:
   - travis_retry  bash <(curl -s https://codecov.io/bash)

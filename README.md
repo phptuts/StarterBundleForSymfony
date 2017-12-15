@@ -4,8 +4,9 @@
 
 [![codecov](https://codecov.io/gh/phptuts/StarterBundleForSymfony/branch/master/graph/badge.svg)](https://codecov.io/gh/phptuts/StarterBundleForSymfony)
 
-- [Example Website](https://skbfsp.info)
-- [Example Website / Project Code](https://github.com/phptuts/starter-bundle-example) 
+- [Example Website Using Symfony 4](https://skbfsp.info)
+- [Example Code Using Symfony 4](https://github.com/phptuts/starter-bundle-example-symfony-4) 
+- [Example Code Using Symfony 3](https://github.com/phptuts/starter-bundle-example) 
 
 
 ## Setup Guide Symfony 4
@@ -499,3 +500,17 @@ I feel that email are the best approach to login and not username.  Mainly becau
 - [How to add EasyAdmin Bundle For User Management](docs/examples/easy-admin.md)
 - [How to log the user in after they have registered](docs/examples/register-login.md)
 - [How to send an email after the user registers](docs/example/register-email.md)
+
+
+## How to run tests
+
+Be sure that sqlite is install our your system.  That is what we use for the database
+
+1) git clone https://github.com/phptuts/StarterBundleForSymfony.git
+
+2) cd into the directory you cloned the repo in.
+
+3) Run this in the command in the coommand line.
+``` 
+sh run_tests.sh
+```
