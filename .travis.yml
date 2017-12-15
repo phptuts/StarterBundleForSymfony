@@ -18,14 +18,14 @@ matrix:
   fast_finish: true
 
 install:
-  - composer update --prefer-dist
+  - composer install
 
 before_script:
   - php tests/Fixtures/bin/console doctrine:database:drop --env=test --force
   - php tests/Fixtures/bin/console doctrine:database:create --env=test
   - php tests/Fixtures/bin/console doctrine:schema:update --env=test --force
   - php tests/Fixtures/bin/console doctrine:fixtures:load --env=test --no-interaction
-  - composer dump-autoload 
+  - composer dump-autoload
 
 script:
     - ./vendor/bin/simple-phpunit  --exclude-group exclude_travis  --coverage-clover=coverage.xml --verbose
