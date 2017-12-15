@@ -12,7 +12,7 @@ framework:
     translator: { fallbacks: ['%locale%'] }
     secret: '%app.secret%'
     router:
-        resource: '%kernel.project_dir%/tests/Fixtures/app/config/routing_dev.yml'
+        resource: '%kernel.project_dir%/app/config/routing_dev.yml'
         strict_requirements: ~
     form: ~
     csrf_protection: ~
