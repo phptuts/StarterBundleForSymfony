@@ -28,7 +28,8 @@ before_script:
   - composer dump-autoload
 
 script:
-    - ./vendor/bin/phpunit  --exclude-group exclude_travis  --coverage-clover=coverage.xml --verbose
+    - ./vendor/bin/phpunit  --exclude-group exclude_travis  --coverage-clover=clover.xml --verbose
+    - ls
 
 after_success:
   - travis_retry  bash <(curl -s https://codecov.io/bash)
