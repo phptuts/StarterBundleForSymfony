@@ -26,6 +26,16 @@ class StarterKitStartAppKernel extends Kernel
         return $bundles;
     }
 
+    public function getProjectDir()
+    {
+        return dirname(__DIR__);
+    }
+
+    public function getRootDir()
+    {
+        return __DIR__;
+    }
+
     public function getCacheDir()
     {
         return dirname(__DIR__).'/var/cache/'.$this->getEnvironment();
