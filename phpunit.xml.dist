@@ -51,7 +51,6 @@
         </whitelist>
         <blacklist>
             <directory>./vendor</directory>
-            <directory>./tests</directory>
             <directory>./scripts</directory>
             <directory>./docs</directory>
         </blacklist>
