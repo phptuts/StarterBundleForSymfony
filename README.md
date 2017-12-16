@@ -497,7 +497,7 @@ I feel that email are the best approach to login and not username.  Mainly becau
 - [How to add Linked In Login (OAuth Provider)](docs/examples/ad-linked-oauth.md)
 - [How to add EasyAdmin Bundle For User Management](docs/examples/easy-admin.md)
 - [How to log the user in after they have registered](docs/examples/register-login.md)
-- [How to send an email after the user registers](docs/example/register-email.md)
+- [How to send an email after the user registers](docs/examples/register-email.md)
 
 
 ## How to run tests

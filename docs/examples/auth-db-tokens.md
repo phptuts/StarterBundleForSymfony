@@ -6,7 +6,7 @@ You can see the example code for this [here](https://github.com/phptuts/starter-
 
 2) You will need to extend the user service to have a findByAuthToken function or someway of finding the user by the auth token stored in the database. [Example](https://github.com/phptuts/starter-bundle-example/blob/database-token-example/src/AppBundle/Service/UserService.php#L17)
 
-3) Create a service that implements the [AuthTokenInterface](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Service/AuthTokenServiceInterface.php).  Our service example is [here](https://github.com/phptuts/starter-bundle-example/blob/database-token-example/src/AppBundle/Service/DatabaseTokenService.php).
+3) Create a service that implements the [AuthTokenInterface](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Service/AuthTokenServiceInterface.php).  Our service example is [here](https://github.com/phptuts/starter-bundle-example/blob/database-token-example/src/AppBundle/Service/DatabaseTokenService.php).
 
 4) Register the [service](https://github.com/phptuts/starter-bundle-example/blob/database-token-example/app/config/services.yml#L49) and clear your cache.
 
