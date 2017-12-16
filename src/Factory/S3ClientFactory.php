@@ -34,12 +34,12 @@ class S3ClientFactory implements S3ClientFactoryInterface
     private $secret;
 
 
-    public function __construct($region, $key, $secret, $apiVersion = self::AMAZON_S3_VERSION)
+    public function __construct($awsRegion, $awsKey, $awsSecret, $awsApiVersion = self::AMAZON_S3_VERSION)
     {
-        $this->region = $region;
-        $this->apiVersion = $apiVersion;
-        $this->key = $key;
-        $this->secret = $secret;
+        $this->region = $awsRegion;
+        $this->apiVersion = $awsApiVersion;
+        $this->key = $awsKey;
+        $this->secret = $awsSecret;
     }
 
     /**

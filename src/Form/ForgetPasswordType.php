@@ -3,7 +3,7 @@
 namespace StarterKit\StartBundle\Form;
 
 use StarterKit\StartBundle\Entity\BaseUser;
-use StarterKit\StartBundle\Form\DataTransformer\UserEmailTransformer;
+use StarterKit\StartBundle\Form\DataTransformer\UserEmailTransformerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type as Types;
 class ForgetPasswordType extends AbstractType
 {
     /**
-     * @var UserEmailTransformer
+     * @var UserEmailTransformerInterface
      */
     private $emailTransformer;
 
@@ -25,7 +25,7 @@ class ForgetPasswordType extends AbstractType
      */
     private $userClass;
 
-    public function __construct(UserEmailTransformer $emailTransformer, $userClass)
+    public function __construct(UserEmailTransformerInterface $emailTransformer, $userClass)
     {
         $this->emailTransformer = $emailTransformer;
         $this->userClass = $userClass;

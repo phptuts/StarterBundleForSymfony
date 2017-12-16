@@ -19,16 +19,16 @@ class FaceBookClientFactory implements FaceBookClientFactoryInterface
 
     /**
      * FaceBookClientFactory constructor.
-     * @param string $appId
-     * @param string $appSecret
-     * @param string $apiVersion
+     * @param string $fbAppId
+     * @param string $fbAppSecret
+     * @param string $fbApiVersion
      */
-    public function __construct($appId, $appSecret, $apiVersion)
+    public function __construct($fbAppId, $fbAppSecret, $fbApiVersion)
     {
         $this->fb = new Facebook([
-            'app_id' => $appId, // Replace {app-id} with your app id
-            'app_secret' => $appSecret,
-            'default_graph_version' => $apiVersion,
+            'app_id' => $fbAppId, // Replace {app-id} with your app id
+            'app_secret' => $fbAppSecret,
+            'default_graph_version' => $fbApiVersion,
             'http_client_handler' => 'curl'
         ]);
     }

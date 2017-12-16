@@ -510,7 +510,7 @@ Be sure that sqlite is install our your system.  That is what we use for the dat
 
 2) cd into the directory you cloned the repo in.
 
-3) Run this in the command in the coommand line.
+3) Run this in the command in the command line.
 ``` 
 sh run_tests.sh
 ```

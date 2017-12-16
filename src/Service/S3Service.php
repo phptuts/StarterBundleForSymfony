@@ -22,13 +22,13 @@ class S3Service implements S3ServiceInterface
     /**
      * @var string
      */
-    private $bucket;
+    private $bucketName;
 
-    public function __construct(S3ClientFactory $clientFactory,  $bucket, $env)
+    public function __construct(S3ClientFactory $clientFactory, $bucketName, $env)
     {
         $this->client = $clientFactory->getClient();
         $this->env = $env;
-        $this->bucket = $bucket;
+        $this->bucketName = $bucketName;
     }
 
     /**
@@ -47,7 +47,7 @@ class S3Service implements S3ServiceInterface
         /** @var Result $result */
         $result = $this->client->putObject([
             'ACL' => 'public-read',
-            'Bucket' => $this->bucket,
+            'Bucket' => $this->bucketName,
             'SourceFile' => $file->getRealPath(),
             'Key' => $path
         ]);

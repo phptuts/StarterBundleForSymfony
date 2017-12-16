@@ -37,7 +37,7 @@ class JWSTokenService implements AuthTokenServiceInterface
      * The number of seconds before the token expires
      * @var integer
      */
-    private $ttl;
+    private $authTokenTTL;
 
     /**
      * The pass phrase used create tokens
@@ -49,7 +49,7 @@ class JWSTokenService implements AuthTokenServiceInterface
      * The folder where the project is located
      * @var string
      */
-    private $kernelDir;
+    private $projectDir;
     /**
      * @var UserServiceInterface
      */
@@ -59,15 +59,15 @@ class JWSTokenService implements AuthTokenServiceInterface
      * AuthTokenService constructor.
      * @param UserServiceInterface $userService
      * @param $passPhrase
-     * @param integer $ttl
-     * @param string $kernelDir
+     * @param integer $authTokenTTL
+     * @param string $projectDir
      */
-    public function __construct(UserServiceInterface $userService, $passPhrase, $ttl, $kernelDir)
+    public function __construct(UserServiceInterface $userService, $passPhrase, $authTokenTTL, $projectDir)
     {
         $this->userService = $userService;
         $this->passPhrase = $passPhrase;
-        $this->ttl = $ttl;
-        $this->kernelDir = $kernelDir;
+        $this->authTokenTTL = $authTokenTTL;
+        $this->projectDir = $projectDir;
     }
 
     /**
@@ -79,7 +79,7 @@ class JWSTokenService implements AuthTokenServiceInterface
     public function createAuthTokenModel(BaseUser $user)
     {
         $privateKey = openssl_pkey_get_private(
-            file_get_contents($this->kernelDir . '/var/jwt/private.pem'),
+            file_get_contents($this->projectDir . '/var/jwt/private.pem'),
             $this->passPhrase
         );
 
@@ -88,7 +88,7 @@ class JWSTokenService implements AuthTokenServiceInterface
         ]);
 
         $expirationDate = new \DateTime();
-        $expirationDate->modify('+' . $this->ttl . ' seconds');
+        $expirationDate->modify('+' . $this->authTokenTTL . ' seconds');
         $expirationTimestamp = $expirationDate->getTimestamp();
 
         $jws->setPayload(array_merge([
@@ -111,7 +111,7 @@ class JWSTokenService implements AuthTokenServiceInterface
     public function isValid($token)
     {
         try {
-            $publicKey = openssl_pkey_get_public(file_get_contents($this->kernelDir . '/var/jwt/public.pem'));
+            $publicKey = openssl_pkey_get_public(file_get_contents($this->projectDir . '/var/jwt/public.pem'));
 
             $jws = SimpleJWS::load($token);
 
