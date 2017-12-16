@@ -2,13 +2,13 @@
 
 1) A json request with email and password is the sent to /login_check.
 
-2) The request is parsed by the [getCredentials](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Security/Guard/LoginGuard.php#L103) function and a [CredentialEmailModel]() is return.
+2) The request is parsed by the [getCredentials](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Security/Guard/LoginGuard.php#L103) function and a [CredentialEmailModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Model/Credential/CredentialEmailModel.php) is return.
 
-3) The email is passed into the [EmailProvider](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Security/Provider/EmailProvider.php) and if a user is found with that email it is return.  This happens in the getUser method.  Otherwise a UsernameNotFound Exception is thrown and the auth fails.
+3) The email is passed into the [EmailProvider](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Security/Provider/EmailProvider.php) and if a user is found with that email it is return.  This happens in the getUser method.  Otherwise a UsernameNotFound Exception is thrown and the auth fails.
 
-4) User's password is then validated in the [checkCredentials](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Security/Guard/LoginGuard.php#L127) function.  This will return true if the password is valid.
+4) User's password is then validated in the [checkCredentials](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Security/Guard/LoginGuard.php#L127) function.  This will return true if the password is valid.
 
-5) The [onAuthenticationSuccess](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Security/Guard/LoginGuard.php#L148) with a credentialed response.
+5) The [onAuthenticationSuccess](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Security/Guard/LoginGuard.php#L148) with a credentialed response.
 
 ```
 {
@@ -39,7 +39,7 @@
 }
 ```
 
-6) If the auth fails a 403 will be returned in the [onAuthenticationFailure](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Security/Guard/LoginGuard.php#L164) method.
+6) If the auth fails a 403 will be returned in the [onAuthenticationFailure](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Security/Guard/LoginGuard.php#L164) method.
 
 Here are the security settings.  We have to register the provider and firewall.  We have a route registered as well.
 
@@ -65,28 +65,34 @@ login:
 
 ```
 
-[Controller Method](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Controller/SecurityController.php#L31) For Oauth:
+[Controller Method](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Controller/SecurityController.php#L31) For Oauth:
 
 ``` 
 /**
  *
- *  This is an example of a facebook user logging in the with a token
- *  <pre> {"type" : "facebook", "token" : "sdfasdfasdfasdf" } </pre>
- *
- *  This is an example of a user using a refresh token
- *  <pre> {"type" : "refresh_token", "token" : "sdfasdfasdfasdf" } </pre>
- *
- *  This is an example of a user logging in with email and password
- *  <pre> {"email" : "example@gmail.com", "password" : "*******" } </pre>
- *
- * @ApiDoc(
- *  resource=true,
- *  description="Api Login End Point",
- *  section="Security"
+ * @SWG\Post(
+ *     tags={"security"},
+ *     description="This logs a user in via email and password",
+ *     produces={"application/json"},
+ *     consumes={"application/json"},
+ *     @SWG\Parameter(
+ *          name="post body",
+ *          in="body",
+ *          type="json",
+ *          description="User data",
+ *          required=true,
+ *          @SWG\Schema(
+ *              type="object",
+ *              @SWG\Property(property="email", type="string"),
+ *              @SWG\Property(property="password", type="string")
+ *          )
+ *     ),
+ *     @SWG\Response(description="Login Successful", response="201"),
+ *     @SWG\Response(description="Login Failed", response="403"),
+ *     @SWG\Response(description="Nothing was sent", response="401"),
  * )
  * @Security("has_role('ROLE_USER')")
  * @Route(path="/login_check", name="_api_doc_login_check", methods={"POST"})
- *
  */
 public function loginAction()
 {

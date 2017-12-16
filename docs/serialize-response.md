@@ -31,11 +31,11 @@ Paginated responses will have data required for the client to be get more less i
 }
 ```
 
-These response are created by creating a [ResponsePageModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Model/Response/ResponsePageModel.php)
+These response are created by creating a [ResponsePageModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Model/Response/ResponsePageModel.php)
 
 ## Form Errors
 
-Form errors are serialized like they are in the jms serializer bundle.  There is a [function](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Controller/BaseRestController.php#L37) BaseController that allows you to feed the form to it for serialization.
+Form errors are serialized like they are in the jms serializer bundle.  There is a [function](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Controller/BaseRestController.php#L37) BaseController that allows you to feed the form to it for serialization.
 
 ``` 
 {
@@ -60,6 +60,6 @@ Form errors are serialized like they are in the jms serializer bundle.  There is
 }
 ```
 
-## [ViewInterface](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Entity/ViewInterface.php)
+## [ViewInterface](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Entity/ViewInterface.php)
 
 From what I have seen the most popular views to create of object are the single view and the list view.  We use these methods implemented in the user service to create the data to display to the frontend.

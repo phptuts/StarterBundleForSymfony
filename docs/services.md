@@ -1,6 +1,6 @@
 # Services
 
-## [s3 Service](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Service/S3Service.php)
+## [s3 Service](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Service/S3Service.php)
 
 This service is used for file uploads.  We have an s3 client that takes in you aws setup information.  The s3 Service
  takes in 3 parameters.  This service also takes into account what environment you are in.  This way you never mix up
@@ -27,7 +27,7 @@ public function uploadFile(UploadedFile $file, $folderPath, $fileName)
 }
 ```
 
-## [Auth Response Service](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Service/AuthResponseService.php)
+## [Auth Response Service](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Service/AuthResponseService.php)
 
 This service is responsible for setting an authentication cookie and producing credentialed responses.  A credentialed 
 response will have a serialized version of the user, (jwt/jws) token, and a refresh token.  The authentication cookie
@@ -62,24 +62,22 @@ response will have a serialized version of the user, (jwt/jws) token, and a refr
 }
 ```
 
-## [UserService](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Service/UserService.php)
+## [UserService](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Service/UserService.php)
 
 This contains all the logic to save users, register users, as well as wrapping around the user repository.  The way 
 this bundle gets around not knowing the concrete user class is by inject the class name into the service.
 
 
-## [Form Serializer](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Service/FormSerializer.php)
+## [Form Serializer](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Service/FormSerializer.php)
 
 This is a copy and paste job from the jms serializer.  It serializes the the symfony forms like the FOS RestBundle / 
 JMS Serializer bundle.
 
 
-## [JWS Token Service](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Service/JWSTokenService.php)
+## [JWS Token Service](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Service/JWSTokenService.php)
 
 The purpose of this is to create authentication tokens that are not stored in the database that contain information 
 will allow the server to look up the user.  This why every token's payload has the key user_id which is used to 
 lookup the user.
 
-A few things to note the BaseUser has a [getJWTPayload](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Entity/BaseUser.php#L712) method.  This is used to populate the jwt token payload without
- events.  The other thing to note is that this service returns an [AuthModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Model/Auth/AuthTokenModel.php) which is used to serialize the token 
- with the expiration date. 
+A few things to note the BaseUser has a [getJWTPayload](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Entity/BaseUser.php#L712) method.  This is used to populate the jwt token payload without events.  The other thing to note is that this service returns an [AuthModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Model/Auth/AuthTokenModel.php) which is used to serialize the token with the expiration date. 

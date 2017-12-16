@@ -2,13 +2,16 @@
 
 ## Guards
 
-We use guards to security the platform guards.  A guard is a class that implements GuardAuthenticatorInterface.  None of our guards support remember me because all guards are stateless in our system.  We don't rely on sessions.
+We use guards to security the platform guards.  A guard is a class that implements AuthenticatorInterface.  None of our guards support remember me because all guards are stateless in our system.  We don't rely on sessions.
 
 ### Guard Methods that are important
 
+- supports:
+    Used to determine if the guard supports the request being sent.  Returns a boolean.
+
 - getCredentials: 
 
-    Used to get information from the request to validate if it has something validate.  If the function returns null the request is fed into the start function if login is required.
+    Return the what is need to validate whether the response is a valid user.  Often called the user credentials.
     
 - getUser
 
@@ -16,7 +19,7 @@ We use guards to security the platform guards.  A guard is a class that implemen
     
 - checkCredentials
 
-    This Function validates whether the user and auth information is valid.  For tokens this is done in the user provider.
+    This function validates whether the user and auth information is valid.  For tokens this is done in the user provider and will always return true.
     
 - onAuthenticationSuccess
 
@@ -34,11 +37,11 @@ We use guards to security the platform guards.  A guard is a class that implemen
 
 These take the credentials return and return a user. For some that means just looking up the email, for others like facebook it means that http requests will need to made in order to validate token provided.
 
-## CredentialModels / [CredentialInterface](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Model/Credential/CredentialInterface.php)
+## CredentialModels / [CredentialInterface](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Model/Credential/CredentialInterface.php)
 
-These were created as a standard way of passing data to the getUser Function.  The getUserIdentifier() function contains the information needed to look for the user.  For example [CredentialEmailModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Model/Credential/CredentialEmailModel.php) will pass the email through this function, while the [CredentialTokenModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Model/Credential/CredentialTokenModel.php) will pass the token it received.
+These were created as a standard way of passing data to the getUser function.  The getUserIdentifier() function contains the information needed to look for the user.  For example [CredentialEmailModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Model/Credential/CredentialEmailModel.php) will pass the email through this function, while the [CredentialTokenModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Model/Credential/CredentialTokenModel.php) will pass the token it received.
 
-## [UserVoter](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Security/Voter/UserVoter.php)
+## [UserVoter](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Security/Voter/UserVoter.php)
 
 We have one voter called the user voter this. This is used to allow admin / or the user that login to edit itself.  These are used in the controller, here is an example below.
 

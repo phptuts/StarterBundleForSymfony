@@ -1,8 +1,8 @@
 # Stateless Authentication Guards
 
-1) Look for the auth token in cookie or the Authorization header. If one is found return [CredentialTokenModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Model/Credential/CredentialTokenModel.php).  If one is not found for the website it will redirect the user to the login screen with next_url="where the request came from".  This redirect happens in the [start](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Security/Guard/StateLess/WebsiteGuard.php#L70) method.  If it's the api it will return a 401.
+1) Look for the auth token in cookie or the Authorization header. If one is found return [CredentialTokenModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Model/Credential/CredentialTokenModel.php).  If one is not found for the website it will redirect the user to the login screen with next_url="where the request came from".  This redirect happens in the [start](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Security/Guard/StateLess/WebsiteGuard.php#L70) method.  If it's the api it will return a 401.
 
-2) We use the auth service to check it's validity and fetch the user.  By default that will [JWSTokenService](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Service/JWSTokenService.php).  The provider is the [TokenProvider](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Security/Provider/TokenProvider.php)
+2) We use the auth service to check it's validity and fetch the user.  By default that will [JWSTokenService](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Service/JWSTokenService.php).  The provider is the [TokenProvider](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Security/Provider/TokenProvider.php)
 
 3) checkCredential will return true because it has already been validated by the provider.
 

@@ -20,7 +20,7 @@ $("#facebook_login_btn").on("click", function () {
 ``` 
 {'token' => 'fb_token'}
 ``` 
-This will be in the json content type.  A [CredentialTokenModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Model/Credential/CredentialTokenModel.php) will be returned.
+This will be in the json content type.  A [CredentialTokenModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Model/Credential/CredentialTokenModel.php) will be returned.
 
 3) The token will then be sent to the getUser method which will pass it FacebookProvider.
  
@@ -28,7 +28,7 @@ This will be in the json content type.  A [CredentialTokenModel](https://github.
 
 5) Check and see if the user exists with that facebook user id, if so return that user. If no user is found check for the email, and if that fails register the user.
 
-6) Then [checkCredentials](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Security/Guard/GuardTrait.php#L41) is called which just returns true.  This is because token was already checked by facebook.
+6) Then [checkCredentials](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Security/Guard/GuardTrait.php#L41) is called which just returns true.  This is because token was already checked by facebook.
 
 7) We then return a credentialed Response back to the user, in the onAuthenticationSuccess method.  If anything fails the onAuthenticationFailure function is called a 403 is returns.
 
@@ -86,7 +86,7 @@ facebook:
 
 ```
 
-[Controller Method](https://github.com/phptuts/StarterBundleForSymfony/blob/master/Controller/SecurityController.php#L49) For Oauth:
+[Controller Method](https://github.com/phptuts/StarterBundleForSymfony/blob/src/master/Controller/SecurityController.php#L49) For Oauth:
 
 ``` 
 /**
