@@ -32,7 +32,6 @@ class JWSTokenServiceTest extends BaseTestCase
         parent::setUp();
         self::$passphrase = $this->getContainer()->getParameter('starter_kit_start.jws_pass_phrase') ;
         self::$homeDir = $this->getContainer()->getParameter('kernel.project_dir');
-        parent::setUp();
         $this->userService = \Mockery::mock(UserServiceInterface::class);
         $this->jwsTokenService = new JWSTokenService(
                 $this->userService,

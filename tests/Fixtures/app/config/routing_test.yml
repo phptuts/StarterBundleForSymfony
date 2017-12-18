@@ -1,0 +1,8 @@
+_main:
+    resource: routing_dev.yml
+
+
+starter_bundle_test_login_route:
+    resource: '../LoginTestController.php'
+    type: annotation
+    prefix: /

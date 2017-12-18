@@ -6,8 +6,10 @@ use Mockery\Mock;
 use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Event\AuthFailedEvent;
 use StarterKit\StartBundle\Security\Guard\StateLess\ApiGuard;
+use StarterKit\StartBundle\Service\AuthResponseService;
 use StarterKit\StartBundle\Tests\BaseTestCase;
 use StarterKit\StartBundle\Tests\Entity\User;
+use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -67,6 +69,7 @@ class ApiGuardTest extends BaseTestCase
     public function testAuthFails()
     {
         $request =  Request::create('/api/users', 'GET');
+        $request->cookies->set(AuthResponseService::AUTH_COOKIE, 'jwt_token');
 
         $this->dispatcher
             ->shouldReceive('dispatch')
@@ -75,6 +78,7 @@ class ApiGuardTest extends BaseTestCase
 
         $response = $this->guard->onAuthenticationFailure($request, new AuthenticationException('bad'));
 
+        Assert::assertNull($response->headers->get(AuthResponseService::AUTH_COOKIE));
         Assert::assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
     }
 }

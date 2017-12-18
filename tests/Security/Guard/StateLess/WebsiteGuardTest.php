@@ -6,7 +6,9 @@ use Mockery\Mock;
 use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Event\AuthFailedEvent;
 use StarterKit\StartBundle\Security\Guard\StateLess\WebsiteGuard;
+use StarterKit\StartBundle\Service\AuthResponseService;
 use StarterKit\StartBundle\Tests\BaseTestCase;
+use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -72,6 +74,7 @@ class WebsiteGuardTest extends BaseTestCase
     public function testWebsiteFailure()
     {
         $request = Request::create('/moo', 'GET');
+        $request->cookies->set(AuthResponseService::AUTH_COOKIE, 'jwt_token');
 
         $this->dispatcher
             ->shouldReceive('dispatch')
@@ -79,7 +82,7 @@ class WebsiteGuardTest extends BaseTestCase
             ->once();
 
         $response = $this->guard->onAuthenticationFailure($request, new AuthenticationException('balh'));
-
+        Assert::assertNull($response->headers->get(AuthResponseService::AUTH_COOKIE));
         Assert::assertEquals('login?next_url=/moo', $response->getTargetUrl());
 
     }

@@ -3,6 +3,7 @@
 namespace StarterKit\StartBundle\Security\Guard;
 
 use StarterKit\StartBundle\Model\Credential\CredentialInterface;
+use StarterKit\StartBundle\Service\AuthResponseService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -54,5 +55,18 @@ trait GuardTrait
     public function start(Request $request, AuthenticationException $authException = null)
     {
         return new Response('Authentication Required', Response::HTTP_UNAUTHORIZED);
+    }
+
+    /**
+     * THis is used to remove the auth cookie from the response so that we don't get into infinite redirect loops
+     *
+     * @param Response $response
+     * @return Response
+     */
+    public function removeAuthCookieFromResponse(Response $response)
+    {
+        $response->headers->clearCookie(AuthResponseService::AUTH_COOKIE);
+
+        return $response;
     }
 }

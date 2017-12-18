@@ -12,6 +12,7 @@ use StarterKit\StartBundle\Service\AuthResponseService;
 use StarterKit\StartBundle\Service\AuthResponseServiceInterface;
 use StarterKit\StartBundle\Tests\BaseTestCase;
 use StarterKit\StartBundle\Tests\Entity\User;
+use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -140,7 +141,7 @@ class OAuthGuardTest extends BaseTestCase
     public function testFailedAuth()
     {
         $request =  Request::create('/oauth/slack', 'GET', ['code' => 'oauth_code']);
-
+        $request->cookies->set(AuthResponseService::AUTH_COOKIE, 'jwt_token');
 
         $this->twig
             ->shouldReceive('render')
@@ -155,6 +156,7 @@ class OAuthGuardTest extends BaseTestCase
 
         $response = $this->guard->onAuthenticationFailure($request, new AuthenticationException('bad'));
 
+        Assert::assertNull($response->headers->get(AuthResponseService::AUTH_COOKIE));
         Assert::assertInstanceOf(Response::class, $response);
     }
 

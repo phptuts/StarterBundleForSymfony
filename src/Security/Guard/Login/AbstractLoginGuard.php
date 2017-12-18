@@ -5,6 +5,7 @@ namespace StarterKit\StartBundle\Security\Guard\Login;
 use StarterKit\StartBundle\Event\AuthFailedEvent;
 use StarterKit\StartBundle\Event\UserEvent;
 use StarterKit\StartBundle\Security\Guard\GuardTrait;
+use StarterKit\StartBundle\Service\AuthResponseService;
 use StarterKit\StartBundle\Service\AuthResponseServiceInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -83,6 +84,6 @@ abstract class AbstractLoginGuard extends AbstractGuardAuthenticator
     {
         $this->dispatcher->dispatch(self::LOGIN_FAILURE, new AuthFailedEvent($request, $exception));
 
-        return new Response('Authentication Failed.', Response::HTTP_FORBIDDEN);
+        return $this->removeAuthCookieFromResponse(new Response('Authentication Failed.', Response::HTTP_FORBIDDEN));
     }
 }

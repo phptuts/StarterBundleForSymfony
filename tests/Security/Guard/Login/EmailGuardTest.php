@@ -8,9 +8,11 @@ use StarterKit\StartBundle\Event\AuthFailedEvent;
 use StarterKit\StartBundle\Event\UserEvent;
 use StarterKit\StartBundle\Model\Credential\CredentialEmailModel;
 use StarterKit\StartBundle\Security\Guard\Login\EmailGuard;
+use StarterKit\StartBundle\Service\AuthResponseService;
 use StarterKit\StartBundle\Service\AuthResponseServiceInterface;
 use StarterKit\StartBundle\Tests\BaseTestCase;
 use StarterKit\StartBundle\Tests\Entity\User;
+use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -143,6 +145,7 @@ class EmailGuardTest extends BaseTestCase
     public function testAuthFailed()
     {
         $request =  Request::create('/login_check', 'POST', ['token' => 'toke']);
+        $request->cookies->set(AuthResponseService::AUTH_COOKIE, 'jwt_token');
 
         $this->dispatcher
             ->shouldReceive('dispatch')
@@ -150,7 +153,7 @@ class EmailGuardTest extends BaseTestCase
             ->once();
 
         $response = $this->guard->onAuthenticationFailure($request, new AuthenticationException('blah'));
-
+        Assert::assertNull($response->headers->get(AuthResponseService::AUTH_COOKIE));
         Assert::assertEquals(Response::HTTP_FORBIDDEN, $response->getStatusCode());
     }
 

@@ -27,7 +27,7 @@ We use guards to security the platform guards.  A guard is a class that implemen
     
 - onAuthenticationFailure 
     
-    This function is called when the authenticated request fails.
+    This function is called when the authenticated request fails.  This function will all clear out auth_cookie so that an infinite login loop does not happen.
     
 - start
     

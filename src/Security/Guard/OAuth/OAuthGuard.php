@@ -2,7 +2,6 @@
 
 namespace StarterKit\StartBundle\Security\Guard\OAuth;
 
-
 use StarterKit\StartBundle\Event\AuthFailedEvent;
 use StarterKit\StartBundle\Event\UserEvent;
 use StarterKit\StartBundle\Model\Credential\CredentialTokenModel;
@@ -122,9 +121,9 @@ class OAuthGuard extends AbstractGuardAuthenticator implements OAuthGuardInterfa
     {
         $this->dispatcher->dispatch(self::OAUTH_LOGIN_FAILURE, new AuthFailedEvent($request, $exception));
 
-        return new Response(
+        return $this->removeAuthCookieFromResponse(new Response(
             $this->twig->render('@StarterKitStart/oauth-failure.html.twig', ['login_path' => $this->loginPath])
-        );
+        ));
     }
 
     /**

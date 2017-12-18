@@ -4,6 +4,9 @@ namespace StarterKit\StartBundle\Tests\Controller;
 
 use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Entity\BaseUser;
+use StarterKit\StartBundle\Service\AuthResponseService;
+use StarterKit\StartBundle\Tests\Service\Credential\JWSTokenServiceTest;
+use Symfony\Component\BrowserKit\Cookie;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -103,6 +106,30 @@ class AuthTest extends BaseApiTestCase
         );
 
         $this->assertCredentialsResponse($response, $client, self::TEST_EMAIL);
+    }
+
+    /**
+     * Tests that if a user has an expired jwt token on the website that they are redirected to the login page
+     */
+    public function testExpiredJWTTokenRedirectToLoginPageOnce()
+    {
+        $user = $this->userRepository->findByEmail('example@gmail.com');
+        JWSTokenServiceTest::$homeDir = $this->getContainer()->getParameter('kernel.project_dir');
+        JWSTokenServiceTest::$passphrase = $this->getContainer()->getParameter('starter_kit_start.jws_pass_phrase');
+        $expiredJWTToken = JWSTokenServiceTest::createExpiredToken($user);
+        $client = $this->makeClient();
+        $expiredCookieDateTime = (new \DateTime())->modify('+10 days');
+        $client->getCookieJar()->set(new Cookie(
+            AuthResponseService::AUTH_COOKIE,
+            $expiredJWTToken,
+            $expiredCookieDateTime->getTimestamp()
+            )
+        );
+        $client->request(Request::METHOD_GET, '/test_homepage');
+        $crawler = $client->followRedirect();
+        $response = $client->getResponse();
+        Assert::assertFalse($response->headers->has(AuthResponseService::AUTH_COOKIE));
+        Assert::assertContains('/login?next_url=/test_homepage', $crawler->getBaseHref());
     }
 
     /**

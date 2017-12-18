@@ -33,6 +33,6 @@ class ApiGuard extends AbstractStateLessGuard implements ApiGuardInterface
     {
         $this->dispatcher->dispatch(self::API_GUARD_FAILED, new AuthFailedEvent($request, $exception));
 
-        return new Response('Authentication Failed', Response::HTTP_FORBIDDEN);
+        return $this->removeAuthCookieFromResponse(new Response('Authentication Failed', Response::HTTP_FORBIDDEN));
     }
 }

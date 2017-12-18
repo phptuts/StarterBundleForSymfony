@@ -8,6 +8,7 @@ use StarterKit\StartBundle\Service\AuthResponseService;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 /**
@@ -51,13 +52,13 @@ class WebsiteGuard extends AbstractStateLessGuard implements WebsiteGuardInterfa
      *
      * @param Request $request
      * @param AuthenticationException $exception
-     * @return RedirectResponse
+     * @return RedirectResponse|Response
      */
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
     {
         $this->dispatcher->dispatch(self::WEBSItE_STATELESS_GUARD_AUTH_FAILED, new AuthFailedEvent($request, $exception));
         
-        return new RedirectResponse($this->createLoginPath($request));
+        return $this->removeAuthCookieFromResponse(new RedirectResponse($this->createLoginPath($request)));
     }
 
     /**
