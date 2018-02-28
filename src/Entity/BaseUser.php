@@ -2,9 +2,6 @@
 
 namespace StarterKit\StartBundle\Entity;
 
-use StarterKit\StartBundle\Model\Response\ResponseTypeInterface;
-use StarterKit\StartBundle\Model\Auth\AuthTokenModel;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -92,34 +89,6 @@ abstract class BaseUser implements AdvancedUserInterface, ViewInterface
      */
     protected $email;
 
-
-    /**
-     * This would be something like their facebook user id
-     *
-     * @var string
-     *
-     * @ORM\Column(name="facebook_user_id", type="string", nullable=true, unique=true)
-     */
-    protected $facebookUserId;
-
-    /**
-     * This would be something like their google user id
-     *
-     * @var string
-     *
-     * @ORM\Column(name="google_user_id", type="string", nullable=true, unique=true)
-     */
-    protected $googleUserId;
-
-    /**
-     * This would be something like their slack user id
-     *
-     * @var string
-     *
-     * @ORM\Column(name="slack_user_id", type="string", nullable=true, unique=true)
-     */
-    protected $slackUserId;
-
     /**
      * @var string
      *
@@ -133,13 +102,6 @@ abstract class BaseUser implements AdvancedUserInterface, ViewInterface
      * @ORM\Column(name="forget_password_expired", type="datetime", nullable=true)
      */
     protected $forgetPasswordExpired;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="image_url", type="string", length=255, nullable=true)
-     */
-    protected $imageUrl;
 
     /**
      * @var string
@@ -186,26 +148,6 @@ abstract class BaseUser implements AdvancedUserInterface, ViewInterface
     protected $source;
 
     /**
-     * @var UploadedFile
-     *
-     * @Constraints\NotBlank(groups={BaseUser::VALIDATION_IMAGE_REQUIRED})
-     * @Constraints\Image(maxSize="7Mi", mimeTypes={"image/gif", "image/jpeg", "image/png"}, groups={BaseUser::VALIDATION_GROUP_DEFAULT})
-     */
-    protected $image;
-
-    /**
-     * @var string
-     * @ORM\Column(name="refresh_token", type="string", nullable=true)
-     */
-    protected $refreshToken;
-
-    /**
-     * @var \DateTime
-     * @ORM\Column(name="refresh_token_expire", type="datetime", nullable=true)
-     */
-    protected $refreshTokenExpire;
-
-    /**
      * Get id
      *
      * @return int
@@ -238,30 +180,6 @@ abstract class BaseUser implements AdvancedUserInterface, ViewInterface
     public function getEmail()
     {
         return $this->email;
-    }
-
-    /**
-     * Set imageUrl
-     *
-     * @param string $imageUrl
-     *
-     * @return BaseUser
-     */
-    public function setImageUrl($imageUrl)
-    {
-        $this->imageUrl = $imageUrl;
-
-        return $this;
-    }
-
-    /**
-     * Get imageUrl
-     *
-     * @return string
-     */
-    public function getImageUrl()
-    {
-        return $this->imageUrl;
     }
 
     /**
@@ -428,25 +346,6 @@ abstract class BaseUser implements AdvancedUserInterface, ViewInterface
     }
 
     /**
-     * @return UploadedFile
-     */
-    public function getImage()
-    {
-        return $this->image;
-    }
-
-    /**
-     * @param UploadedFile $image
-     * @return BaseUser
-     */
-    public function setImage($image)
-    {
-        $this->image = $image;
-
-        return $this;
-    }
-
-    /**
      * @return string
      */
     public function getSource()
@@ -558,120 +457,7 @@ abstract class BaseUser implements AdvancedUserInterface, ViewInterface
         return true;
     }
 
-    /**
-     * @return string
-     */
-    public function getFacebookUserId()
-    {
-        return $this->facebookUserId;
-    }
 
-    /**
-     * @param string $facebookUserId
-     * @return BaseUser
-     */
-    public function setFacebookUserId($facebookUserId)
-    {
-        $this->facebookUserId = $facebookUserId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getGoogleUserId()
-    {
-        return $this->googleUserId;
-    }
-
-    /**
-     * @param string $googleUserId
-     * @return BaseUser
-     */
-    public function setGoogleUserId($googleUserId)
-    {
-        $this->googleUserId = $googleUserId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getSlackUserId()
-    {
-        return $this->slackUserId;
-    }
-
-    /**
-     * @param string $slackUserId
-     * @return BaseUser
-     */
-    public function setSlackUserId($slackUserId)
-    {
-        $this->slackUserId = $slackUserId;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getRefreshToken()
-    {
-        return $this->refreshToken;
-    }
-
-    /**
-     * @param string $refreshToken
-     * @return BaseUser
-     */
-    public function setRefreshToken($refreshToken)
-    {
-        $this->refreshToken = $refreshToken;
-
-        return $this;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getRefreshTokenExpire()
-    {
-        return $this->refreshTokenExpire;
-    }
-
-    /**
-     * @param \DateTime $refreshTokenExpire
-     * @return BaseUser
-     */
-    public function setRefreshTokenExpire($refreshTokenExpire)
-    {
-        $this->refreshTokenExpire = $refreshTokenExpire;
-
-        return $this;
-    }
-
-    /**
-     * Returns an auth model representing the token
-     *
-     * @return AuthTokenModel
-     */
-    public function getAuthRefreshModel()
-    {
-        return new AuthTokenModel($this->refreshToken, $this->refreshTokenExpire->getTimestamp());
-    }
-
-    /**
-     * Returns true if the refresh token is valid
-     *
-     * @return bool
-     */
-    public function isRefreshTokenValid()
-    {
-        return !empty($this->getRefreshToken()) && $this->getRefreshTokenExpire() > new \DateTime();
-    }
 
     /**
      * Returns an array of hte view for displaying in a list
@@ -683,7 +469,6 @@ abstract class BaseUser implements AdvancedUserInterface, ViewInterface
         return [
             'id' => $this->getId(),
             'displayName' => $this->getDisplayName(),
-            'imageUrl' => $this->getImageUrl(),
         ];
     }
 
@@ -698,7 +483,6 @@ abstract class BaseUser implements AdvancedUserInterface, ViewInterface
             'id' => $this->getId(),
             'displayName' => $this->getDisplayName(),
             'roles' => $this->getRoles(),
-            'imageUrl' => $this->getImageUrl(),
             'email' => $this->getEmail(),
             'bio' => $this->getBio()
         ];
@@ -714,7 +498,6 @@ abstract class BaseUser implements AdvancedUserInterface, ViewInterface
         return [
             'displayName' => $this->getDisplayName(),
             'roles' => $this->getRoles(),
-            'imageUrl' => $this->getImageUrl(),
             'email' => $this->getEmail(),
             'bio' => $this->getBio()
         ];

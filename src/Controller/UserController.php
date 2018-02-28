@@ -12,9 +12,10 @@ use StarterKit\StartBundle\Form\UserImageType;
 use StarterKit\StartBundle\Security\Voter\UserVoter;
 use StarterKit\StartBundle\Service\AuthResponseServiceInterface;
 use StarterKit\StartBundle\Service\FormSerializerInterface;
+use StarterKit\StartBundle\Tests\Entity\User;
 use Swagger\Annotations as SWG;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
-use StarterKit\StartBundle\Service\S3ServiceInterface;
+use StarterKit\StartBundle\Service\FileUploadInterface;
 use StarterKit\StartBundle\Service\UserServiceInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -39,7 +40,7 @@ class UserController extends BaseRestController
     protected $authResponseService;
 
     /**
-     * @var S3ServiceInterface
+     * @var FileUploadInterface
      */
     protected $s3Service;
 
@@ -48,12 +49,12 @@ class UserController extends BaseRestController
      * @param FormSerializerInterface $formSerializer
      * @param UserServiceInterface $userService
      * @param AuthResponseServiceInterface $authResponseService
-     * @param S3ServiceInterface $s3Service
+     * @param FileUploadInterface $s3Service
      */
     public function __construct(FormSerializerInterface $formSerializer,
                                 UserServiceInterface $userService,
                                 AuthResponseServiceInterface $authResponseService,
-                                S3ServiceInterface $s3Service)
+                                FileUploadInterface $s3Service)
     {
         parent::__construct($formSerializer);
         $this->userService = $userService;
@@ -389,6 +390,7 @@ class UserController extends BaseRestController
      */
     public function imageAction(Request $request, $id)
     {
+        /** @var User $user */
         $user = $this->getUserById($id);
 
         $this->denyAccessUnlessGranted(UserVoter::USER_CAN_VIEW_EDIT, $user);
@@ -398,12 +400,14 @@ class UserController extends BaseRestController
         $form->submit(['image' => $request->files->get('image')]);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $url = $this->s3Service->uploadFile(
+            $fileUploadModel = $this->s3Service->uploadFileWithFolderAndName(
                 $user->getImage(),
                 'profile_pics',
                 md5($user->getId() . '_profile_id')
             );
-            $user->setImageUrl($url);
+            $user->setImageUrl($fileUploadModel->getUrl())
+                ->setImageVendor($fileUploadModel->getVendor())
+                ->setImageId($fileUploadModel->getFileId());
             $this->userService->save($user);
 
             return new Response('', Response::HTTP_NO_CONTENT);

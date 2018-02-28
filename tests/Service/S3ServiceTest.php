@@ -7,6 +7,8 @@ use Aws\S3\S3Client;
 use Mockery\Mock;
 use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Factory\S3ClientFactory;
+use StarterKit\StartBundle\Model\File\FileUploadedModel;
+use StarterKit\StartBundle\Service\FileUploadInterface;
 use StarterKit\StartBundle\Service\S3Service;
 use StarterKit\StartBundle\Tests\BaseTestCase;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -19,7 +21,7 @@ class S3ServiceTest extends BaseTestCase
     protected $s3Client;
 
     /**
-     * @var S3Service
+     * @var FileUploadInterface
      */
     protected $s3Service;
 
@@ -35,7 +37,7 @@ class S3ServiceTest extends BaseTestCase
     /**
      * Tests that upload works and that we get can back a url to put into the db
      */
-    public function testUpload()
+    public function testUploadWithFileName()
     {
         $uploadedFile = \Mockery::mock(UploadedFile::class);
         $uploadedFile->shouldReceive('getRealPath')->andReturn('path');
@@ -48,12 +50,45 @@ class S3ServiceTest extends BaseTestCase
             'ACL' => 'public-read',
             'Bucket' => 'bucket_name',
             'SourceFile' => 'path',
-            'Key' => 'dev/profile_pics/user1.png'
+            'Key' => 'dev/profile_pic/mic.png'
         ])->andReturn($result);
 
+        $file = $this->s3Service->uploadFileWithFolderAndName($uploadedFile, 'profile_pic', 'mic');
 
-        Assert::assertEquals('url',$this->s3Service->uploadFile($uploadedFile, 'profile_pics', 'user1'));
-
+        Assert::assertInstanceOf(FileUploadedModel::class, $file);
+        Assert::assertEquals('url', $file->getUrl());
+        Assert::assertEquals('S3', $file->getVendor());
+        Assert::assertEquals('dev/profile_pic/mic.png', $file->getFileId());
 
     }
+
+    public function testUploadWithFileOnly()
+    {
+        $uploadedFile = \Mockery::mock(UploadedFile::class);
+        $uploadedFile->shouldReceive('getRealPath')->andReturn('path');
+        $uploadedFile->shouldReceive('guessClientExtension')->andReturn('png');
+
+        $result = \Mockery::mock(Result::class);
+        $result->shouldReceive('get')->with('ObjectURL')->andReturn('url');
+
+        $this->s3Client->shouldReceive('putObject')->with(\Mockery::on(function($uploadConfig) {
+
+            Assert::assertEquals('public-read', $uploadConfig['ACL']);
+            Assert::assertEquals('bucket_name', $uploadConfig['Bucket']);
+            Assert::assertContains('dev', $uploadConfig['Key']);
+            Assert::assertContains('.png', $uploadConfig['Key']);
+            Assert::assertEquals('path', $uploadConfig['SourceFile']);
+
+            return true;
+        }))->andReturn($result);
+
+        $file = $this->s3Service->uploadFile($uploadedFile);
+
+        Assert::assertInstanceOf(FileUploadedModel::class, $file);
+        Assert::assertEquals('url', $file->getUrl());
+        Assert::assertEquals('S3', $file->getVendor());
+        Assert::assertContains('dev/', $file->getFileId());
+
+    }
+
 }

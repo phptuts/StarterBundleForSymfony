@@ -60,14 +60,12 @@ class UserTest extends BaseTestCase
            ->setEmail('email@gmail.com')
            ->setDisplayName('moo')
            ->setBio('bio')
-           ->setRoles(['ROLE_USER'])
-           ->setImageUrl('url');
+           ->setRoles(['ROLE_USER']);
 
        $expected = [
            'id' => 33,
            'displayName' => 'moo',
            'roles' => ['ROLE_USER'],
-           'imageUrl' => 'url',
            'email' => 'email@gmail.com',
            'bio' => 'bio'
        ];

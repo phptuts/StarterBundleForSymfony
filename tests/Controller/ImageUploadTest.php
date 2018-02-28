@@ -7,9 +7,11 @@ namespace StarterKit\StartBundle\Tests\Controller;
 use Mockery\Mock;
 use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Controller\UserController;
+use StarterKit\StartBundle\Model\File\FileUploadedModel;
 use StarterKit\StartBundle\Service\AuthResponseService;
+use StarterKit\StartBundle\Service\FileUploadInterface;
 use StarterKit\StartBundle\Service\FormSerializer;
-use StarterKit\StartBundle\Service\S3Service;
+use StarterKit\StartBundle\Service\FileUpload;
 use StarterKit\StartBundle\Service\UserService;
 use StarterKit\StartBundle\Tests\Entity\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -22,7 +24,7 @@ use Symfony\Component\Translation\TranslatorInterface;
 class ImageUploadTest extends BaseApiTestCase
 {
     /**
-     * @var S3Service|Mock
+     * @var FileUpload|Mock
      */
     protected $s3Service;
 
@@ -45,7 +47,7 @@ class ImageUploadTest extends BaseApiTestCase
     {
         parent::setUp();
 
-        $this->s3Service = \Mockery::mock(S3Service::class);
+        $this->s3Service = \Mockery::mock(FileUploadInterface::class);
         $this->userService = \Mockery::mock(UserService::class);
         $this->authResponseService = \Mockery::mock(AuthResponseService::class);
         $translator = \Mockery::mock(TranslatorInterface::class);
@@ -90,11 +92,13 @@ class ImageUploadTest extends BaseApiTestCase
         $request = Request::create('/api/users/444', Request::METHOD_POST);
         $request->files->set('image',  $image);
 
+        $fileUploadedModel = new FileUploadedModel('file_id', 'url', FileUploadedModel::VENDOR_S3);
+
         $this->s3Service
-            ->shouldReceive('uploadFile')
+            ->shouldReceive('uploadFileWithFolderAndName')
             ->with(\Mockery::type(UploadedFile::class), 'profile_pics', md5(444 .'_profile_id'))
             ->once()
-            ->andReturn('url');
+            ->andReturn($fileUploadedModel);
 
 
         $this->userService
@@ -107,6 +111,8 @@ class ImageUploadTest extends BaseApiTestCase
             ->shouldReceive('save')
             ->with(\Mockery::on(function (User $user) {
                 Assert::assertEquals('url', $user->getImageUrl());
+                Assert::assertEquals('file_id', $user->getImageId());
+                Assert::assertEquals('S3', $user->getImageVendor());
                 return true;
             }))
             ->once();
@@ -138,7 +144,7 @@ class ImageUploadTest extends BaseApiTestCase
         $request->files->set('image',  $image);
 
         $this->s3Service
-            ->shouldReceive('uploadFile')
+            ->shouldReceive('uploadFileWithFolderAndName')
             ->withAnyArgs()
             ->never();
 
