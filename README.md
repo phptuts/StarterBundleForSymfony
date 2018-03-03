@@ -565,6 +565,7 @@ I feel that email are the best approach to login and not username.  Mainly becau
 - [Response / Serialization](docs/serialize-response.md)
 - [Forms](docs/forms.md)
 - [Security](docs/security.md)    
+- [User Entity & Traits](docs/user-entity.md)    
     
 ## How To / Examples
 
