@@ -51,7 +51,7 @@ services:
     StarterKit\StartBundle\Service\UserServiceInterface: '@StarterKit\StartBundle\Service\UserService'
     StarterKit\StartBundle\Service\AuthResponseServiceInterface: '@StarterKit\StartBundle\Service\AuthResponseService'
     StarterKit\StartBundle\Service\FormSerializerInterface: '@StarterKit\StartBundle\Service\FormSerializer'
-    StarterKit\StartBundle\Service\S3ServiceInterface: '@StarterKit\StartBundle\Service\S3Service'
+    StarterKit\StartBundle\Service\FileUploadInterface: '@StarterKit\StartBundle\Service\S3Service'
 
     #Transformer
     StarterKit\StartBundle\Form\DataTransformer\UserEmailTransformerInterface: '@StarterKit\StartBundle\Form\DataTransformer\UserEmailTransformer'
