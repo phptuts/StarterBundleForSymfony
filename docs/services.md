@@ -2,30 +2,10 @@
 
 ## [s3 Service](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Service/S3Service.php)
 
-This service is used for file uploads.  We have an s3 client that takes in you aws setup information.  The s3 Service
- takes in 3 parameters.  This service also takes into account what environment you are in.  This way you never mix up
-  staging environment with production.  For example say you are on dev and you want to store all your profile 
-  pictures in a folder called profile_pics.  In your s3 bucket you will need to create this path in your bucket:
-  
-  -> dev/profile_pics/
- 
-```
-public function uploadFile(UploadedFile $file, $folderPath, $fileName)
-{
+This service is used for file uploads. It implements a [FileUploadInterface](https://github.com/phptuts/StarterBundleForSymfony/blob/8de076eaa1d98ae8e1887ce61bced5672c307838/src/Service/FileUploadInterface.php) which you can easily switch out for your own interface.  Right the UserController in this bundle will upload pictures using the [uploadFileWithFolderAndName](https://github.com/phptuts/StarterBundleForSymfony/blob/8de076eaa1d98ae8e1887ce61bced5672c307838/src/Service/FileUploadInterface.php#L19-L19).  This will upload the the image to a bucket to an environment specific folder.  So if you were on staging it would upload it to the staging -> profile_pic folder.  You can see the code in action [here](https://github.com/phptuts/StarterBundleForSymfony/blob/8de076eaa1d98ae8e1887ce61bced5672c307838/src/Controller/UserController.php#L403-L403).  
 
-    $folderPath = !empty($folderPath) ?   $folderPath  . '/' : '';
-    $path =   $this->env . '/' . $folderPath . $fileName . '.'. $file->guessClientExtension();
-    /** @var Result $result */
-    $result = $this->client->putObject([
-        'ACL' => 'public-read',
-        'Bucket' => $this->bucket,
-        'SourceFile' => $file->getRealPath(),
-        'Key' => $path
-    ]);
-    
-    return $result->get('ObjectURL');
-}
-```
+Both function on the [FileUploadInterface](https://github.com/phptuts/StarterBundleForSymfony/blob/8de076eaa1d98ae8e1887ce61bced5672c307838/src/Service/FileUploadInterface.php) will return an [FileUploadModel](https://github.com/phptuts/StarterBundleForSymfony/blob/8de076eaa1d98ae8e1887ce61bced5672c307838/src/Model/File/FileUploadedModel.php) which will have the vendor, url, and id of the file.  The idea behind this is to allow you to use a different vendor for uploading pictures then s3. 
+
 
 ## [Auth Response Service](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Service/AuthResponseService.php)
 

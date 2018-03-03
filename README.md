@@ -157,7 +157,45 @@ SLACK_CLIENT_ID=slack_client_id
 APP_EMAIL=fake_email@gmail.com
 ```
 
-14) Register Firewalls and Security Providers config -> packages -> security.yaml for symfony 4.
+14) Create a folder in your App called "Entity" and in that folder create an Entity Class called User. 
+
+``` 
+<?php
+namespace AppBundle\Entity;
+use StarterKit\StartBundle\Entity\BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+use StarterKit\StartBundle\Entity\FacebookTrait;
+use StarterKit\StartBundle\Entity\GoogleTrait;
+use StarterKit\StartBundle\Entity\ImageTrait;
+use StarterKit\StartBundle\Entity\RefreshTokenTrait;
+use StarterKit\StartBundle\Entity\SlackTrait;
+/**
+ * @ORM\Entity(repositoryClass="StarterKit\StartBundle\Repository\UserRepository")
+ * @ORM\Table(name="User")
+ * @ORM\HasLifecycleCallbacks()
+ * @ORM\Table(name="User", indexes={
+ *     @ORM\Index(name="idk_email", columns={"email"}),
+ *     @ORM\Index(name="idk_google_user_id", columns={"google_user_id"}),
+ *     @ORM\Index(name="idk_slack_user_Id", columns={"slack_user_id"}),
+ *     @ORM\Index(name="idk_facebook_user_id", columns={"facebook_user_id"}),
+ *     @ORM\Index(name="idk_forget_password_token", columns={"forget_password_token"}),
+ *     @ORM\Index(name="idk_refresh_token", columns={"refresh_token"})
+ * })
+ * Class User
+ * @package AppBundle\Entity
+ */
+class User extends BaseUser
+{
+    use ImageTrait;
+    use GoogleTrait;
+    use FacebookTrait;
+    use SlackTrait;
+    use RefreshTokenTrait;
+}
+```
+
+
+15) Register Firewalls and Security Providers config -> packages -> security.yaml for symfony 4.
 
 
 ``` 
@@ -294,7 +332,44 @@ openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem
     prod -> profile_pics
     dev -> profile_pics
 
-9) Configure the Bundle, in the app -> config -> config.yml file.
+9) Create a folder in your App called "Entity" and in that folder create an Entity Class called User. 
+
+``` 
+<?php
+namespace AppBundle\Entity;
+use StarterKit\StartBundle\Entity\BaseUser;
+use Doctrine\ORM\Mapping as ORM;
+use StarterKit\StartBundle\Entity\FacebookTrait;
+use StarterKit\StartBundle\Entity\GoogleTrait;
+use StarterKit\StartBundle\Entity\ImageTrait;
+use StarterKit\StartBundle\Entity\RefreshTokenTrait;
+use StarterKit\StartBundle\Entity\SlackTrait;
+/**
+ * @ORM\Entity(repositoryClass="StarterKit\StartBundle\Repository\UserRepository")
+ * @ORM\Table(name="User")
+ * @ORM\HasLifecycleCallbacks()
+ * @ORM\Table(name="User", indexes={
+ *     @ORM\Index(name="idk_email", columns={"email"}),
+ *     @ORM\Index(name="idk_google_user_id", columns={"google_user_id"}),
+ *     @ORM\Index(name="idk_slack_user_Id", columns={"slack_user_id"}),
+ *     @ORM\Index(name="idk_facebook_user_id", columns={"facebook_user_id"}),
+ *     @ORM\Index(name="idk_forget_password_token", columns={"forget_password_token"}),
+ *     @ORM\Index(name="idk_refresh_token", columns={"refresh_token"})
+ * })
+ * Class User
+ * @package AppBundle\Entity
+ */
+class User extends BaseUser
+{
+    use ImageTrait;
+    use GoogleTrait;
+    use FacebookTrait;
+    use SlackTrait;
+    use RefreshTokenTrait;
+}
+```
+
+10) Configure the Bundle, in the app -> config -> config.yml file.
 
 ``` 
 starter_kit_start:
@@ -327,7 +402,7 @@ starter_kit_start:
 
 ```
 
-10) Register Firewalls and Security Providers. This will be in the app -> config -> security.yml.
+11) Register Firewalls and Security Providers. This will be in the app -> config -> security.yml.
 
 
 ``` 
