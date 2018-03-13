@@ -1,6 +1,6 @@
 <?php
 
-namespace StarterKit\StartBundle\DataFixtures\ORM;
+namespace Tests\StarterKit\StartBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
