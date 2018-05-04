@@ -7,6 +7,7 @@ use Mockery\Mock;
 use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Event\UserEvent;
 use StarterKit\StartBundle\Exception\ProgrammerException;
+use StarterKit\StartBundle\Service\SaveService;
 use StarterKit\StartBundle\Service\UserService;
 use StarterKit\StartBundle\Tests\BaseTestCase;
 use StarterKit\StartBundle\Tests\Entity\User;
@@ -44,10 +45,12 @@ class UserServiceTest extends BaseTestCase
         $this->em->shouldReceive('getRepository')->with(User::class)->andReturn(
             $this->getContainer()->get('doctrine')->getRepository(User::class)
         );
+        $saveService = new SaveService($this->em);
         $this->userService = new UserService(
             $this->em,
             $this->userPasswordEncoder,
             $this->eventDispatcher,
+            $saveService,
             10368000,
             User::class
         );

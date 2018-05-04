@@ -6,8 +6,8 @@ use PHPUnit\Framework\Assert;
 use StarterKit\StartBundle\Factory\FaceBookClientFactory;
 use StarterKit\StartBundle\Repository\UserRepository;
 use StarterKit\StartBundle\Service\JWSTokenService;
+use StarterKit\StartBundle\Service\SaveService;
 use StarterKit\StartBundle\Service\UserService;
-use StarterKit\StartBundle\Service\UserServiceInterface;
 use StarterKit\StartBundle\Tests\BaseTestCase;
 use StarterKit\StartBundle\Tests\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -40,12 +40,14 @@ class BaseApiTestCase extends BaseTestCase
         parent::setUp();
 
         $this->environment = 'starter_kit_test';
+        $em = $this->getContainer()->get('doctrine.orm.entity_manager');
 
         // Does not do password only for searching user's
         $userService = new UserService(
-            $this->getContainer()->get('doctrine.orm.entity_manager'),
+            $em,
             \Mockery::mock(UserPasswordEncoderInterface::class),
             $this->getContainer()->get('event_dispatcher'),
+            new SaveService($em),
             $this->getContainer()->getParameter('starter_kit_start.refresh_token_ttl'),
             $this->getContainer()->getParameter('starter_kit_start.user_class')
         );

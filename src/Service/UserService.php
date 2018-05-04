@@ -3,13 +3,14 @@
 namespace StarterKit\StartBundle\Service;
 
 use StarterKit\StartBundle\Entity\BaseUser;
+use StarterKit\StartBundle\Entity\RefreshTokenTrait;
+use StarterKit\StartBundle\Entity\SaveEntityInterface;
 use StarterKit\StartBundle\Event\UserEvent;
 use StarterKit\StartBundle\Exception\ProgrammerException;
 use StarterKit\StartBundle\Model\Page\PageModel;
 use StarterKit\StartBundle\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
@@ -99,6 +100,10 @@ class UserService implements UserServiceInterface
      * @var string the concrete user class
      */
     protected $userClass;
+    /**
+     * @var SaveServiceInterface
+     */
+    private $saveService;
 
 
     /**
@@ -106,6 +111,7 @@ class UserService implements UserServiceInterface
      * @param EntityManagerInterface $em
      * @param UserPasswordEncoderInterface $userPasswordEncoder
      * @param EventDispatcherInterface $dispatcher
+     * @param SaveServiceInterface $saveService
      * @param int $refreshTokenTTL
      * @param string $userClass the fully qualified user user class
      */
@@ -113,6 +119,7 @@ class UserService implements UserServiceInterface
         EntityManagerInterface $em,
         UserPasswordEncoderInterface $userPasswordEncoder,
         EventDispatcherInterface $dispatcher,
+        SaveServiceInterface $saveService,
         $refreshTokenTTL,
         $userClass
     ) {
@@ -122,6 +129,7 @@ class UserService implements UserServiceInterface
         $this->userRepository = $this->em->getRepository($userClass);
         $this->dispatcher = $dispatcher;
         $this->userClass = $userClass;
+        $this->saveService = $saveService;
     }
 
 
@@ -308,7 +316,7 @@ class UserService implements UserServiceInterface
     /**
      * Saves the user with an updated refresh token
      *
-     * @param BaseUser $user
+     * @param BaseUser|RefreshTokenTrait $user
      *
      * @return BaseUser
      */
@@ -329,12 +337,11 @@ class UserService implements UserServiceInterface
     /**
      * Saves an entity
      *
-     * @param $entity
+     * @param SaveEntityInterface $entity
      */
     public function save($entity)
     {
-        $this->em->persist($entity);
-        $this->em->flush();
+        $this->saveService->save($entity);
     }
 
     /**

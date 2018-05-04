@@ -19,7 +19,7 @@ use Symfony\Component\Validator\Constraints as Constraints;
  *
  * @link http://symfony.com/doc/current/security/entity_provider.html
  */
-abstract class BaseUser implements AdvancedUserInterface, ViewInterface
+abstract class BaseUser implements AdvancedUserInterface, ViewInterface, SaveEntityInterface
 {
 
     use TimeStampTrait;
@@ -501,6 +501,16 @@ abstract class BaseUser implements AdvancedUserInterface, ViewInterface
             'email' => $this->getEmail(),
             'bio' => $this->getBio()
         ];
+    }
+
+    /**
+     * Returns true if the id has been set.  This should be the user entity was saved.
+     *
+     * @return bool
+     */
+    public function isNew()
+    {
+        return empty($this->getId());
     }
 }
 

@@ -61,3 +61,26 @@ will allow the server to look up the user.  This why every token's payload has t
 lookup the user.
 
 A few things to note the BaseUser has a [getJWTPayload](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Entity/BaseUser.php#L712) method.  This is used to populate the jwt token payload without events.  The other thing to note is that this service returns an [AuthModel](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Model/Auth/AuthTokenModel.php) which is used to serialize the token with the expiration date. 
+
+#Save Service
+
+Symfony will create multiple instances of the doctrine entity manager.  The problem is that sometimes you will get an entity that is not being managed by the current manager.  To solve this problem you should call merge.  This service allows you to implement an interface on your entity that will tell us whether the entity is new or not.  If this entity is new we can call persist and it will treated like normal.  Otherwise we call merge.  This comes in handy when dealing with collections and users attached to those collections.
+
+## [Save Service Example](https://github.com/phptuts/StarterBundleForSymfony/blob/master/src/Service/SaveService.php)
+
+``` 
+/**
+ * @param SaveEntityInterface $entity
+ * @return object|SaveEntityInterface
+ */
+public function persist(SaveEntityInterface $entity)
+{
+    if (!$entity->isNew()) {
+        return $this->em->merge($entity);
+    }
+
+    $this->em->persist($entity);
+
+    return $entity;
+}
+```

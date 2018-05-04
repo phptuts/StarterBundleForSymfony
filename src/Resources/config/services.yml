@@ -47,6 +47,7 @@ services:
 
 
     # Services
+    StarterKit\StartBundle\Service\SaveServiceInterface: '@StarterKit\StartBundle\Service\SaveService'
     StarterKit\StartBundle\Service\AuthTokenServiceInterface: '@StarterKit\StartBundle\Service\JWSTokenService'
     StarterKit\StartBundle\Service\UserServiceInterface: '@StarterKit\StartBundle\Service\UserService'
     StarterKit\StartBundle\Service\AuthResponseServiceInterface: '@StarterKit\StartBundle\Service\AuthResponseService'
